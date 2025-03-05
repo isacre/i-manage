@@ -1,0 +1,26 @@
+{
+    "Header": {
+    "cartText": "Cart"
+    },
+    "Homepage": {
+    "categoryMessage": "Need practical and organized help? Check out the categories",
+    "topCompanyesMessage": "Famous in iService"
+    },
+    "Categoryes": {
+    "eletric": "Electric",
+    "mechanic": "Mechanical",
+    "health": "Health",
+    "home": "Home",
+    "services": "Services"
+    },
+    "Availability": {
+        "available": "Available",
+        "unavailable": "Unavailable",
+        "bookable": "Reserve an hour"    
+    },
+    "Location": {
+        "local": "local",
+        "online": "online"
+    }
+
+}

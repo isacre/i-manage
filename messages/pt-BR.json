@@ -1,0 +1,25 @@
+{
+    "Header": {
+    "cartText": "Carrinho"
+    },
+    "Homepage": {
+    "categoryMessage": "Precisa de ajuda de forma prática e organizada?, Conheça as categorias",
+    "topCompanyesMessage": "Famosos no iService"
+    },
+    "Categoryes": {
+    "eletric": "Elétrica",
+    "mechanic": "Mecânica",
+    "health": "Saúde",
+    "home": "Lar",
+    "services": "Serviços"
+    },
+    "Availability": {
+        "available": "Disponível",
+        "unavailable": "Indisponível",
+        "bookable": "Reservar Horário"
+    },
+    "Location": {
+        "local": "presencial",
+        "online": "online"
+    }
+}
