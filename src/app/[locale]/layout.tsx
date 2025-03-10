@@ -1,10 +1,12 @@
-import "./globals.css";
 import Header from "@/components/header";
+import { routing } from "@/i18n/routing";
 import { Menu } from "@/types";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+
+import "@/globals.css";
+import "@radix-ui/themes/styles.css";
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const menus: Menu[] = [
@@ -24,7 +26,7 @@ export default async function RootLayout({ children, params }: { children: React
       <body>
         <NextIntlClientProvider messages={messages}>
           <Header menus={menus} />
-          {children}
+          <div className="pt-30 w-[80vw] m-auto">{children}</div>
         </NextIntlClientProvider>
       </body>
     </html>

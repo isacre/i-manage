@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true, // If you also want to allow SVGs
     unoptimized: true, // Allows images to load without Next.js optimization
   },
+  experimental: {
+    optimizePackageImports: ["@chakra-ui/react"]
+  }
 };
 
 const withNextIntl = createNextIntlPlugin();

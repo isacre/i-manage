@@ -6,7 +6,7 @@
     "categoryMessage": "Need practical and organized help? Check out the categories",
     "topCompanyesMessage": "Famous in iService"
     },
-    "Categoryes": {
+    "Categories": {
     "eletric": "Electric",
     "mechanic": "Mechanical",
     "health": "Health",
@@ -21,6 +21,10 @@
     "Location": {
         "local": "local",
         "online": "online"
+    },
+    "Currency": {
+        "symbol": "$",
+        "full_name": "dollars"
     }
 
 }
