@@ -10,8 +10,7 @@ interface Props {
 }
 
 export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen }: Props) {
-  const [availableHours, setAvailableHours] = useState<{ start: string; end: string }[]>([]);
-  console.log(availableHours);
+  const [availableHours, setAvailableHours] = useState<string[]>([]);
   useEffect(() => {
     if (selectedProduct === -1) return;
 
@@ -40,7 +39,9 @@ export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen }
       <div className="py-3 grid grid-cols-4 gap-4">
         {availableHours.map((item) => {
           return (
-            <div className="bg-green-400 p-5 w-fit rounded-2xl text-white cursor-pointer :hover" key={item.start}>{`${dayjs(item.start).format(`HH:MM`)}`}</div>
+            <div className="bg-green-400 p-5 w-fit rounded-2xl text-white cursor-pointer :hover" key={item}>
+              {item}
+            </div>
           );
         })}
       </div>
