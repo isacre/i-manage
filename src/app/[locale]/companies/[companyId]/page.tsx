@@ -1,4 +1,3 @@
-import { CompanyType } from "@/types";
 import CompanyDetails from ".";
 
 interface Props {

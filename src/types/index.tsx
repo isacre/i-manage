@@ -4,7 +4,7 @@ export declare type Menu = {
   link?: string;
 };
 
-enum WeekDays {
+export enum WeekDays {
   Monday = 0,
   Tuesday = 1,
   Wednesday = 2,

@@ -3,8 +3,9 @@ import { CompanyType } from "@/types";
 import Image from "next/image";
 import { MdStar } from "react-icons/md";
 import ProductDetailsModal from "../modals/productDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/productCard";
+import { useCompanyStore } from "@/stores/company-store";
 
 interface Props {
   selectedCompany: CompanyType | undefined;
@@ -12,14 +13,27 @@ interface Props {
 export default function CompanyDetails({ selectedCompany }: Props) {
   const [ProductDetailsModalOpen, setProductDetailsModal] = useState(false);
   const [ProductClicked, setProductClicked] = useState(-1);
+  const { update } = useCompanyStore();
+
+  useEffect(() => {
+    if (selectedCompany) {
+      update(selectedCompany);
+    }
+  }, [selectedCompany]);
 
   function handleOpeningModalWithId(id: number) {
     setProductClicked(id);
     setProductDetailsModal(true);
   }
+
   return (
     <div>
-      <ProductDetailsModal selectedProduct={ProductClicked} isOpen={ProductDetailsModalOpen} setOpen={setProductDetailsModal} />
+      <ProductDetailsModal
+        companyWorkDays={selectedCompany?.work_days || []}
+        selectedProduct={ProductClicked}
+        isOpen={ProductDetailsModalOpen}
+        setOpen={setProductDetailsModal}
+      />
       <div className="flex gap-5 items-center">
         <Image
           className="rounded-full border-1 border-gray-400 object-cover h-[80px] w-[80px]"

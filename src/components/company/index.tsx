@@ -14,7 +14,7 @@ interface Props {
 export default function CompanyComponent({ company }: Props) {
   const locale = useLocale();
   const t = useTranslations();
-  const { category, closes_at, created_at, description, id, name, opens_at, phone, services, updated_at, work_days } = company;
+  const { category, id, name } = company;
   return (
     <Link href={`${locale}/companies/${id}`}>
       <div className=" gap-3 flex items-top text-center cursor-pointer transition-transform transform hover:scale-110 hover:shadow-lg p-2 rounded-lg">
