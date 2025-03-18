@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useCompanyStore } from "@/stores/company-store";
 import { useTranslations } from "next-intl";
 import utc from "dayjs/plugin/utc";
@@ -14,12 +14,12 @@ interface Props {
 
 export default function useBookingDays({ setMonthLabel }: Props) {
   const today = dayjs();
-  const [days, setDays] = useState<{ day: number; weekday: string; weekdayIndex: number }[]>([]);
+  const [days, setDays] = useState<{ day: number; weekday: string; weekdayIndex: number; date: dayjs.Dayjs }[]>([]);
   const [currentMonth, setCurrentMonth] = useState(dayjs().month());
   const [currentYear, setCurrentYear] = useState(dayjs().year());
   const [currentWeek, setCurrentWeek] = useState(0);
   const t = useTranslations("DaysOfWeek");
-  const weeks: { day: number; weekday: string; weekdayIndex: number }[][] = [];
+  const weeks: { day: number; weekday: string; weekdayIndex: number; date: dayjs.Dayjs }[][] = [];
 
   for (let i = 0; i < days.length; i += 7) {
     weeks.push(days.slice(i, i + 7));
@@ -75,6 +75,7 @@ export default function useBookingDays({ setMonthLabel }: Props) {
           day,
           weekday: t(weekday),
           weekdayIndex: (date.day() + 6) % 7,
+          date: date,
         };
       }
     });
