@@ -4,9 +4,11 @@ import { Menu } from "@/types";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import "react-toastify/dist/ReactToastify.css";
 
 import "@/globals.css";
 import "@radix-ui/themes/styles.css";
+import { ToastContainer } from "react-toastify";
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const menus: Menu[] = [
@@ -25,6 +27,7 @@ export default async function RootLayout({ children, params }: { children: React
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
+          <ToastContainer />
           <Header menus={menus} />
           <div className="pt-25 w-[80vw] m-auto">{children}</div>
         </NextIntlClientProvider>

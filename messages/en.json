@@ -2,7 +2,14 @@
     "Header": {
     "cartText": "Cart",
     "companyText": "I'm a Company",
-    "userText": "I'm a User"
+    "login": "Login"
+    },
+    "login": {
+        "user": "User",
+        "company": "Company",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Submit"
     },
     "register_company": {
         "title": "Register your business",
@@ -13,7 +20,8 @@
         "email": "Email",
         "password": "Password",
         "register": "Register Company",
-        "success": "Company registered successfully, redirecting to login page"
+        "success": "Company registered successfully, redirecting to login page",
+        "error": "Error registering company"
     },
     "Homepage": {
     "categoryMessage": "Need practical and organized help? Check out the categories",

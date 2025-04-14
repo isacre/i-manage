@@ -24,6 +24,6 @@ export declare type CompanyRegisterForm = {
 };
 
 export async function registerCompany(data: CompanyRegisterForm) {
-  const company = await api.post(`/company/register_company`, data);
+  const company = await api.post(`/company/register_company/`, data);
   return company.data;
 }

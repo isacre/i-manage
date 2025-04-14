@@ -19,7 +19,7 @@ export default function RegisterCompany() {
         router.push("/login");
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error(t("error"));
       });
   }
 

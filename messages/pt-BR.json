@@ -2,8 +2,15 @@
     "Header": {
     "cartText": "Carrinho",
     "companyText": "Sou Empresário",
-    "userText": "Busco Serviços"
+    "login": "Fazer Login"
     },  
+    "login": {
+        "user": "Usuário",
+        "company": "Empresa",
+        "email": "Email",
+        "password": "Senha",
+        "submit": "Entrar"
+    },
     "register_company": {
         "title": "Registre sua empresa",
         "name": "Nome da empresa",
@@ -13,7 +20,8 @@
         "email": "Email",
         "password": "Senha",
         "register": "Registrar Empresa",
-        "success": "Empresa registrada com sucesso, redirecionando para a página de login"
+        "success": "Empresa registrada com sucesso, redirecionando para a página de login",
+        "error": "Erro ao registrar empresa"
     },
     "Homepage": {
     "categoryMessage": "Precisa de ajuda de forma prática e organizada?, Conheça as categorias",
