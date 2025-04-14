@@ -1,13 +1,26 @@
 {
     "Header": {
-    "cartText": "Cart"
+    "cartText": "Cart",
+    "companyText": "I'm a Company",
+    "userText": "I'm a User"
+    },
+    "register_company": {
+        "title": "Register your business",
+        "name": "Company Name",
+        "description": "Description",
+        "phone": "Phone",
+        "category": "Category",
+        "email": "Email",
+        "password": "Password",
+        "register": "Register Company",
+        "success": "Company registered successfully, redirecting to login page"
     },
     "Homepage": {
     "categoryMessage": "Need practical and organized help? Check out the categories",
     "topCompanyesMessage": "Famous in iService"
     },
     "Categories": {
-    "eletric": "Electric",
+    "electric": "Electric",
     "mechanic": "Mechanical",
     "health": "Health",
     "home": "Home",

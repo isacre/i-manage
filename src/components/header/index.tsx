@@ -1,14 +1,15 @@
 import { Menu } from "@/types";
 import { useTranslations } from "next-intl";
 import AuthenticatedHeader from "./authenticated";
+import UnauthenticatedHeader from "./unauthenticated";
 
 interface Props {
   menus: Menu[];
 }
-export default function Header({ menus }: Props) {
+export default function Header({}: Props) {
   const t = useTranslations();
   return (
-    <AuthenticatedHeader
+    /*  <AuthenticatedHeader
       menus={menus.map((item) => {
         return {
           text: t("Categories." + item.text),
@@ -16,6 +17,7 @@ export default function Header({ menus }: Props) {
           onClick: item.onClick,
         };
       })}
-    />
+    /> */
+    <UnauthenticatedHeader />
   );
 }

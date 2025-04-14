@@ -1,3 +1,5 @@
+import React from "react";
+
 export declare type Menu = {
   text: string;
   onClick?: Function;
@@ -38,3 +40,5 @@ export interface Service {
   description: string;
   max_duration: number;
 }
+
+export declare type SetStateFn<T> = React.Dispatch<React.SetStateAction<T>>;

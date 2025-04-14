@@ -26,7 +26,7 @@ export default async function RootLayout({ children, params }: { children: React
       <body>
         <NextIntlClientProvider messages={messages}>
           <Header menus={menus} />
-          <div className="pt-30 w-[80vw] m-auto">{children}</div>
+          <div className="pt-25 w-[80vw] m-auto">{children}</div>
         </NextIntlClientProvider>
       </body>
     </html>

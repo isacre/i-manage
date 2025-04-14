@@ -1,15 +1,16 @@
 "use client";
 import useBookingDays from "@/hooks/useBookingDays";
 import { useCompanyStore } from "@/stores/company-store";
+import { SetStateFn } from "@/types";
 import dayjs from "dayjs";
-import { useState } from "react";
 
 interface Props {
-  setMonthLabel: React.Dispatch<React.SetStateAction<string>>;
+  setMonthLabel: SetStateFn<string>;
+  clickedDate: dayjs.Dayjs | undefined;
+  setClickedDate: SetStateFn<dayjs.Dayjs | undefined>;
 }
 
-export default function DayPicker({ setMonthLabel }: Props) {
-  const [ClickedDate, setClickedDate] = useState<dayjs.Dayjs | undefined>(undefined);
+export default function DayPicker({ setMonthLabel, clickedDate, setClickedDate }: Props) {
   const { currentWeek, handleNextWeek, handlePrevWeek, weeks } = useBookingDays({ setMonthLabel });
   const { company } = useCompanyStore();
 
@@ -38,7 +39,7 @@ export default function DayPicker({ setMonthLabel }: Props) {
               dayjs(date).format("DD/MM/YYYY") === dayjs().format("DD/MM/YYYY") && dayVariants.today
             } 
             ${company?.work_days.indexOf(weekdayIndex) === -1 && dayVariants.disabled} ${
-              dayjs(date).format("DD/MM/YYYY") === dayjs(ClickedDate).format("DD/MM/YYYY") && dayVariants.selected
+              dayjs(date).format("DD/MM/YYYY") === dayjs(clickedDate).format("DD/MM/YYYY") && dayVariants.selected
             }`}
           >
             <div>{weekday.substring(0, 3)}</div>

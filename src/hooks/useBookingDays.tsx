@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { useCompanyStore } from "@/stores/company-store";
-import { useTranslations } from "next-intl";
-import utc from "dayjs/plugin/utc";
+import { SetStateFn } from "@/types";
+import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 interface Props {
-  setMonthLabel: React.Dispatch<React.SetStateAction<string>>;
+  setMonthLabel: SetStateFn<string>;
 }
 
 export default function useBookingDays({ setMonthLabel }: Props) {
