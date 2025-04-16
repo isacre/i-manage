@@ -9,7 +9,8 @@
         "company": "Empresa",
         "email": "Email",
         "password": "Senha",
-        "submit": "Entrar"
+        "submit": "Entrar",
+        "error": "Algo deu errado, verifique suas credenciais e tente novamente"
     },
     "register_company": {
         "title": "Registre sua empresa",

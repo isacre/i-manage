@@ -25,11 +25,11 @@ export default function ButtonComponent({
   backgroundHover = true,
 }: Props) {
   return (
-    <div
+    <button
       onClick={() => onClickFn()}
       className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "hover:bg-red-500 h-fit" : ""}`}
     >
       {text}
-    </div>
+    </button>
   );
 }

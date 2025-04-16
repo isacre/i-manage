@@ -1,15 +1,14 @@
 import Header from "@/components/header";
+import "@/globals.css";
 import { routing } from "@/i18n/routing";
 import { Menu } from "@/types";
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import "react-toastify/dist/ReactToastify.css";
-
-import "@/globals.css";
-import "@radix-ui/themes/styles.css";
 import { ToastContainer } from "react-toastify";
-
+import "react-toastify/dist/ReactToastify.css";
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const menus: Menu[] = [
     { text: "eletric", link: "servicos/?eletrica" },
@@ -26,11 +25,13 @@ export default async function RootLayout({ children, params }: { children: React
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <ToastContainer />
-          <Header menus={menus} />
-          <div className="pt-25 w-[80vw] m-auto">{children}</div>
-        </NextIntlClientProvider>
+        <Theme accentColor="crimson" grayColor="sand" radius="large" scaling="95%">
+          <NextIntlClientProvider messages={messages}>
+            <ToastContainer />
+            <Header menus={menus} />
+            <div className="pt-25 w-[80vw] m-auto">{children}</div>
+          </NextIntlClientProvider>
+        </Theme>
       </body>
     </html>
   );
