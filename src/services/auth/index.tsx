@@ -1,3 +1,4 @@
+import { UserType } from "@/stores/user-store";
 import { Category } from "@/types";
 import { getCookie, setCookie } from "@/utils";
 import axios, { AxiosRequestConfig } from "axios";
@@ -45,7 +46,7 @@ export async function getNewTokens(data: { refresh: string }): Promise<{ access:
   return company.data;
 }
 
-export async function getUserData() {
+export async function getUserData(): Promise<UserType> {
   const user = await api.get(`/auth/users/me/`);
   return user.data;
 }

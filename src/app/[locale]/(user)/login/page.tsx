@@ -1,16 +1,18 @@
 "use client";
 import { useTranslations } from "next-intl";
 import TabsComponent from "@/components/tabs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { getTokens, getUserData } from "@/services/auth";
 import { serialize, parse } from "cookie";
 import { toast } from "react-toastify";
-import { getCookie } from "@/utils";
-
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 export default function Login() {
   const t = useTranslations("login");
   const [activeTab, setActiveTab] = useState(t("company"));
+  const locale = useLocale();
+  const router = useRouter();
   const tabs = [{ text: t("company"), onClick: () => setActiveTab(t("company")) }];
   const { register, handleSubmit } = useForm<{ email: string; password: string }>({
     defaultValues: {
@@ -21,7 +23,11 @@ export default function Login() {
 
   function fetchAndStoreUserData() {
     getUserData().then((res) => {
-      console.log(res);
+      if (res.company !== null) {
+        router.push(`/${locale}/admin/employees`);
+      } else {
+        router.push(`/${locale}/`);
+      }
     });
   }
   function login(data: { email: string; password: string }) {

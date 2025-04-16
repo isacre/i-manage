@@ -16,6 +16,7 @@ export enum WeekDays {
   Sunday = 6,
 }
 
+export declare type Roles = "OWNER" | "ADMIN" | "EMPLOYEE" | "CLIENT";
 export declare type Category = "eletric" | "mechanic" | "health" | "home" | "services";
 
 export declare type ServiceLocation = "online" | "local";
@@ -32,6 +33,8 @@ export declare type CompanyType = {
   services: Service[];
   opens_at: string;
   closes_at: string;
+  is_active: boolean;
+  image: string;
 };
 
 export interface Service {

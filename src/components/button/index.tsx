@@ -21,7 +21,6 @@ export default function ButtonComponent({
   padding = "p-2 px-3",
   cursor = "cursor-pointer",
   weight = "font-normal",
-
   backgroundHover = true,
 }: Props) {
   return (

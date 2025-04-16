@@ -10,6 +10,7 @@ import "@radix-ui/themes/styles.css";
 import { FaUsers } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import { Theme } from "@radix-ui/themes";
+import { MdOutlinePriceChange } from "react-icons/md";
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -20,9 +21,9 @@ export default async function RootLayout({ children, params }: { children: React
       icon: <FaUsers />,
     },
     {
-      label: "Produtos",
-      link: "/admin/products",
-      icon: <FaUsers />,
+      label: "Serviços",
+      link: "/admin/services",
+      icon: <MdOutlinePriceChange />,
     },
   ];
 
