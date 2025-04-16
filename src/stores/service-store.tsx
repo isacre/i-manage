@@ -11,8 +11,10 @@ export declare type ServiceType = {
 interface ServiceStore {
   services: ServiceType[];
   update: (services: ServiceType[]) => void;
+  add: (service: ServiceType) => void;
 }
 export const useServiceStore = create<ServiceStore>((set) => ({
   services: [],
   update: (services) => set(() => ({ services })),
+  add: (service) => set((state) => ({ services: [...state.services, service] })),
 }));

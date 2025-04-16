@@ -1,16 +1,22 @@
 "use client";
-import { Button, Table } from "@radix-ui/themes";
-import React from "react";
 import { useEmployeeStore } from "@/stores/employee-store";
+import { useUserStore } from "@/stores/user-store";
+import { Button, Table } from "@radix-ui/themes";
+import { useState } from "react";
 import Employee from "./employee";
+import RegisterEmployeeModal from "./modals/register";
+import useEmployees from "@/hooks/useEmployees";
 
 export default function Employees() {
-  const { employees } = useEmployeeStore();
+  const { employeesLoading, employees } = useEmployees();
+
+  const [AddEmployeeIsOpen, setAddEmployeeIsOpen] = useState(false);
   return (
     <div className="flex flex-col items-center justify-between p-4">
+      <RegisterEmployeeModal AddEmployeeIsOpen={AddEmployeeIsOpen} setAddEmployeeIsOpen={setAddEmployeeIsOpen} />
       <div className="flex justify-between items-center w-full mb-4">
         <h1 className="text-2xl font-bold">Funcionários</h1>
-        <Button color="tomato">Adicionar Funcionário</Button>
+        <Button onClick={() => setAddEmployeeIsOpen(true)}>Adicionar Funcionário</Button>
       </div>
       <Table.Root className="w-full">
         <Table.Header>

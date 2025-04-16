@@ -1,11 +1,10 @@
 "use client";
+import { useCompanyStore } from "@/stores/company-store";
 import { CompanyType } from "@/types";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { MdStar } from "react-icons/md";
 import ProductDetailsModal from "../modals/productDetails";
-import { useEffect, useState } from "react";
-import ProductCard from "@/components/productCard";
-import { useCompanyStore } from "@/stores/company-store";
 
 interface Props {
   selectedCompany: CompanyType | undefined;
@@ -13,7 +12,7 @@ interface Props {
 export default function CompanyDetails({ selectedCompany }: Props) {
   const [ProductDetailsModalOpen, setProductDetailsModal] = useState(false);
   const [ProductClicked, setProductClicked] = useState(-1);
-  const { update } = useCompanyStore();
+  const { update, company } = useCompanyStore();
 
   useEffect(() => {
     if (selectedCompany) {
@@ -21,11 +20,15 @@ export default function CompanyDetails({ selectedCompany }: Props) {
     }
   }, [selectedCompany]);
 
+  useEffect(() => {
+    console.log(company);
+  }, [company]);
+  /* 
   function handleOpeningModalWithId(id: number) {
     setProductClicked(id);
     setProductDetailsModal(true);
   }
-
+ */
   return (
     <div>
       <ProductDetailsModal
@@ -49,9 +52,9 @@ export default function CompanyDetails({ selectedCompany }: Props) {
         </p>
       </div>
       <div className="grid grid-cols-3 gap-4 mt-5">
-        {selectedCompany?.services.map((service, index) => (
+        {/* {selectedCompany?.services.map((service, index) => (
           <ProductCard onClick={handleOpeningModalWithId} service={service} key={service.name} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

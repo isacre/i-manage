@@ -1,6 +1,6 @@
 import { CompanyType, Roles } from "@/types";
 import { create } from "zustand";
-
+import { persist } from "zustand/middleware";
 export declare type UserType = {
   name: string;
   email: string;
@@ -13,7 +13,14 @@ interface UserStore {
   user: UserType | null;
   update: (user: UserType) => void;
 }
-export const useUserStore = create<UserStore>((set) => ({
-  user: null,
-  update: (user) => set(() => ({ user })),
-}));
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      user: null,
+      update: (user) => set({ user }),
+    }),
+    {
+      name: "user-storage",
+    }
+  )
+);
