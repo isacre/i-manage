@@ -2,15 +2,20 @@ import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import "react-toastify/dist/ReactToastify.css";
-
-import Sidebar from "@/components/sidebar";
-import "@/globals.css";
-import "@radix-ui/themes/styles.css";
 import { FaUsers } from "react-icons/fa";
-import { ToastContainer } from "react-toastify";
-import { Theme } from "@radix-ui/themes";
 import { MdOutlinePriceChange } from "react-icons/md";
+import { ToastContainer } from "react-toastify";
+import Sidebar from "@/components/sidebar";
+import { Theme } from "@radix-ui/themes";
+import { Poppins } from "next/font/google";
+import "react-toastify/dist/ReactToastify.css";
+import "@/globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -32,9 +37,9 @@ export default async function RootLayout({ children, params }: { children: React
   }
   const messages = await getMessages();
   return (
-    <html lang={locale}>
+    <html lang={locale} className={poppins.className}>
       <body>
-        <Theme accentColor="crimson" grayColor="sand" radius="large" scaling="95%">
+        <Theme>
           <NextIntlClientProvider messages={messages}>
             <ToastContainer />
             <div className="flex">

@@ -1,26 +1,41 @@
 "use client";
 import Modal from "@/components/modal";
-import { registerService } from "@/services/admin/services";
+import { updateService } from "@/services/admin/services";
 import { useServiceStore } from "@/stores/service-store";
 import { useUserStore } from "@/stores/user-store";
 import { Button } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { ServiceType } from "@/stores/service-store";
+import React, { useState } from "react";
 
 type TimeUnit = "minutes" | "hours" | "days";
 
-export default function RegisterServiceModal({
-  AddServiceIsOpen,
-  setAddServiceIsOpen,
-}: {
-  AddServiceIsOpen: boolean;
-  setAddServiceIsOpen: (open: boolean) => void;
-}) {
-  const { register, handleSubmit } = useForm();
-  const add = useServiceStore((state) => state.add);
+export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen: boolean; setOpen: (open: boolean) => void; service: ServiceType }) {
+  const { register, handleSubmit, setValue, watch } = useForm();
+  const update = useServiceStore((state) => state.update);
   const user = useUserStore((state) => state.user);
   const [timeUnit, setTimeUnit] = useState<TimeUnit>("minutes");
+
+  // Set initial values when modal opens
+  React.useEffect(() => {
+    if (service) {
+      setValue("name", service.name);
+      setValue("price", service.price);
+      // Convert minutes to the appropriate unit for display
+      if (service.max_duration >= 1440) {
+        setTimeUnit("days");
+        setValue("max_duration", service.max_duration / 1440);
+      } else if (service.max_duration >= 60) {
+        setTimeUnit("hours");
+        setValue("max_duration", service.max_duration / 60);
+      } else {
+        setTimeUnit("minutes");
+        setValue("max_duration", service.max_duration);
+      }
+      setValue("required_employee_amount", service.required_employee_amount);
+    }
+  }, [service, setValue]);
 
   function convertToMinutes(value: number, unit: TimeUnit): number {
     switch (unit) {
@@ -36,22 +51,31 @@ export default function RegisterServiceModal({
   }
 
   function onSubmit(data: any) {
+    if (!user?.company?.id) return;
+
     const durationInMinutes = convertToMinutes(Number(data.max_duration), timeUnit);
 
-    registerService({
+    updateService(service.id.toString(), {
       ...data,
       max_duration: durationInMinutes,
-      company: user?.company?.id,
-    }).then((service) => {
-      setAddServiceIsOpen(false);
-      toast.success("Serviço adicionado com sucesso");
-      add(service);
-    });
+      company: user.company.id,
+    })
+      .then((updatedService) => {
+        setOpen(false);
+        toast.success("Serviço atualizado com sucesso");
+        // Update the service in the store
+        const services = useServiceStore.getState().services;
+        const updatedServices = services.map((srv) => (srv.id === updatedService.id ? updatedService : srv));
+        update(updatedServices);
+      })
+      .catch(() => {
+        toast.error("Erro ao atualizar serviço");
+      });
   }
 
   return (
     <div>
-      <Modal isOpen={AddServiceIsOpen} setOpen={setAddServiceIsOpen} title="Adicionar Serviço">
+      <Modal isOpen={isOpen} setOpen={setOpen} title="Editar Serviço">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
           <div className="space-y-4">
             <div>
@@ -64,18 +88,6 @@ export default function RegisterServiceModal({
                 placeholder="Digite o nome do serviço"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
                 {...register("name")}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-                Descrição
-              </label>
-              <textarea
-                id="description"
-                placeholder="Descreva o serviço"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition h-24"
-                {...register("description")}
               />
             </div>
 
@@ -131,11 +143,11 @@ export default function RegisterServiceModal({
           </div>
 
           <div className="flex justify-end space-x-4 pt-4">
-            <Button type="button" variant="soft" color="gray" onClick={() => setAddServiceIsOpen(false)} className="px-4 py-2">
+            <Button type="button" variant="soft" color="gray" onClick={() => setOpen(false)} className="px-4 py-2">
               Cancelar
             </Button>
             <Button type="submit" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition-colors duration-200">
-              Adicionar Serviço
+              Salvar Alterações
             </Button>
           </div>
         </form>

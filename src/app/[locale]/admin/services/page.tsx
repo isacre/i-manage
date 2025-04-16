@@ -1,37 +1,51 @@
 "use client";
 import useServices from "@/hooks/useServices";
-import { Button, Table } from "@radix-ui/themes";
 import { useState } from "react";
 import Service from "./service";
 import RegisterServiceModal from "./modals/register";
+import EditServiceModal from "./modals/edit";
+import DeleteServiceModal from "./modals/delete";
+import Table from "@/components/table";
+import { ServiceType } from "@/stores/service-store";
 
 export default function Services() {
-  const { services } = useServices();
+  const { services, servicesLoading } = useServices();
   const [addServiceIsOpen, setAddServiceIsOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   return (
-    <div className="flex flex-col items-center justify-between p-4">
-      <div className="flex justify-between items-center w-full mb-4">
-        <h1 className="text-2xl font-bold">Serviços</h1>
-        <Button color="tomato" onClick={() => setAddServiceIsOpen(true)}>
-          Adicionar Serviço
-        </Button>
-      </div>
+    <div>
       <RegisterServiceModal AddServiceIsOpen={addServiceIsOpen} setAddServiceIsOpen={setAddServiceIsOpen} />
-      <Table.Root className="w-full">
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Nome</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Preço</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Editar</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Excluir</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {services.map((service) => (
-            <Service key={service.id} service={service} />
-          ))}
-        </Table.Body>
-      </Table.Root>
+      {selectedService && (
+        <>
+          <EditServiceModal isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} service={selectedService} />
+          <DeleteServiceModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} service={selectedService} />
+        </>
+      )}
+      <Table
+        loading={servicesLoading}
+        headers={["Nome", "Preço", "Ações"]}
+        data={services}
+        title="Serviços"
+        actionButton={{ label: "Adicionar Serviço", onClick: () => setAddServiceIsOpen(true) }}
+      >
+        {services.map((service) => (
+          <Service
+            key={service.id}
+            service={service}
+            onEdit={() => {
+              setSelectedService(service);
+              setIsEditModalOpen(true);
+            }}
+            onDelete={() => {
+              setSelectedService(service);
+              setIsDeleteModalOpen(true);
+            }}
+          />
+        ))}
+      </Table>
     </div>
   );
 }

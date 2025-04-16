@@ -12,9 +12,11 @@ interface ServiceStore {
   services: ServiceType[];
   update: (services: ServiceType[]) => void;
   add: (service: ServiceType) => void;
+  remove: (id: number) => void;
 }
 export const useServiceStore = create<ServiceStore>((set) => ({
   services: [],
   update: (services) => set(() => ({ services })),
   add: (service) => set((state) => ({ services: [...state.services, service] })),
+  remove: (id) => set((state) => ({ services: state.services.filter((service) => service.id !== id) })),
 }));
