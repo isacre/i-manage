@@ -1,7 +1,7 @@
 {
     "Header": {
     "cartText": "Cart",
-    "companyText": "I'm a Company",
+    "register": "Register",
     "login": "Login"
     },
     "login": {
@@ -9,7 +9,8 @@
         "company": "Company",
         "email": "Email",
         "password": "Password",
-        "submit": "Submit"
+        "submit": "Submit",
+        "error": "Something went wrong, please check your credentials and try again"
     },
     "register_company": {
         "title": "Register your business",
@@ -22,6 +23,16 @@
         "register": "Register Company",
         "success": "Company registered successfully, redirecting to login page",
         "error": "Error registering company"
+    },
+    "register_user": {
+        "title": "Register as User",
+        "name": "Name",
+        "phone": "Phone",
+        "email": "Email",
+        "password": "Password",
+        "register": "Register User",
+        "success": "User registered successfully, redirecting to login page",
+        "error": "Error registering user"
     },
     "Homepage": {
     "categoryMessage": "Need practical and organized help? Check out the categories",

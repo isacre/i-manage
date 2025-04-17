@@ -41,12 +41,19 @@ export async function getTokens(data: { email: string; password: string }): Prom
   return company.data;
 }
 
-export async function getNewTokens(data: { refresh: string }): Promise<{ access: string; refresh: string }> {
-  const company = await api.post(`/auth/jwt/refresh/`, data);
-  return company.data;
-}
-
 export async function getUserData(): Promise<UserType> {
   const user = await api.get(`/auth/users/me/`);
+  return user.data;
+}
+
+export declare type UserRegisterForm = {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+};
+
+export async function registerUser(data: UserRegisterForm) {
+  const user = await api.post(`/auth/users/`, data);
   return user.data;
 }

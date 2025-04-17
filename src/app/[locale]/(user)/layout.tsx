@@ -29,6 +29,7 @@ export default async function RootLayout({ children, params }: { children: React
     notFound();
   }
   const messages = await getMessages();
+
   return (
     <html lang={locale} className={poppins.className}>
       <body>

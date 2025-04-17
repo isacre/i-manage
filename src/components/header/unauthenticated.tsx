@@ -21,8 +21,8 @@ export default function UnauthenticatedHeader() {
         <nav className="flex items-center gap-2">
           <div className="flex items-center gap-2">
             <ButtonComponent
-              onClickFn={() => router.push(`/${locale}/register_company`)}
-              text={t("companyText")}
+              onClickFn={() => router.push(`/${locale}/register`)}
+              text={t("register")}
               backgroundHover={false}
               background="bg-transparent"
               color="text-red-600"

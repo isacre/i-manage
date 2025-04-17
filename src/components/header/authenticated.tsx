@@ -1,33 +1,40 @@
 "use client";
+import logo from "@/assets/logo/imanagelogo.png";
+import { useUserStore } from "@/stores/user-store";
 import { Menu } from "@/types";
-import React, { useState } from "react";
-import MenuComponent from "./menu";
-import { BiCalendar } from "react-icons/bi";
-import ButtonComponent from "../button";
+import { deleteCookie } from "@/utils";
+import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
-
+import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 interface Props {
   menus: Menu[];
 }
 export default function AuthenticatedHeader({ menus }: Props) {
   const t = useTranslations("Header");
+  const user = useUserStore((state) => state.user);
+  const locale = useLocale();
+  const router = useRouter();
+
   return (
     <div className="bg-white fixed z-1 flex w-full h-20 border border-b-[#dcdcdc] align-center px-50 place-content-center justify-between">
       <div className="flex items-center gap-1">
-        <Link className="flex items-center gap-1" href={"/"}>
-          <BiCalendar size={30} className="text-red-600" />
-          <p className="text-red-600">iManage</p>
+        <Link href={"/"}>
+          <Image src={logo} alt="iManage logo" className="w-[100px] h-[50px] object-contain" />
         </Link>
-        <div className="flex gap-3 items-center mx-10">
-          {menus.map((menu) => (
-            <MenuComponent menu={menu} key={menu.text} />
-          ))}
-        </div>
       </div>
-      <div className="flex items-center">
-        <ButtonComponent onClickFn={() => console.log("")} text={t("cartText")} />
-      </div>
+      <button
+        className="flex items-center p-4 gap-2 text-gray-700 hover:text-red-600 hover:bg-red-50 transition-colors duration-200 border-t border-gray-100"
+        onClick={() => {
+          deleteCookie("access");
+          deleteCookie("refresh");
+          router.push(`/${locale}/`);
+        }}
+      >
+        <CiLogout className="w-6 h-6" />
+        <span className="font-medium">Sair</span>
+      </button>
     </div>
   );
 }

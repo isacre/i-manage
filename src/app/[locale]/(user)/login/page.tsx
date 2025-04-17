@@ -2,6 +2,7 @@
 import TabsComponent from "@/components/tabs";
 import { getTokens, getUserData } from "@/services/auth";
 import { useUserStore } from "@/stores/user-store";
+import { setCookie } from "@/utils";
 import { serialize } from "cookie";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -36,8 +37,8 @@ export default function Login() {
   function login(data: { email: string; password: string }) {
     getTokens(data)
       .then((res) => {
-        document.cookie = serialize("access", res.access, { path: "/", secure: true, maxAge: 60 * 60 * 24 * 30 });
-        document.cookie = serialize("refresh", res.refresh, { path: "/", secure: true, maxAge: 60 * 60 * 24 * 30 });
+        setCookie("access", res.access);
+        setCookie("refresh", res.refresh);
         fetchAndStoreUserData();
       })
       .catch((err) => {

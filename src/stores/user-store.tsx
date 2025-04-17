@@ -8,10 +8,11 @@ export declare type UserType = {
   company: null | CompanyType;
   role: Roles;
   is_active: boolean;
+  id: number | null;
 };
 interface UserStore {
   user: UserType | null;
-  update: (user: UserType) => void;
+  update: (user: UserType | null) => void;
 }
 export const useUserStore = create<UserStore>()(
   persist(
