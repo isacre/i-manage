@@ -3,7 +3,7 @@ import { SetStateFn } from "@/types";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 dayjs.extend(utc);
 dayjs.extend(timezone);

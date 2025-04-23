@@ -12,10 +12,9 @@ import { toast } from "react-toastify";
 
 export default function Login() {
   const t = useTranslations("login");
-  const [activeTab, setActiveTab] = useState(t("company"));
+  const [activeTab, setActiveTab] = useState("Login");
   const locale = useLocale();
   const router = useRouter();
-  const tabs = [{ text: t("company"), onClick: () => setActiveTab(t("company")) }];
   const { update } = useUserStore();
   const { register, handleSubmit } = useForm<{ email: string; password: string }>({
     defaultValues: {
@@ -50,7 +49,7 @@ export default function Login() {
     <div>
       <div className="flex  justify-center ">
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-          <TabsComponent tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <TabsComponent tabs={[{ text: "Login", onClick: () => setActiveTab("Login") }]} activeTab={activeTab} setActiveTab={setActiveTab} />
           <form className="space-y-6" onSubmit={handleSubmit(login)}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">

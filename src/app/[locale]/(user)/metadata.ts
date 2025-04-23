@@ -9,7 +9,6 @@ export const METADATA = {
     "contratação de serviços",
     "app de serviços",
     "prestadores de serviço",
-
     // Categorias de Serviço
     "conserto e manutenção",
     "limpeza e diarista",
@@ -22,7 +21,6 @@ export const METADATA = {
     "pet sitter e banho/tosa",
     "motoboy e entregas",
     "consultoria e freelancer",
-
     // Funcionalidades
     "pagamento online",
     "agendamento fácil",
@@ -49,4 +47,4 @@ export const METADATA = {
     locale: "pt_BR",
     type: "website",
   },
-}
+};

@@ -1,7 +1,7 @@
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlinePriceChange } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
@@ -33,7 +33,7 @@ export default async function RootLayout({ children, params }: { children: React
   ];
 
   if (!routing.locales.includes(locale as any)) {
-    notFound();
+    redirect("/");
   }
   const messages = await getMessages();
   return (

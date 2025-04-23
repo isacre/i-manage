@@ -1,6 +1,6 @@
 import { UserType } from "@/stores/user-store";
 import { Category } from "@/types";
-import { getCookie, setCookie } from "@/utils";
+import { getCookie } from "@/utils";
 import axios, { AxiosRequestConfig } from "axios";
 
 const config: AxiosRequestConfig = {
@@ -14,7 +14,9 @@ const api = axios.create(config);
 
 api.interceptors.request.use((config) => {
   const accessToken = getCookie("access");
-  config.headers.Authorization = `Bearer ${accessToken}`;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
   return config;
 });
 
