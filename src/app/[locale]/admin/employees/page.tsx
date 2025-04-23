@@ -1,50 +1,57 @@
-"use client";
-import { useEmployeeStore, EmployeeType } from "@/stores/employee-store";
-import { useState } from "react";
-import Employee from "./employee";
-import RegisterEmployeeModal from "./modals/register";
-import EditEmployeeModal from "./modals/edit";
-import DeleteEmployeeModal from "./modals/delete";
-import useEmployees from "@/hooks/useEmployees";
-import Table from "@/components/table";
+"use client"
+import { EmployeeType } from "@/stores/employee-store"
+import { useState } from "react"
+import Employee from "./employee"
+import RegisterEmployeeModal from "./modals/register"
+import EditEmployeeModal from "./modals/edit"
+import DeleteEmployeeModal from "./modals/delete"
+import useEmployees from "@/hooks/useEmployees"
+import Table from "@/components/table"
+import TableComponent from "@/components/table"
 
 export default function Employees() {
-  const { employees, employeesLoading } = useEmployees();
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState<EmployeeType | null>(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { employees, employeesLoading } = useEmployees()
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false)
+  const [selectedEmployee, setSelectedEmployee] = useState<EmployeeType | null>(null)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-  const handleEdit = (employee: EmployeeType) => {
-    setSelectedEmployee(employee);
-    setIsEditModalOpen(true);
-  };
+  function handleEditModal(employee: EmployeeType) {
+    setSelectedEmployee(employee)
+    setIsEditModalOpen(true)
+  }
 
-  const handleDelete = (employee: EmployeeType) => {
-    setSelectedEmployee(employee);
-    setIsDeleteModalOpen(true);
-  };
+  function handleDeleteModal(employee: EmployeeType) {
+    setSelectedEmployee(employee)
+    setIsDeleteModalOpen(true)
+  }
 
   return (
     <div>
-      <RegisterEmployeeModal AddEmployeeIsOpen={isRegisterModalOpen} setAddEmployeeIsOpen={setIsRegisterModalOpen} />
-      {selectedEmployee && (
-        <>
-          <EditEmployeeModal isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} employee={selectedEmployee} />
-          <DeleteEmployeeModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} employee={selectedEmployee} />
-        </>
-      )}
-      <Table
-        loading={employeesLoading}
-        headers={["Nome", "Telefone", "Ações"]}
-        data={employees}
-        title="Funcionários"
-        actionButton={{ label: "Cadastrar Funcionário", onClick: () => setIsRegisterModalOpen(true) }}
-      >
-        {employees.map((employee) => (
-          <Employee key={employee.id} employee={employee} onEdit={() => handleEdit(employee)} onDelete={() => handleDelete(employee)} />
-        ))}
-      </Table>
+      <RegisterEmployeeModal isOpen={isRegisterModalOpen} setOpen={setIsRegisterModalOpen} />
+      <EditEmployeeModal isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} employee={selectedEmployee} />
+      <DeleteEmployeeModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} employee={selectedEmployee} />
+      <TableComponent.Root>
+        <TableComponent.TopRow
+          title="Funcionários"
+          actionButton={{ label: "Cadastrar Funcionário", onClick: () => setIsRegisterModalOpen(true) }}
+        />
+
+        <TableComponent.Grid
+          headers={["Nome", "Telefone", "Ações"]}
+          loading={employeesLoading}
+          gridTemplateColumns="1fr 1fr 0.25fr"
+        >
+          {employees.map((employee) => (
+            <Employee
+              employee={employee}
+              onEdit={() => handleEditModal(employee)}
+              onDelete={() => handleDeleteModal(employee)}
+              key={employee.id}
+            />
+          ))}
+        </TableComponent.Grid>
+      </TableComponent.Root>
     </div>
-  );
+  )
 }

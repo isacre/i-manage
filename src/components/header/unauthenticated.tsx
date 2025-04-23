@@ -1,21 +1,21 @@
-"use client";
-import logo from "@/assets/logo/imanagelogo.png";
-import { useLocale, useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import ButtonComponent from "../button";
-import { useRouter } from "next/navigation";
+"use client"
+import logo from "@/assets/logo/imanagelogo.png"
+import { useLocale, useTranslations } from "next-intl"
+import Image from "next/image"
+import Link from "next/link"
+import ButtonComponent from "../formFields/button"
+import { useRouter } from "next/navigation"
 export default function UnauthenticatedHeader() {
-  const locale = useLocale();
-  const t = useTranslations("Header");
-  const router = useRouter();
+  const locale = useLocale()
+  const t = useTranslations("Header")
+  const router = useRouter()
 
   return (
     <header>
-      <div className="bg-red600 h-[80px] fixed z-1 flex w-full  border border-b-[#dcdcdc] align-center px-50 place-content-center justify-between">
+      <div className="bg-red600 align-center fixed z-1 flex h-[80px] w-full place-content-center justify-between border border-b-[#dcdcdc] px-50">
         <div className="flex items-center gap-1">
           <Link className="flex items-center gap-1" href={"/"}>
-            <Image src={logo} alt="iManage logo" className="w-[100px] h-[50px] object-contain" />
+            <Image src={logo} alt="iManage logo" className="h-[50px] w-[100px] object-contain" />
           </Link>
         </div>
         <nav className="flex items-center gap-2">
@@ -33,5 +33,5 @@ export default function UnauthenticatedHeader() {
         </nav>
       </div>
     </header>
-  );
+  )
 }

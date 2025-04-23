@@ -17,7 +17,7 @@ export default function CompanyComponent({ company }: Props) {
   const { category, id, name } = company;
   return (
     <Link href={`${locale}/companies/${id}`}>
-      <div className=" gap-3 flex items-top text-center cursor-pointer transition-transform transform hover:scale-110 hover:shadow-lg p-2 rounded-lg">
+      <div className="gap-3 flex items-top text-center cursor-pointer transition-transform transform hover:scale-110 hover:shadow-lg p-2 rounded-lg">
         <Image
           className="rounded aspect-square object-cover mb-1"
           alt={name}

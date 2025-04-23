@@ -1,74 +1,61 @@
-"use client";
-import Modal from "@/components/modal";
-import useEmployees from "@/hooks/useEmployees";
-import { registerEmployee } from "@/services/admin/employee";
-import { useEmployeeStore } from "@/stores/employee-store";
-import { useUserStore } from "@/stores/user-store";
-import { Button } from "@radix-ui/themes";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+"use client"
+import FormFields from "@/components/formFields"
+import Modal from "@/components/modal"
+import useEmployees from "@/hooks/useEmployees"
+import { registerEmployee } from "@/services/admin/employee"
+import { useEmployeeStore } from "@/stores/employee-store"
+import { useUserStore } from "@/stores/user-store"
+import { Button } from "@radix-ui/themes"
+import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export default function RegisterEmployeeModal({
-  AddEmployeeIsOpen,
-  setAddEmployeeIsOpen,
+  isOpen,
+  setOpen,
 }: {
-  AddEmployeeIsOpen: boolean;
-  setAddEmployeeIsOpen: (open: boolean) => void;
+  isOpen: boolean
+  setOpen: (open: boolean) => void
 }) {
-  const { register, handleSubmit } = useForm();
-  const add = useEmployeeStore((state) => state.add);
-  const user = useUserStore((state) => state.user);
+  const schema = z.object({
+    name: z.string().min(1, { message: "Nome é obrigatório" }),
+    phone: z.string().min(1, { message: "Telefone é obrigatório" }),
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(schema) })
+
+  const addEmployee = useEmployeeStore((state) => state.add)
+  const user = useUserStore((state) => state.user)
 
   function onSubmit(data: any) {
     registerEmployee(data, user?.company?.id || 0).then((employee) => {
-      setAddEmployeeIsOpen(false);
-      toast.success("Funcionário adicionado com sucesso");
-      add(employee);
-    });
+      setOpen(false)
+      toast.success("Funcionário adicionado com sucesso")
+      addEmployee(employee)
+    })
   }
 
   return (
-    <div>
-      <Modal isOpen={AddEmployeeIsOpen} setOpen={setAddEmployeeIsOpen} title="Adicionar Funcionário">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Nome do Funcionário
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Digite o nome do funcionário"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
-                {...register("name")}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                Telefone
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                placeholder="(00) 00000-0000"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
-                {...register("phone")}
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-end space-x-4 pt-4">
-            <Button type="button" variant="soft" color="gray" onClick={() => setAddEmployeeIsOpen(false)} className="px-4 py-2">
-              Cancelar
-            </Button>
-            <Button type="submit" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition-colors duration-200">
-              Adicionar Funcionário
-            </Button>
-          </div>
-        </form>
-      </Modal>
-    </div>
-  );
+    <Modal isOpen={isOpen} setOpen={setOpen} title="Adicionar Funcionário">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
+        <FormFields.TextField id="name" label="Nome do Funcionário" register={register} error={errors.name?.message} />
+        <FormFields.TextField id="phone" label="Telefone" register={register} error={errors.phone?.message} />
+        <div className="flex justify-end space-x-4 pt-4">
+          <FormFields.Button
+            background="bg-transparent"
+            color="text-gray-500"
+            onClickFn={() => setOpen(false)}
+            text="Cancelar"
+            backgroundHover={false}
+          />
+          <FormFields.Button text="Adicionar Funcionário" onClickFn={handleSubmit(onSubmit)} />
+        </div>
+      </form>
+    </Modal>
+  )
 }
