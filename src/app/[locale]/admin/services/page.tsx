@@ -28,19 +28,17 @@ export default function Services() {
 
   return (
     <div>
-      <RegisterServiceModal AddServiceIsOpen={addServiceIsOpen} setAddServiceIsOpen={setAddServiceIsOpen} />
-      {selectedService && (
-        <>
-          <EditServiceModal isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} service={selectedService} />
-          <DeleteServiceModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} service={selectedService} />
-        </>
-      )}
+      <RegisterServiceModal isOpen={addServiceIsOpen} setOpen={setAddServiceIsOpen} />
+
+      <EditServiceModal isOpen={isEditModalOpen} setOpen={setIsEditModalOpen} service={selectedService} />
+      <DeleteServiceModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} service={selectedService} />
       <TableComponent.Root>
         <TableComponent.TopRow
           title="Serviços"
-          actionButton={{ label: "Adicionar Serviço", onClick: () => setAddServiceIsOpen(true) }}
+          actionButton={[{ label: "Adicionar Serviço", onClick: () => setAddServiceIsOpen(true) }]}
         />
         <TableComponent.Grid
+          itemsAmount={services.length}
           headers={["Nome", "Preço", "Ações"]}
           loading={servicesLoading}
           gridTemplateColumns="1fr 1fr 0.25fr"

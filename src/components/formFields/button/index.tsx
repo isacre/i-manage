@@ -1,5 +1,5 @@
 import React from "react"
-import type { BorderRadius, TextColor, BackgroundColor, Padding, Cursor, FontWeight } from "tailwindcss-types"
+import type { BorderRadius, TextColor, BackgroundColor, Padding, Cursor, FontWeight, Width } from "tailwindcss-types"
 
 interface Props {
   onClickFn: Function
@@ -11,6 +11,7 @@ interface Props {
   cursor?: Cursor
   backgroundHover?: boolean
   weight?: FontWeight
+  width?: Width
 }
 export default function ButtonComponent({
   onClickFn,
@@ -22,11 +23,12 @@ export default function ButtonComponent({
   cursor = "cursor-pointer",
   weight = "font-normal",
   backgroundHover = true,
+  width = "w-fit",
 }: Props) {
   return (
     <button
       onClick={() => onClickFn()}
-      className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "h-fit hover:bg-red-500" : ""}`}
+      className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "h-fit hover:bg-red-500" : ""} ${width}`}
     >
       {text}
     </button>

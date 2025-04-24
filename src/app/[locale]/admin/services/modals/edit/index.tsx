@@ -1,59 +1,65 @@
-"use client";
-import Modal from "@/components/modal";
-import { updateService } from "@/services/admin/services";
-import { useServiceStore } from "@/stores/service-store";
-import { useUserStore } from "@/stores/user-store";
-import { Button } from "@radix-ui/themes";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { ServiceType } from "@/stores/service-store";
-import React, { useState } from "react";
+"use client"
+import Modal from "@/components/modal"
+import { updateService } from "@/services/admin/services"
+import { useServiceStore } from "@/stores/service-store"
+import { useUserStore } from "@/stores/user-store"
+import { Button } from "@radix-ui/themes"
+import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
+import { ServiceType } from "@/stores/service-store"
+import React, { useState } from "react"
 
-type TimeUnit = "minutes" | "hours" | "days";
+type TimeUnit = "minutes" | "hours" | "days"
 
-export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen: boolean; setOpen: (open: boolean) => void; service: ServiceType }) {
-  const { register, handleSubmit, setValue, watch } = useForm();
-  const update = useServiceStore((state) => state.update);
-  const user = useUserStore((state) => state.user);
-  const [timeUnit, setTimeUnit] = useState<TimeUnit>("minutes");
+interface EditServiceModalProps {
+  isOpen: boolean
+  setOpen: (open: boolean) => void
+  service: ServiceType | null
+}
+
+export default function EditServiceModal({ isOpen, setOpen, service }: EditServiceModalProps) {
+  const { register, handleSubmit, setValue } = useForm()
+  const update = useServiceStore((state) => state.update)
+  const user = useUserStore((state) => state.user)
+  const [timeUnit, setTimeUnit] = useState<TimeUnit>("minutes")
 
   // Set initial values when modal opens
   React.useEffect(() => {
     if (service) {
-      setValue("name", service.name);
-      setValue("price", service.price);
+      setValue("name", service.name)
+      setValue("price", service.price)
       // Convert minutes to the appropriate unit for display
       if (service.max_duration >= 1440) {
-        setTimeUnit("days");
-        setValue("max_duration", service.max_duration / 1440);
+        setTimeUnit("days")
+        setValue("max_duration", service.max_duration / 1440)
       } else if (service.max_duration >= 60) {
-        setTimeUnit("hours");
-        setValue("max_duration", service.max_duration / 60);
+        setTimeUnit("hours")
+        setValue("max_duration", service.max_duration / 60)
       } else {
-        setTimeUnit("minutes");
-        setValue("max_duration", service.max_duration);
+        setTimeUnit("minutes")
+        setValue("max_duration", service.max_duration)
       }
-      setValue("required_employee_amount", service.required_employee_amount);
+      setValue("required_employee_amount", service.required_employee_amount)
     }
-  }, [service, setValue]);
+  }, [service, setValue])
 
   function convertToMinutes(value: number, unit: TimeUnit): number {
     switch (unit) {
       case "minutes":
-        return value;
+        return value
       case "hours":
-        return value * 60;
+        return value * 60
       case "days":
-        return value * 1440;
+        return value * 1440
       default:
-        return value;
+        return value
     }
   }
 
   function onSubmit(data: any) {
-    if (!user?.company?.id) return;
+    if (!user?.company?.id || !service?.id) return
 
-    const durationInMinutes = convertToMinutes(Number(data.max_duration), timeUnit);
+    const durationInMinutes = convertToMinutes(Number(data.max_duration), timeUnit)
 
     updateService(service.id.toString(), {
       ...data,
@@ -61,16 +67,16 @@ export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen:
       company: user.company.id,
     })
       .then((updatedService) => {
-        setOpen(false);
-        toast.success("Serviço atualizado com sucesso");
+        setOpen(false)
+        toast.success("Serviço atualizado com sucesso")
         // Update the service in the store
-        const services = useServiceStore.getState().services;
-        const updatedServices = services.map((srv) => (srv.id === updatedService.id ? updatedService : srv));
-        update(updatedServices);
+        const services = useServiceStore.getState().services
+        const updatedServices = services.map((srv) => (srv.id === updatedService.id ? updatedService : srv))
+        update(updatedServices)
       })
       .catch(() => {
-        toast.error("Erro ao atualizar serviço");
-      });
+        toast.error("Erro ao atualizar serviço")
+      })
   }
 
   return (
@@ -79,33 +85,33 @@ export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen:
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
                 Nome do Serviço
               </label>
               <input
                 id="name"
                 type="text"
                 placeholder="Digite o nome do serviço"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("name")}
               />
             </div>
 
             <div>
-              <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="price" className="mb-1 block text-sm font-medium text-gray-700">
                 Preço
               </label>
               <input
                 id="price"
                 type="text"
                 placeholder="R$ 0,00"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("price")}
               />
             </div>
 
             <div>
-              <label htmlFor="max_duration" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="max_duration" className="mb-1 block text-sm font-medium text-gray-700">
                 Duração Máxima
               </label>
               <div className="flex gap-2">
@@ -113,13 +119,13 @@ export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen:
                   id="max_duration"
                   type="number"
                   placeholder="Ex: 60"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                   {...register("max_duration")}
                 />
                 <select
                   value={timeUnit}
                   onChange={(e) => setTimeUnit(e.target.value as TimeUnit)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                  className="rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 >
                   <option value="minutes">Minutos</option>
                   <option value="hours">Horas</option>
@@ -129,14 +135,14 @@ export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen:
             </div>
 
             <div>
-              <label htmlFor="required_employee_amount" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="required_employee_amount" className="mb-1 block text-sm font-medium text-gray-700">
                 Quantidade de Funcionários Necessários
               </label>
               <input
                 id="required_employee_amount"
                 type="number"
                 placeholder="Ex: 2"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("required_employee_amount")}
               />
             </div>
@@ -146,12 +152,15 @@ export default function EditServiceModal({ isOpen, setOpen, service }: { isOpen:
             <Button type="button" variant="soft" color="gray" onClick={() => setOpen(false)} className="px-4 py-2">
               Cancelar
             </Button>
-            <Button type="submit" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition-colors duration-200">
+            <Button
+              type="submit"
+              className="rounded-lg bg-red-600 px-4 py-2 text-white transition-colors duration-200 hover:bg-red-500"
+            >
               Salvar Alterações
             </Button>
           </div>
         </form>
       </Modal>
     </div>
-  );
+  )
 }

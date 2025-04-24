@@ -2,7 +2,7 @@ import { routing } from "@/i18n/routing"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
 import { notFound, redirect } from "next/navigation"
-import { FaUsers } from "react-icons/fa"
+import { FaCalendar, FaUsers } from "react-icons/fa"
 import { MdOutlinePriceChange } from "react-icons/md"
 import { ToastContainer } from "react-toastify"
 import Sidebar from "@/components/sidebar"
@@ -10,6 +10,7 @@ import { Theme } from "@radix-ui/themes"
 import { Poppins } from "next/font/google"
 import "react-toastify/dist/ReactToastify.css"
 import "@/globals.css"
+import { Suspense } from "react"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,11 @@ export default async function RootLayout({
 }) {
   const { locale } = await params
   const Menus = [
+    {
+      label: "Agendamentos",
+      link: "/admin/bookings",
+      icon: <FaCalendar />,
+    },
     {
       label: "Funcionários",
       link: "/admin/employees",
@@ -50,7 +56,9 @@ export default async function RootLayout({
             <ToastContainer />
             <div className="flex">
               <Sidebar menus={Menus} />
-              <div className="flex h-full w-full flex-col">{children}</div>
+              <div className="flex h-full w-full flex-col">
+                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+              </div>
             </div>
           </NextIntlClientProvider>
         </Theme>

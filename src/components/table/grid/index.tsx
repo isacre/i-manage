@@ -6,6 +6,7 @@ interface GridProps {
   children: React.ReactNode
   loading: boolean
   gridTemplateColumns?: string
+  itemsAmount: number
 }
 
 export default function Grid({
@@ -13,6 +14,7 @@ export default function Grid({
   children,
   loading,
   gridTemplateColumns = `repeat(${headers.length}, 1fr)`,
+  itemsAmount,
 }: GridProps) {
   return (
     <div className={s.container}>
@@ -23,7 +25,13 @@ export default function Grid({
           </div>
         ))}
       </div>
-      {loading ? <div className={s.loadingCell}>Carregando...</div> : <div className={s.contentCell}>{children}</div>}
+      {loading ? (
+        <div className={s.loadingCell}>Carregando...</div>
+      ) : (
+        <div className={s.contentCell}>
+          {itemsAmount === 0 ? <div className={s.emptyCell}>Nenhum resultado encontrado</div> : children}
+        </div>
+      )}
     </div>
   )
 }

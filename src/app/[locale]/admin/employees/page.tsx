@@ -34,10 +34,11 @@ export default function Employees() {
       <TableComponent.Root>
         <TableComponent.TopRow
           title="Funcionários"
-          actionButton={{ label: "Cadastrar Funcionário", onClick: () => setIsRegisterModalOpen(true) }}
+          actionButton={[{ label: "Cadastrar Funcionário", onClick: () => setIsRegisterModalOpen(true) }]}
         />
 
         <TableComponent.Grid
+          itemsAmount={employees.length}
           headers={["Nome", "Telefone", "Ações"]}
           loading={employeesLoading}
           gridTemplateColumns="1fr 1fr 0.25fr"

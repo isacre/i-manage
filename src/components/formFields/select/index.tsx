@@ -1,15 +1,15 @@
-import React, { InputHTMLAttributes } from "react"
+import React, { SelectHTMLAttributes } from "react"
 import { UseFormRegister } from "react-hook-form"
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
   id: string
   label?: string
-  placeholder?: string
   register: UseFormRegister<any>
   error?: string
+  options: { value: string; label: string }[]
 }
 
-export default function TextField({ id, label, placeholder = "", register, error, ...props }: Props) {
+export default function SelectField({ id, label, register, error, options, ...props }: Props) {
   return (
     <div>
       {label && (
@@ -17,14 +17,18 @@ export default function TextField({ id, label, placeholder = "", register, error
           {label}
         </label>
       )}
-      <input
+      <select
         id={id}
-        type="text"
-        placeholder={placeholder}
         className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:ring-2 focus:ring-red-500 focus:outline-none"
         {...register(id)}
         {...props}
-      />
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
       {error && <small className="mt-1 text-red-500">{error}</small>}
     </div>
   )

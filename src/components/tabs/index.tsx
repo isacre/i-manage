@@ -1,27 +1,29 @@
-import React from "react";
+import React from "react"
 
 interface Props {
   tabs: {
-    text: string;
-    onClick: () => void;
-  }[];
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+    text: string
+    onClick: () => void
+    value: string
+  }[]
+  activeTab: string
+  setActiveTab: (tab: string) => void
+  className?: string
 }
-export default function TabsComponent({ tabs, activeTab, setActiveTab }: Props) {
+export default function TabsComponent({ tabs, activeTab, setActiveTab, className }: Props) {
   return (
-    <div className="mb-6 flex">
+    <div className={`flex ${className}`}>
       {tabs.map((tab) => (
         <button
           key={tab.text}
-          className={`cursor-pointer flex-1 border-b-2 ${activeTab === tab.text ? "border-red-500" : "border-gray-200"} py-2 text-center font-medium ${
-            activeTab === tab.text ? "text-red-600" : "text-gray-500"
+          className={`flex-1 cursor-pointer border-b-2 ${activeTab === tab.value ? "border-red-500" : "border-gray-200"} py-2 text-center font-medium ${
+            activeTab === tab.value ? "text-red-600" : "text-gray-500"
           }`}
-          onClick={() => setActiveTab(tab.text)}
+          onClick={() => setActiveTab(tab.value)}
         >
           {tab.text}
         </button>
       ))}
     </div>
-  );
+  )
 }
