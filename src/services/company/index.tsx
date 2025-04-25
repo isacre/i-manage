@@ -9,11 +9,3 @@ const config: AxiosRequestConfig = {
 }
 
 export const api = axios.create(config)
-
-api.interceptors.request.use((config) => {
-  const accessToken = getCookie("access")
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`
-  }
-  return config
-})

@@ -1,5 +1,5 @@
 import { ServiceType } from "@/stores/service-store"
-import { api } from ".."
+import { api } from "../index"
 
 export async function registerService(data: { name: string; price: number; company: number }): Promise<ServiceType> {
   const response = await api.post("/service/", { ...data, is_active: true })
@@ -8,6 +8,11 @@ export async function registerService(data: { name: string; price: number; compa
 
 export async function getServices(company: number): Promise<ServiceType[]> {
   const response = await api.get("/service/", { params: { company } })
+  return response.data
+}
+
+export async function getService(id: string): Promise<ServiceType> {
+  const response = await api.get(`/service/${id}/`)
   return response.data
 }
 
@@ -20,5 +25,10 @@ export async function updateService(
   data: { name: string; price: number; company: number },
 ): Promise<ServiceType> {
   const response = await api.put(`/service/${id}/`, { ...data, is_active: true })
+  return response.data
+}
+
+export async function getAvailableHours(service: number, date: string): Promise<string[]> {
+  const response = await api.get(`/booking/${service}/getAvailableHours/`, { params: { date } })
   return response.data
 }

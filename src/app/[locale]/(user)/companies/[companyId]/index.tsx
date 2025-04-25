@@ -1,34 +1,26 @@
-"use client";
-import { useCompanyStore } from "@/stores/company-store";
-import { CompanyType } from "@/types";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { MdStar } from "react-icons/md";
-import ProductDetailsModal from "../modals/productDetails";
+"use client"
+import { useCompanyStore } from "@/stores/company-store"
+import { CompanyType } from "@/types"
+import Image from "next/image"
+import { useEffect, useState } from "react"
+import { MdStar } from "react-icons/md"
+import ProductDetailsModal from "../modals/productDetails"
+import ProductCard from "@/components/productCard"
+import useServices from "@/hooks/useServices"
 
 interface Props {
-  selectedCompany: CompanyType | undefined;
+  selectedCompany: CompanyType | undefined
 }
 export default function CompanyDetails({ selectedCompany }: Props) {
-  const [ProductDetailsModalOpen, setProductDetailsModal] = useState(false);
-  const [ProductClicked, setProductClicked] = useState(-1);
-  const { update, company } = useCompanyStore();
+  const [ProductDetailsModalOpen, setProductDetailsModal] = useState(false)
+  const [ProductClicked, setProductClicked] = useState(-1)
+  const { services, servicesLoading } = useServices(selectedCompany?.id)
 
-  useEffect(() => {
-    if (selectedCompany) {
-      update(selectedCompany);
-    }
-  }, [selectedCompany]);
-
-  useEffect(() => {
-    console.log(company);
-  }, [company]);
-  /* 
   function handleOpeningModalWithId(id: number) {
-    setProductClicked(id);
-    setProductDetailsModal(true);
+    setProductClicked(id)
+    setProductDetailsModal(true)
   }
- */
+
   return (
     <div>
       <ProductDetailsModal
@@ -37,9 +29,9 @@ export default function CompanyDetails({ selectedCompany }: Props) {
         isOpen={ProductDetailsModalOpen}
         setOpen={setProductDetailsModal}
       />
-      <div className="flex gap-5 items-center">
+      <div className="flex items-center gap-5">
         <Image
-          className="rounded-full border-1 border-gray-400 object-cover h-[80px] w-[80px]"
+          className="h-[80px] w-[80px] rounded-full border-1 border-gray-400 object-cover"
           width={80}
           height={80}
           alt={selectedCompany?.name || ""}
@@ -51,11 +43,11 @@ export default function CompanyDetails({ selectedCompany }: Props) {
           {4.6}
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-4 mt-5">
-        {/* {selectedCompany?.services.map((service, index) => (
+      <div className="mt-5 grid grid-cols-3 gap-4">
+        {services.map((service, index) => (
           <ProductCard onClick={handleOpeningModalWithId} service={service} key={service.name} />
-        ))} */}
+        ))}
       </div>
     </div>
-  );
+  )
 }

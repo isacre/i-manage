@@ -2,7 +2,7 @@ import React from "react"
 import Row from "@/components/table/row"
 import { BookingStatus, BookingType } from "@/stores/booking-store"
 import Button from "@/components/formFields/button"
-import { updateBooking } from "@/services/admin/booking"
+import { updateBooking } from "@/services/company/booking"
 import { toast } from "react-toastify"
 
 export default function Booking({ booking }: { booking: BookingType }) {

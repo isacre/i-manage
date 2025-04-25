@@ -1,7 +1,7 @@
 "use client"
 import FormFields from "@/components/formFields"
 import Modal from "@/components/modal"
-import { updateEmployee } from "@/services/admin/employee"
+import { updateEmployee } from "@/services/company/employee"
 import { EmployeeType, useEmployeeStore } from "@/stores/employee-store"
 import { useUserStore } from "@/stores/user-store"
 import { zodResolver } from "@hookform/resolvers/zod"

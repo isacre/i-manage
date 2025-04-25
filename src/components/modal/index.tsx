@@ -53,20 +53,16 @@ export default function Modal({ isOpen, setOpen, title, children }: ModalProps) 
   return (
     <div className={s.wrapperStyle} aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div className={s.backgroundStyle} onClick={() => setOpen(false)} />
-      <div className={s.flexContainerStyle}>
-        <div ref={modalRef} className={s.modalStyle}>
-          <div className={s.modalContentStyle}>
-            <div className={s.modalHeaderStyle}>
-              <h3 className={s.modalTitleStyle} id="modal-title">
-                {title}
-              </h3>
-              <button onClick={() => setOpen(false)} className={s.modalCloseButtonStyle}>
-                <IoClose size={24} />
-              </button>
-            </div>
-            <div className="mt-2">{children}</div>
-          </div>
+      <div className={s.modalContentStyle}>
+        <div className={s.modalHeaderStyle}>
+          <h3 className={s.modalTitleStyle} id="modal-title">
+            {title}
+          </h3>
+          <button onClick={() => setOpen(false)} className={s.modalCloseButtonStyle}>
+            <IoClose size={24} />
+          </button>
         </div>
+        <div className="mt-2">{children}</div>
       </div>
     </div>
   )

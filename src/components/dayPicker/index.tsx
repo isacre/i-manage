@@ -1,56 +1,57 @@
-"use client";
-import useBookingDays from "@/hooks/useBookingDays";
-import { useCompanyStore } from "@/stores/company-store";
-import { SetStateFn } from "@/types";
-import dayjs from "dayjs";
+"use client"
+import useBookingDays from "@/hooks/useBookingDays"
+import { useCompanyStore } from "@/stores/company-store"
+import { SetStateFn } from "@/types"
+import dayjs from "dayjs"
+import * as s from "./styles"
 
 interface Props {
-  setMonthLabel: SetStateFn<string>;
-  clickedDate: dayjs.Dayjs | undefined;
-  setClickedDate: SetStateFn<dayjs.Dayjs | undefined>;
+  setMonthLabel: SetStateFn<string>
+  clickedDate: dayjs.Dayjs | undefined
+  setClickedDate: SetStateFn<dayjs.Dayjs | undefined>
 }
 
 export default function DayPicker({ setMonthLabel, clickedDate, setClickedDate }: Props) {
-  const { currentWeek, handleNextWeek, handlePrevWeek, weeks } = useBookingDays({ setMonthLabel });
-  const { company } = useCompanyStore();
+  const { currentWeek, handleNextWeek, handlePrevWeek, weeks } = useBookingDays({ setMonthLabel })
+  const { company } = useCompanyStore()
 
-  const dayVariants = {
-    today: "border border-black text-blue-500",
-    non_selected: "border text-black",
-    selected: "bg-blue-500 text-white",
-    disabled: "text-gray-400 cursor-default",
-  };
+  const handleDayClick = (weekdayIndex: number, date: dayjs.Dayjs) => {
+    if (company?.work_days.indexOf(weekdayIndex) !== -1) {
+      setClickedDate(date)
+    }
+  }
+
+  const getDayCardClassName = (date: dayjs.Dayjs, weekdayIndex: number) => {
+    const isToday = dayjs(date).format("DD/MM/YYYY") === dayjs().format("DD/MM/YYYY")
+    const isSelected = dayjs(date).format("DD/MM/YYYY") === dayjs(clickedDate).format("DD/MM/YYYY")
+    const isDisabled = company?.work_days.indexOf(weekdayIndex) === -1
+
+    return `${s.dayCardStyle} ${isToday ? s.dayVariants.today : ""} ${isDisabled ? s.dayVariants.disabled : ""} ${
+      isSelected ? s.dayVariants.selected : ""
+    }`
+  }
 
   return (
-    <div className="flex items-center gap-4 w-full justify-between">
-      <button className="cursor-pointer p-2 border rounded text-center" onClick={handlePrevWeek}>
+    <div className={s.wrapperStyle}>
+      <button className={s.navigationButtonStyle} onClick={handlePrevWeek}>
         &lt;
       </button>
-      <div className="flex gap-1 overflow-auto  w-full h-full">
+      <div className={s.daysContainerStyle}>
         {weeks[currentWeek]?.map(({ day, weekday, weekdayIndex, date }) => (
           <div
-            onClick={() => {
-              if (company?.work_days.indexOf(weekdayIndex) !== -1) {
-                setClickedDate(date);
-              }
-            }}
             key={day}
-            className={`flex flex-col text-center items-center justify-center w-[90px] h-[90px] rounded text-black cursor-pointer border ${
-              dayjs(date).format("DD/MM/YYYY") === dayjs().format("DD/MM/YYYY") && dayVariants.today
-            } 
-            ${company?.work_days.indexOf(weekdayIndex) === -1 && dayVariants.disabled} ${
-              dayjs(date).format("DD/MM/YYYY") === dayjs(clickedDate).format("DD/MM/YYYY") && dayVariants.selected
-            }`}
+            onClick={() => handleDayClick(weekdayIndex, date)}
+            className={getDayCardClassName(date, weekdayIndex)}
           >
-            <div>{weekday.substring(0, 3)}</div>
-            <div>{day}</div>
-            {company?.work_days.indexOf(weekdayIndex) !== -1 && <div className="w-[18px] h-[5px] bg-green-600 rounded mt-2 border border-white" />}
+            <span>{weekday.substring(0, 3)}</span>
+            <span>{day}</span>
+            {company?.work_days.indexOf(weekdayIndex) !== -1 && <div className={s.availableIndicatorStyle} />}
           </div>
         ))}
       </div>
-      <button className="cursor-pointer p-2 border rounded text-center" onClick={handleNextWeek}>
+      <button className={s.navigationButtonStyle} onClick={handleNextWeek}>
         &gt;
       </button>
     </div>
-  );
+  )
 }

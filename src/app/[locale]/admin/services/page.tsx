@@ -8,9 +8,10 @@ import DeleteServiceModal from "./modals/delete"
 import Table from "@/components/table"
 import { ServiceType } from "@/stores/service-store"
 import TableComponent from "@/components/table"
-
+import { useUserStore } from "@/stores/user-store"
 export default function Services() {
-  const { services, servicesLoading } = useServices()
+  const { user } = useUserStore()
+  const { services, servicesLoading } = useServices(user?.company?.id)
   const [addServiceIsOpen, setAddServiceIsOpen] = useState(false)
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)

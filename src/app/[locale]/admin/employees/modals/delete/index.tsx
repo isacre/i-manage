@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/modal"
-import { deleteEmployee } from "@/services/admin/employee"
+import { deleteEmployee } from "@/services/company/employee"
 import { useEmployeeStore } from "@/stores/employee-store"
 import { useUserStore } from "@/stores/user-store"
 import { Button } from "@radix-ui/themes"

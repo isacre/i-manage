@@ -2,7 +2,7 @@
 import FormFields from "@/components/formFields"
 import Modal from "@/components/modal"
 import useEmployees from "@/hooks/useEmployees"
-import { registerEmployee } from "@/services/admin/employee"
+import { registerEmployee } from "@/services/company/employee"
 import { useEmployeeStore } from "@/stores/employee-store"
 import { useUserStore } from "@/stores/user-store"
 import { Button } from "@radix-ui/themes"

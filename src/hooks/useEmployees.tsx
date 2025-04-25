@@ -1,31 +1,31 @@
-import { getEmployees } from "@/services/admin/employee";
-import { useEmployeeStore } from "@/stores/employee-store";
-import { useUserStore } from "@/stores/user-store";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { getEmployees } from "@/services/company/employee"
+import { useEmployeeStore } from "@/stores/employee-store"
+import { useUserStore } from "@/stores/user-store"
+import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 export default function useEmployees() {
-  const { employees, update } = useEmployeeStore();
-  const { user } = useUserStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const { employees, update } = useEmployeeStore()
+  const { user } = useUserStore()
+  const [isLoading, setIsLoading] = useState(false)
   function fetch() {
     if (!user?.company?.id) {
-      return;
+      return
     }
-    setIsLoading(true);
+    setIsLoading(true)
     getEmployees(user.company.id)
       .then((employees) => {
-        update(employees);
-        setIsLoading(false);
+        update(employees)
+        setIsLoading(false)
       })
       .catch((err) => {
-        setIsLoading(false);
-        toast.error("Erro ao buscar funcionários");
-      });
+        setIsLoading(false)
+        toast.error("Erro ao buscar funcionários")
+      })
   }
   useEffect(() => {
-    fetch();
-  }, [user]);
+    fetch()
+  }, [user])
 
-  return { employees, employeesLoading: isLoading };
+  return { employees, employeesLoading: isLoading }
 }

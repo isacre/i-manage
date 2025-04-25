@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/modal"
-import { registerService } from "@/services/admin/services"
+import { registerService } from "@/services/company/services"
 import { useServiceStore } from "@/stores/service-store"
 import { useUserStore } from "@/stores/user-store"
 import { Button } from "@radix-ui/themes"

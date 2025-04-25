@@ -1,4 +1,4 @@
-import { getBookings } from "@/services/admin/booking"
+import { getBookings } from "@/services/company/booking"
 import { BookingStatus, useBookingStore } from "@/stores/booking-store"
 import { useCompanyStore } from "@/stores/company-store"
 import { useUserStore } from "@/stores/user-store"
