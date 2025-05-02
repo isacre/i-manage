@@ -1,24 +1,52 @@
 "use client"
 import DayPicker from "@/components/dayPicker"
+import HourPicker from "@/components/hourPicker"
 import Modal from "@/components/modal"
 import { useAvailableHours } from "@/hooks/useAvailableHours"
 import { SetStateFn, WeekDays } from "@/types"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
+import {} from "@/services/company/booking"
+import ButtonComponent from "@/components/formFields/button"
+import { BookingType } from "@/stores/booking-store"
+import { CompanyType } from "@/types"
+import { useUserStore } from "@/stores/user-store"
+import { useServiceStore } from "@/stores/service-store"
 interface Props {
   isOpen: boolean
   setOpen: SetStateFn<boolean>
   selectedProduct: number
-  companyWorkDays: WeekDays[]
+  selectedCompany: CompanyType | undefined
 }
 
-export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen, companyWorkDays }: Props) {
-  const [ClickedDate, setClickedDate] = useState<dayjs.Dayjs | undefined>(undefined)
+export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen, selectedCompany }: Props) {
+  const today = dayjs().tz("America/Sao_Paulo")
+  const [ClickedDate, setClickedDate] = useState<dayjs.Dayjs | undefined>(today)
   const { availableHours, isLoading } = useAvailableHours(selectedProduct, ClickedDate?.format("YYYY-MM-DD") || "")
   const [DateLabel, setDateLabel] = useState("")
+  const [selectedHour, setSelectedHour] = useState<string | undefined>(undefined)
+  const { services } = useServiceStore()
+  const { user } = useUserStore()
   const t = useTranslations("Months")
+
+  function handleSubmit() {
+    const service = services.find((service) => service.id === selectedProduct)
+    const datetime = dayjs(`${ClickedDate?.format("YYYY-MM-DD")}T${selectedHour}`).tz("America/Sao_Paulo", true) // `true` keeps local time as is
+    const Booking: BookingType = {
+      company: selectedCompany?.id || 0,
+      employees: [],
+      service: service?.id || 0,
+      user: user || undefined,
+      start_date: datetime.format("YYYY-MM-DD HH:mm:ssT-03:00"),
+      end_date: datetime.add(service?.max_duration || 0, "minutes").format("YYYY-MM-DD HH:mm:ssT-03:00"),
+    }
+    console.log(Booking)
+  }
+
+  useEffect(() => {
+    setSelectedHour(undefined)
+  }, [ClickedDate])
 
   return (
     <Modal isOpen={isOpen} setOpen={setOpen} title={`Agendar horário`}>
@@ -26,17 +54,13 @@ export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen, 
         {t(String(Number(DateLabel.split("-")[0])))} - {DateLabel.split("-")[1]}
       </h2>
       <DayPicker setMonthLabel={setDateLabel} clickedDate={ClickedDate} setClickedDate={setClickedDate} />
-      {isLoading ? (
-        <div className="m-auto flex h-[200px] items-center justify-center text-center">Carregando...</div>
-      ) : (
-        <div className="grid grid-cols-6 gap-1 p-5">
-          {availableHours.map((hour) => (
-            <div className="cursor-pointer rounded-md border p-2 text-center hover:bg-gray-100" key={hour}>
-              {hour}
-            </div>
-          ))}
-        </div>
-      )}
+      <HourPicker
+        loading={isLoading}
+        availableHours={availableHours}
+        selectedHour={selectedHour}
+        setSelectedHour={setSelectedHour}
+      />
+      <ButtonComponent disabled={!selectedHour} onClickFn={handleSubmit} text="Agendar" width="w-full" />
     </Modal>
   )
 }

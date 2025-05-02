@@ -24,7 +24,7 @@ export default function CompanyDetails({ selectedCompany }: Props) {
   return (
     <div>
       <ProductDetailsModal
-        companyWorkDays={selectedCompany?.work_days || []}
+        selectedCompany={selectedCompany}
         selectedProduct={ProductClicked}
         isOpen={ProductDetailsModalOpen}
         setOpen={setProductDetailsModal}

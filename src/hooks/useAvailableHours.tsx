@@ -6,6 +6,9 @@ export function useAvailableHours(selectedProduct: number, clickedDate: string) 
   const [isLoading, setIsLoading] = useState(false)
 
   function fetch() {
+    if (!clickedDate) {
+      return
+    }
     setIsLoading(true)
     getAvailableHours(selectedProduct, clickedDate)
       .then((data) => {
