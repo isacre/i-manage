@@ -7,7 +7,7 @@ export declare type BookingType = {
   id?: number
   start_date: string
   end_date: string
-  company: number
+  company: string
   user: UserType | undefined
   service: number
   employees: number[]

@@ -1,34 +1,45 @@
-import CategoryComponent from "@/components/category"
-import CompanyComponent from "@/components/company"
-import { Metadata } from "next"
-import { METADATA } from "./metadata"
-import { getTranslations } from "next-intl/server"
-import { Suspense } from "react"
-import { CompanyType } from "@/types"
-import { servicos } from "./mockData"
-
-export const metadata: Metadata = METADATA
-export default async function Home() {
-  const t = await getTranslations("Homepage")
-  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/company/`)
-  const companies: CompanyType[] = await data.json()
-
+"use client"
+import { useCompanyStore } from "@/stores/company-store"
+import dayjs from "dayjs"
+import { useTranslations } from "next-intl"
+import Image from "next/image"
+export default function Home() {
+  const t = useTranslations("DaysOfWeek")
+  const { company } = useCompanyStore()
+  const dayjsFormatDayOfWeek = (day: number) => {
+    return dayjs()
+      .day(day + 1)
+      .format("dddd")
+  }
+  const first_working_day = dayjsFormatDayOfWeek(company?.work_days[0] || 0)
+  const last_working_day = dayjsFormatDayOfWeek(company?.work_days[company?.work_days.length - 1] || 0)
+  const working_days = `${t(first_working_day).substring(0, 3)} - ${t(last_working_day).substring(0, 3)}`
+  const opens_at = company?.opens_at?.substring(0, 5)
+  const closes_at = company?.closes_at?.substring(0, 5)
+  if (!company) {
+    return <div>Empresa não encontrada</div>
+  }
   return (
-    <div className="flex flex-col gap-2 text-black">
-      <h1 className="text-[24px] font-bold">{t("categoryMessage")}</h1>
-      <div className="flex items-center gap-5">
-        {servicos.map((category) => (
-          <CategoryComponent key={category.text} image={category.image} text={category.text} />
-        ))}
-      </div>
-      <h2 className="text-[20px] font-medium">{t("topCompanyesMessage")}</h2>
-      <Suspense fallback={<div>Loading ...</div>}>
-        <div className="flex items-center gap-5">
-          {companies.map((company) => (
-            <CompanyComponent key={company.name} company={company} />
-          ))}
+    <div className="p-8">
+      <div className="h-[250px] w-full rounded-lg bg-gray-100" />
+      <div className="relative mt-10 flex flex-col gap-4">
+        <div className="absolute -top-15 left-5 flex items-center justify-center gap-4">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company?.image_url}`}
+            alt={company?.name}
+            width={150}
+            height={150}
+            className="rounded-full border border-gray-200 bg-white"
+          />
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl font-bold">{company?.name}</h1>
+            <p className="text-sm text-gray-500">{company?.address}</p>
+            <b className="text-sm text-gray-500">
+              {working_days} - {opens_at} - {closes_at}
+            </b>
+          </div>
         </div>
-      </Suspense>
+      </div>
     </div>
   )
 }

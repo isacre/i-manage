@@ -1,16 +1,16 @@
+import Sidebar from "@/components/sidebar"
+import "@/globals.css"
 import { routing } from "@/i18n/routing"
+import { Theme } from "@radix-ui/themes"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
-import { notFound, redirect } from "next/navigation"
+import { Poppins } from "next/font/google"
+import { redirect } from "next/navigation"
+import { Suspense } from "react"
 import { FaCalendar, FaUsers } from "react-icons/fa"
 import { MdOutlinePriceChange } from "react-icons/md"
 import { ToastContainer } from "react-toastify"
-import Sidebar from "@/components/sidebar"
-import { Theme } from "@radix-ui/themes"
-import { Poppins } from "next/font/google"
 import "react-toastify/dist/ReactToastify.css"
-import "@/globals.css"
-import { Suspense } from "react"
 
 const poppins = Poppins({
   subsets: ["latin"],

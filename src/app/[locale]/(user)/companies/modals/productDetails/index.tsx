@@ -34,7 +34,7 @@ export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen, 
     const service = services.find((service) => service.id === selectedProduct)
     const datetime = dayjs(`${ClickedDate?.format("YYYY-MM-DD")}T${selectedHour}`).tz("America/Sao_Paulo", true) // `true` keeps local time as is
     const Booking: BookingType = {
-      company: selectedCompany?.id || 0,
+      company: selectedCompany?.identifier || "",
       employees: [],
       service: service?.id || 0,
       user: user || undefined,

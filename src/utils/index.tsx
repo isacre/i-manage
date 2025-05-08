@@ -1,21 +1,21 @@
 export function getCookie(name: string) {
   if (typeof window !== "undefined") {
-    const value = `; ${document?.cookie}`;
-    const parts = value.split(`; ${name}=`);
+    const value = `; ${document?.cookie}`
+    const parts = value.split(`; ${name}=`)
     if (parts.length === 2) {
-      return parts.pop()?.split(";").shift();
+      return parts.pop()?.split(";").shift()
     }
   }
 }
 
 export function setCookie(name: string, value: string) {
   if (typeof window !== "undefined") {
-    document.cookie = `${name}=${value}; path=/; secure; max-age=3600`;
+    document.cookie = `${name}=${value}; path=/; secure; max-age=3600`
   }
 }
 
 export function deleteCookie(name: string) {
   if (typeof window !== "undefined") {
-    document.cookie = `${name}=; path=/; secure; max-age=0`;
+    document.cookie = `${name}=; path=/; secure; max-age=0`
   }
 }

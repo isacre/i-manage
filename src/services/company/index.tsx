@@ -8,4 +8,12 @@ const config: AxiosRequestConfig = {
   },
 }
 
+export async function getCompanyByDomain(domain: string) {
+  const response = await api.get(`/company/get_company_by_identifier/`, {
+    params: { identifier: domain },
+    headers: config.headers,
+  })
+  return response.data
+}
+
 export const api = axios.create(config)
