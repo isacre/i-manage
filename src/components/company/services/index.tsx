@@ -11,10 +11,9 @@ export default function ServicesComponent({ services, setBookingModalOpen, setSe
   const t = useTranslations()
   return (
     <div className="w-full">
-      <h2 className="mb-6 text-2xl font-bold">{t("Company.Services")}</h2>
       <div className="grid gap-4">
         {services.map((service) => (
-          <div key={service.id} className="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
+          <div key={service.id} className="flex items-center justify-between border-b border-gray-200 bg-white p-4">
             <div className="flex-1">
               <h3 className="text-lg font-semibold text-gray-800">{service.name}</h3>
               <p className="mt-1 text-gray-600">

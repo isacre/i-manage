@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <div>
       <Header menus={menus} />
-      <div className="m-auto w-[80vw] pt-10">{children}</div>
+      <div className="m-auto w-[80vw] pt-[70px]">{children}</div>
     </div>
   )
 }

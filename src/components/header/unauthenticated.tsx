@@ -5,6 +5,8 @@ import Link from "next/link"
 import ButtonComponent from "../formFields/button"
 import { useRouter } from "next/navigation"
 import { useCompanyStore } from "@/stores/company-store"
+import { ContainerStyles } from "./styles"
+import { WrapperStyles } from "./styles"
 
 export default function UnauthenticatedHeader() {
   const locale = useLocale()
@@ -15,25 +17,21 @@ export default function UnauthenticatedHeader() {
 
   return (
     <header>
-      <div className="align-center fixed z-1 flex h-[80px] w-full place-content-center justify-between border border-b-[#dcdcdc] bg-white px-50">
-        <div className="flex items-center gap-1">
-          <Link className="flex items-center gap-1" href={"/"}>
-            {company?.image_url && (
-              <Image
-                width={200}
-                height={200}
-                src={imageSrc}
-                alt="iManage logo"
-                className="h-[50px] w-[100px] object-contain"
-              />
-            )}
-          </Link>
-        </div>
-        <nav className="flex items-center gap-2">
-          <div className="flex items-center gap-2">
-            <ButtonComponent text="Entrar" onClickFn={() => router.push(`/${locale}/login`)} />
+      <div className={WrapperStyles}>
+        <div className={ContainerStyles}>
+          <div className="">
+            <Link className="" href={"/"}>
+              {company?.image_url && (
+                <Image src={imageSrc} width={50} height={50} alt={`${company.name} logo`} layout="intrinsic" />
+              )}
+            </Link>
           </div>
-        </nav>
+          <nav className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              <ButtonComponent text="Entrar" onClickFn={() => router.push(`/${locale}/login`)} />
+            </div>
+          </nav>
+        </div>
       </div>
     </header>
   )

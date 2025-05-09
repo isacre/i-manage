@@ -20,10 +20,9 @@ export default function CompanyProfileComponent({ company }: Props) {
   const last_working_day = dayjsFormatDayOfWeek(work_days[work_days.length - 1] || 0)
   const working_days = `${t(first_working_day).substring(0, 3)} - ${t(last_working_day).substring(0, 3)}`
   return (
-    <div className="mb-30">
-      <div className="h-[250px] w-full rounded-lg bg-gray-100" />
-      <div className="relative mt-10 flex flex-col gap-4">
-        <div className="absolute -top-15 left-5 flex items-center justify-center gap-4">
+    <div className="">
+      <div className="flex flex-col gap-4">
+        <div className="justify-left flex items-center gap-4">
           <Image
             src={`${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${image_url}`}
             alt={name}

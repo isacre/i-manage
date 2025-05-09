@@ -4,7 +4,6 @@ import { useUserStore } from "@/stores/user-store"
 import { Menu } from "@/types"
 import { deleteCookie, getCookie } from "@/utils"
 import { useEffect } from "react"
-import AuthenticatedHeader from "./authenticated"
 import UnauthenticatedHeader from "./unauthenticated"
 interface Props {
   menus: Menu[]
@@ -31,5 +30,9 @@ export default function Header({ menus }: Props) {
     handleGetUserData()
   }, [access])
 
-  return <div>{user === null ? <UnauthenticatedHeader /> : <AuthenticatedHeader menus={menus} />}</div>
+  return (
+    <div>
+      <UnauthenticatedHeader />{" "}
+    </div>
+  )
 }
