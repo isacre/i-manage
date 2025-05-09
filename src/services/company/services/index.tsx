@@ -32,3 +32,8 @@ export async function getAvailableHours(service: number, date: string): Promise<
   const response = await api.get(`/booking/${service}/getAvailableHours/`, { params: { date } })
   return response.data
 }
+
+export async function getCompanyServices(identifier: string) {
+  const response = await api.get(`/service/get_services_by_identifier/`, { params: { identifier } })
+  return response.data
+}

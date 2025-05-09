@@ -45,10 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         ],
       },
     }
-  } catch (err) {
-    const newUrl = `/${routing.defaultLocale}/404`
-    redirect(newUrl)
-  }
+  } catch (err) {}
 }
 export default async function RootLayout({
   children,
@@ -66,7 +63,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={poppins.className}>
       <body>
-        <Theme accentColor="crimson" grayColor="sand" radius="large" scaling="95%">
+        <Theme appearance="light">
           <NextIntlClientProvider messages={messages}>
             <ToastContainer />
             <div>{children}</div>

@@ -1,14 +1,18 @@
 import { getAvailableHours } from "@/services/company/services"
 import { useEffect, useState } from "react"
 
-export function useAvailableHours(selectedProduct: number, clickedDate: string) {
+export function useAvailableHours(selectedProduct: number | null, clickedDate: string) {
   const [availableHours, setAvailableHours] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   function fetch() {
+    if (selectedProduct === null) {
+      return
+    }
     if (!clickedDate) {
       return
     }
+    console.log(selectedProduct, clickedDate)
     setIsLoading(true)
     getAvailableHours(selectedProduct, clickedDate)
       .then((data) => {

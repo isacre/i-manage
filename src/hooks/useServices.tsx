@@ -1,10 +1,10 @@
-import { getServices } from "@/services/company/services"
+import { getCompanyServices } from "@/services/company/services"
 import { useServiceStore } from "@/stores/service-store"
 import { useUserStore } from "@/stores/user-store"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
-export default function useServices(companyId: number | undefined) {
+export default function useServices(companyId: string | undefined) {
   const { services, update } = useServiceStore()
   const { user } = useUserStore()
   const [isLoading, setIsLoading] = useState(false)
@@ -13,7 +13,7 @@ export default function useServices(companyId: number | undefined) {
       return
     }
     setIsLoading(true)
-    getServices(companyId)
+    getCompanyServices(companyId)
       .then((services) => {
         update(services)
         setIsLoading(false)

@@ -2,7 +2,7 @@
 import logo from "@/assets/logo/imanagelogo.png"
 import useUserData from "@/hooks/useUserData"
 import { deleteCookie } from "@/utils"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { CiLogout } from "react-icons/ci"
@@ -13,6 +13,7 @@ type Menu = { icon: React.ReactNode; label: string; link: string }
 
 export default function Sidebar({ menus }: { menus: Menu[] }) {
   const locale = useLocale()
+  const t = useTranslations("ADMIN")
   const router = useRouter()
   useUserData()
 
@@ -34,7 +35,7 @@ export default function Sidebar({ menus }: { menus: Menu[] }) {
       </nav>
       <button className={s.logoutButtonStyles} onClick={handleLogout}>
         <CiLogout size={26} />
-        <span className="font-medium">Sair</span>
+        <span className="font-medium">{t("Exit")}</span>
       </button>
     </div>
   )

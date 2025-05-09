@@ -13,28 +13,30 @@ import { BookingType } from "@/stores/booking-store"
 import { CompanyType } from "@/types"
 import { useUserStore } from "@/stores/user-store"
 import { useServiceStore } from "@/stores/service-store"
+import { useCompanyStore } from "@/stores/company-store"
 interface Props {
   isOpen: boolean
   setOpen: SetStateFn<boolean>
-  selectedProduct: number
-  selectedCompany: CompanyType | undefined
+  selectedServiceId: number | null
 }
 
-export default function ProductDetailsModal({ isOpen, selectedProduct, setOpen, selectedCompany }: Props) {
+export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Props) {
+  console.log(selectedServiceId)
   const today = dayjs().tz("America/Sao_Paulo")
   const [ClickedDate, setClickedDate] = useState<dayjs.Dayjs | undefined>(today)
-  const { availableHours, isLoading } = useAvailableHours(selectedProduct, ClickedDate?.format("YYYY-MM-DD") || "")
+  const { availableHours, isLoading } = useAvailableHours(selectedServiceId, ClickedDate?.format("YYYY-MM-DD") || "")
   const [DateLabel, setDateLabel] = useState("")
   const [selectedHour, setSelectedHour] = useState<string | undefined>(undefined)
   const { services } = useServiceStore()
   const { user } = useUserStore()
+  const { company } = useCompanyStore()
   const t = useTranslations("Months")
 
   function handleSubmit() {
-    const service = services.find((service) => service.id === selectedProduct)
+    const service = services.find((service) => service.id === selectedServiceId)
     const datetime = dayjs(`${ClickedDate?.format("YYYY-MM-DD")}T${selectedHour}`).tz("America/Sao_Paulo", true) // `true` keeps local time as is
     const Booking: BookingType = {
-      company: selectedCompany?.identifier || "",
+      company: company?.identifier || "",
       employees: [],
       service: service?.id || 0,
       user: user || undefined,

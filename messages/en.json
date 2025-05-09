@@ -2,8 +2,9 @@
     "Header": {
     "cartText": "Cart",
     "register": "Register",
-    "login": "Login"
-    },
+    "login": "Login"},
+
+    "Loading": "Loading",
     "login": {
         "user": "User",
         "company": "Company",
@@ -33,17 +34,6 @@
         "register": "Register User",
         "success": "User registered successfully, redirecting to login page",
         "error": "Error registering user"
-    },
-    "Homepage": {
-    "categoryMessage": "Need practical and organized help? Check out the categories",
-    "topCompanyesMessage": "Famous in iService"
-    },
-    "Categories": {
-    "electric": "Electric",
-    "mechanic": "Mechanical",
-    "health": "Health",
-    "home": "Home",
-    "services": "Services"
     },
     "Availability": {
         "available": "Available",
@@ -80,5 +70,75 @@
         "Thursday": "Thursday",
         "Friday": "Friday",
         "Saturday": "Saturday"
+    },
+    "ADMIN": {
+        "Bookings": {
+            "title": "Bookings",
+            "tabs": {
+                "pending": "Pending",
+                "all": "All",
+                "confirmed": "Confirmed",
+                "cancelled": "Cancelled"
+            },
+            "headers": {
+                "hour": "Hour",
+                "service": "Service",
+                "accept": "Accept",
+                "reject": "Reject"
+            }
+        },
+        "Employees": {
+            "title": "Employees",
+            "button": "Add Employee",
+            "headers": {
+                "name": "Name",
+                "email": "Email",
+                "actions": "Actions"
+            },
+            "actions": {
+                "edit": "Edit",
+                "delete": "Delete"
+            },
+            "modals": {
+                "register": {
+                    "title": "Register Employee",
+                    "name": "Name",
+                    "email": "Email",
+                    "cancel": "Cancel",
+                    "submit": "Submit"
+                },
+                "edit": {
+                    "title": "Edit Employee",
+                    "name": "Name",
+                    "email": "Email",
+                    "cancel": "Cancel",
+                    "submit": "Submit"
+                },
+                "delete": {
+                    "title": "Delete Employee",
+                    "name": "Name",
+                    "cancel": "Cancel",
+                    "submit": "Submit",
+                    "success": "Employee deleted successfully",
+                    "error": "Error deleting employee",
+                    "message": "Are you sure you want to delete the employee {name}? This action cannot be undone."                }
+            }
+        },
+        "Services": {
+            "title": "Services",
+            "button": "Add Service",
+            "headers": {
+                "name": "Name",
+                "price": "Price",
+                "actions": "Actions"
+            }
+        },
+        "Exit": "Logout"
+        
+    },
+    "NoResults": "No results found",
+    "Company": {
+        "Services": "Our Services"
     }
+    
 }

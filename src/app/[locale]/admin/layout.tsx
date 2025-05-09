@@ -2,7 +2,7 @@ import Sidebar from "@/components/sidebar"
 import "@/globals.css"
 import { routing } from "@/i18n/routing"
 import { Theme } from "@radix-ui/themes"
-import { NextIntlClientProvider } from "next-intl"
+import { NextIntlClientProvider, useTranslations } from "next-intl"
 import { getMessages } from "next-intl/server"
 import { Poppins } from "next/font/google"
 import { redirect } from "next/navigation"
@@ -18,51 +18,36 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 })
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
   params: Promise<{ locale: string }>
 }) {
-  const { locale } = await params
+  const t = useTranslations("ADMIN")
   const Menus = [
     {
-      label: "Agendamentos",
+      label: t("Bookings.title"),
       link: "/admin/bookings",
       icon: <FaCalendar />,
     },
     {
-      label: "Funcionários",
+      label: t("Employees.title"),
       link: "/admin/employees",
       icon: <FaUsers />,
     },
     {
-      label: "Serviços",
+      label: t("Services.title"),
       link: "/admin/services",
       icon: <MdOutlinePriceChange />,
     },
   ]
 
-  if (!routing.locales.includes(locale as any)) {
-    redirect("/")
-  }
-  const messages = await getMessages()
   return (
-    <html lang={locale} className={poppins.className}>
-      <body>
-        <Theme>
-          <NextIntlClientProvider messages={messages}>
-            <ToastContainer />
-            <div className="flex">
-              <Sidebar menus={Menus} />
-              <div className="flex h-full w-full flex-col">
-                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-              </div>
-            </div>
-          </NextIntlClientProvider>
-        </Theme>
-      </body>
-    </html>
+    <div className="flex">
+      <Sidebar menus={Menus} />
+      <div className="flex h-full w-full flex-col">{children}</div>
+    </div>
   )
 }

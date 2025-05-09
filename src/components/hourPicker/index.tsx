@@ -9,10 +9,9 @@ interface Props {
 export default function HourPicker({ loading, availableHours, selectedHour, setSelectedHour }: Props) {
   return (
     <>
-      {loading ? (
-        <div className="m-auto flex h-[200px] items-center justify-center text-center">Carregando...</div>
-      ) : (
-        <div className="grid grid-cols-6 gap-1 p-5">
+      {loading && <div className="m-auto flex h-[200px] items-center justify-center text-center">Carregando...</div>}
+      {!loading && availableHours.length > 0 && (
+        <div className="my-2 grid max-h-[400px] grid-cols-6 gap-1 overflow-y-auto p-5">
           {availableHours.map((hour) => (
             <div
               className={`cursor-pointer rounded-md border p-2 text-center hover:bg-red-600 hover:text-white ${
@@ -25,6 +24,9 @@ export default function HourPicker({ loading, availableHours, selectedHour, setS
             </div>
           ))}
         </div>
+      )}
+      {!loading && availableHours.length === 0 && (
+        <div className="m-auto flex h-[200px] items-center justify-center text-center">Nenhum horário disponível</div>
       )}
     </>
   )

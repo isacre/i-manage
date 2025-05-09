@@ -1,54 +1,44 @@
 {
     "Header": {
     "cartText": "Carrinho",
-    "register": "Criar conta",
-    "login": "Fazer Login"
-    },  
+    "register": "Cadastrar",
+    "login": "Entrar"
+},
+"Loading": "Carregando",
     "login": {
         "user": "Usuário",
         "company": "Empresa",
         "email": "Email",
         "password": "Senha",
-        "submit": "Entrar",
-        "error": "Algo deu errado, verifique suas credenciais e tente novamente"
+        "submit": "Enviar",
+        "error": "Algo deu errado, por favor, verifique suas credenciais e tente novamente"
     },
     "register_company": {
-        "title": "Registre sua empresa",
+        "title": "Cadastre sua empresa",
         "name": "Nome da empresa",
         "description": "Descrição",
         "phone": "Telefone",
         "category": "Categoria",
         "email": "Email",
         "password": "Senha",
-        "register": "Registrar Empresa",
-        "success": "Empresa registrada com sucesso, redirecionando para a página de login",
-        "error": "Erro ao registrar empresa"
+        "register": "Cadastrar empresa",
+        "success": "Empresa cadastrada com sucesso, redirecionando para a página de login",
+        "error": "Erro ao cadastrar empresa"
     },
     "register_user": {
-        "title": "Registre-se como Usuário",
+        "title": "Cadastre-se como usuário",
         "name": "Nome",
         "phone": "Telefone",
         "email": "Email",
         "password": "Senha",
-        "register": "Registrar Usuário",
-        "success": "Usuário registrado com sucesso, redirecionando para a página de login",
-        "error": "Erro ao registrar usuário"
-    },
-    "Homepage": {
-    "categoryMessage": "Precisa de ajuda de forma prática e organizada?, Conheça as categorias",
-    "topCompanyesMessage": "Famosos no iService"
-    },
-    "Categories": {
-    "electric": "Elétrica",
-    "mechanic": "Mecânica",
-    "health": "Saúde",
-    "home": "Lar",
-    "services": "Serviços"
+        "register": "Cadastrar usuário",
+        "success": "Usuário cadastrado com sucesso, redirecionando para a página de login",
+        "error": "Erro ao cadastrar usuário"
     },
     "Availability": {
         "available": "Disponível",
         "unavailable": "Indisponível",
-        "bookable": "Reservar Horário"
+        "bookable": "Reserve uma hora"    
     },
     "Location": {
         "local": "presencial",
@@ -59,19 +49,19 @@
         "full_name": "reais"
     },
     "Months": {
-        "0": "Janeiro",
-        "1": "Fevereiro",
-        "2": "Março",
-        "3": "Abril",
-        "4": "Maio",
-        "5": "Junho",
-        "6": "Julho",
-        "7": "Agosto",
-        "8": "Setembro",
-        "9": "Outubro",
-        "10": "Novembro",
-        "11": "Dezembro"
-    },
+          "0": "Janeiro",
+          "1": "Fevereiro",
+          "2": "Março",
+          "3": "Abril",
+          "4": "Maio",
+          "5": "Junho",
+          "6": "Julho",
+          "7": "Agosto",
+          "8": "Setembro",
+          "9": "Outubro",
+          "10": "Novembro",
+          "11": "Dezembro"
+},
     "DaysOfWeek": {
         "Sunday": "Domingo",
         "Monday": "Segunda-feira",
@@ -80,5 +70,75 @@
         "Thursday": "Quinta-feira",
         "Friday": "Sexta-feira",
         "Saturday": "Sábado"
+    },
+    "ADMIN": {
+        "Bookings": {
+            "title": "Agendamentos",
+            "tabs": {
+                "pending": "Pendente",
+                "all": "Todos",
+                "confirmed": "Confirmado",
+                "cancelled": "Cancelado"
+            },
+            "headers": {
+                "hour": "Hora",
+                "service": "Serviço",
+                "accept": "Aceitar",
+                "reject": "Rejeitar"
+            }
+        },
+        "Employees": {
+            "title": "Funcionários",
+            "button": "Adicionar funcionário",
+            "headers": {
+                "name": "Nome",
+                "email": "Email",
+                "actions": "Ações"
+            },
+            "actions": {
+                "edit": "Editar",
+                "delete": "Deletar"
+            },
+            "modals": {
+                "register": {
+                    "title": "Cadastrar funcionário",
+                    "name": "Nome",
+                    "email": "Email",
+                    "cancel": "Cancelar",
+                    "submit": "Enviar"
+                },
+                "edit": {
+                    "title": "Editar funcionário",
+                    "name": "Nome",
+                    "email": "Email",
+                    "cancel": "Cancelar",
+                    "submit": "Enviar"
+                },
+                "delete": {
+                    "title": "Deletar funcionário",
+                    "name": "Nome",
+                    "cancel": "Cancelar",
+                    "submit": "Enviar",
+                    "success": "Funcionário deletado com sucesso",
+                    "error": "Erro ao deletar funcionário",
+                    "message": "Tem certeza que deseja deletar o funcionário {name}? Esta ação não pode ser revertida."                }
+            }
+        },
+        "Services": {
+            "title": "Serviços",
+            "button": "Adicionar serviço",
+            "headers": {
+                "name": "Nome",
+                "price": "Preço",
+                "actions": "Ações"
+            }
+        },
+        "Exit": "Sair"
+        
+    },
+    "NoResults": "Nenhum resultado encontrado",
+    "Company": {
+        "Services": "Nossos Serviços"
     }
+    
 }

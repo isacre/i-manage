@@ -6,10 +6,11 @@ import RegisterEmployeeModal from "./modals/register"
 import EditEmployeeModal from "./modals/edit"
 import DeleteEmployeeModal from "./modals/delete"
 import useEmployees from "@/hooks/useEmployees"
-import Table from "@/components/table"
 import TableComponent from "@/components/table"
+import { useTranslations } from "next-intl"
 
 export default function Employees() {
+  const t = useTranslations("ADMIN")
   const { employees, employeesLoading } = useEmployees()
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false)
   const [selectedEmployee, setSelectedEmployee] = useState<EmployeeType | null>(null)
@@ -33,13 +34,13 @@ export default function Employees() {
       <DeleteEmployeeModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} employee={selectedEmployee} />
       <TableComponent.Root>
         <TableComponent.TopRow
-          title="Funcionários"
-          actionButton={[{ label: "Cadastrar Funcionário", onClick: () => setIsRegisterModalOpen(true) }]}
+          title={t("Employees.title")}
+          actionButton={[{ label: t("Employees.button"), onClick: () => setIsRegisterModalOpen(true) }]}
         />
 
         <TableComponent.Grid
           itemsAmount={employees.length}
-          headers={["Nome", "Telefone", "Ações"]}
+          headers={[t("Employees.headers.name"), t("Employees.headers.email"), t("Employees.headers.actions")]}
           loading={employeesLoading}
           gridTemplateColumns="1fr 1fr 0.25fr"
         >

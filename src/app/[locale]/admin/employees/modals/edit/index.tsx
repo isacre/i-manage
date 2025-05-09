@@ -5,6 +5,7 @@ import { updateEmployee } from "@/services/company/employee"
 import { EmployeeType, useEmployeeStore } from "@/stores/employee-store"
 import { useUserStore } from "@/stores/user-store"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
@@ -19,7 +20,7 @@ interface Props {
 export default function EditEmployeeModal({ isOpen, setOpen, employee }: Props) {
   const schema = z.object({
     name: z.string().min(1, { message: "Nome é obrigatório" }),
-    phone: z.string().min(1, { message: "Telefone é obrigatório" }),
+    email: z.string().email({ message: "Email inválido" }),
   })
   const {
     register,
@@ -29,7 +30,7 @@ export default function EditEmployeeModal({ isOpen, setOpen, employee }: Props) 
   } = useForm({ resolver: zodResolver(schema) })
   const editEmployee = useEmployeeStore((state) => state.update)
   const user = useUserStore((state) => state.user)
-
+  const t = useTranslations("ADMIN")
   function onSubmit(data: any) {
     if (!user?.company?.id || !employee) return
 
@@ -55,19 +56,29 @@ export default function EditEmployeeModal({ isOpen, setOpen, employee }: Props) 
 
   if (!employee) return null
   return (
-    <Modal isOpen={isOpen} setOpen={setOpen} title="Editar Funcionário">
+    <Modal isOpen={isOpen} setOpen={setOpen} title={t("Employees.modals.edit.title")}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
-        <FormFields.TextField id="name" label="Nome do Funcionário" register={register} error={errors.name?.message} />
-        <FormFields.TextField id="phone" label="Telefone" register={register} error={errors.phone?.message} />
+        <FormFields.TextField
+          id="name"
+          label={t("Employees.modals.edit.name")}
+          register={register}
+          error={errors.name?.message}
+        />
+        <FormFields.TextField
+          id="email"
+          label={t("Employees.modals.edit.email")}
+          register={register}
+          error={errors.email?.message}
+        />
         <div className="flex justify-end space-x-4 pt-4">
           <FormFields.Button
             background="bg-transparent"
             color="text-gray-500"
             onClickFn={() => setOpen(false)}
-            text="Cancelar"
+            text={t("Employees.modals.edit.cancel")}
             backgroundHover={false}
           />
-          <FormFields.Button text="Salvar Alterações" onClickFn={handleSubmit(onSubmit)} />
+          <FormFields.Button text={t("Employees.modals.edit.submit")} onClickFn={handleSubmit(onSubmit)} />
         </div>
       </form>
     </Modal>

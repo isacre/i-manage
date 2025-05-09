@@ -12,7 +12,7 @@ export default function Employee({ employee, onEdit, onDelete }: EmployeeProps) 
   return (
     <Row gridTemplateColumns="1fr 1fr 0.25fr">
       <div>{employee.name}</div>
-      <div>{employee.phone}</div>
+      <div>{employee.email}</div>
       <RowActions onEdit={onEdit} onDelete={onDelete} />
     </Row>
   )

@@ -21,6 +21,7 @@ export declare type Roles = "OWNER" | "ADMIN" | "EMPLOYEE" | "CLIENT"
 export declare type ServiceLocation = "online" | "local"
 
 export declare type CompanyType = {
+  id: number
   name: string
   description: string
   phone: string
