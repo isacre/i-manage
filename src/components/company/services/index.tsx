@@ -19,6 +19,7 @@ export default function ServicesComponent({ services, setBookingModalOpen, setSe
               <p className="mt-1 text-gray-600">
                 {t("Currency.symbol")} {service.price}
               </p>
+              <p className="mt-1 text-gray-600">{service.max_duration} min</p>
             </div>
             <button
               className="cursor-pointer rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700"
