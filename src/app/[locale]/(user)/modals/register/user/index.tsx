@@ -1,6 +1,6 @@
 "use client"
-import FormFields from "@/components/formFields"
-import { registerUser } from "@/services/auth"
+import FormFields from "../../../../../../components/formFields"
+import { registerUser } from "../../../../../../services/auth"
 import { useLocale, useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"

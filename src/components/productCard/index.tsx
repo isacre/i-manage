@@ -1,5 +1,5 @@
-import { ServiceType } from "@/stores/service-store"
-import { Service } from "@/types"
+import { ServiceType } from "../../stores/service-store"
+import { Service } from "../../types"
 import { useTranslations } from "next-intl"
 import React from "react"
 

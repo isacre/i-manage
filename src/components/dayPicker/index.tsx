@@ -4,7 +4,6 @@ import { useCompanyStore } from "@/stores/company-store"
 import { SetStateFn } from "@/types"
 import dayjs from "dayjs"
 import * as s from "./styles"
-import { useEffect } from "react"
 
 interface Props {
   setMonthLabel: SetStateFn<string>

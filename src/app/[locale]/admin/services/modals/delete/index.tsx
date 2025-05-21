@@ -1,11 +1,11 @@
 "use client"
-import Modal from "@/components/modal"
-import { deleteService } from "@/services/company/services"
-import { useServiceStore } from "@/stores/service-store"
-import { useUserStore } from "@/stores/user-store"
+import Modal from "../../../../../../components/modal"
+import { deleteService } from "../../../../../../services/company/services"
+import { useServiceStore } from "../../../../../../stores/service-store"
+import { useUserStore } from "../../../../../../stores/user-store"
 import { Button } from "@radix-ui/themes"
 import { toast } from "react-toastify"
-import { ServiceType } from "@/stores/service-store"
+import { ServiceType } from "../../../../../../stores/service-store"
 
 interface DeleteServiceModalProps {
   isOpen: boolean

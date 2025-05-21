@@ -1,12 +1,12 @@
 "use client"
-import Modal from "@/components/modal"
-import { deleteEmployee } from "@/services/company/employee"
-import { useEmployeeStore } from "@/stores/employee-store"
-import { useUserStore } from "@/stores/user-store"
+import Modal from "../../../../../../components/modal"
+import { deleteEmployee } from "../../../../../../services/company/employee"
+import { useEmployeeStore } from "../../../../../../stores/employee-store"
+import { useUserStore } from "../../../../../../stores/user-store"
 import { Button } from "@radix-ui/themes"
 import { toast } from "react-toastify"
-import { EmployeeType } from "@/stores/employee-store"
-import FormFields from "@/components/formFields"
+import { EmployeeType } from "../../../../../../stores/employee-store"
+import FormFields from "../../../../../../components/formFields"
 import { useTranslations } from "next-intl"
 interface Props {
   isOpen: boolean

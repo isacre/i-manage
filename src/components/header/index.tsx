@@ -7,8 +7,10 @@ import { useEffect } from "react"
 import UnauthenticatedHeader from "./unauthenticated"
 interface Props {
   menus: Menu[]
+  setIsLoginModalOpen: (open: boolean) => void
+  setIsRegisterModalOpen: (open: boolean) => void
 }
-export default function Header({ menus }: Props) {
+export default function Header({ menus, setIsLoginModalOpen, setIsRegisterModalOpen }: Props) {
   const access = getCookie("access")
   const update = useUserStore((state) => state.update)
   const user = useUserStore((state) => state.user)
@@ -32,7 +34,10 @@ export default function Header({ menus }: Props) {
 
   return (
     <div>
-      <UnauthenticatedHeader />{" "}
+      <UnauthenticatedHeader
+        setIsLoginModalOpen={setIsLoginModalOpen}
+        setIsRegisterModalOpen={setIsRegisterModalOpen}
+      />{" "}
     </div>
   )
 }

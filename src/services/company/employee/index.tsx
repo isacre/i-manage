@@ -1,4 +1,4 @@
-import { EmployeeType } from "@/stores/employee-store"
+import { EmployeeType } from "../../../stores/employee-store"
 import { api } from ".."
 
 export async function registerEmployee(data: { name: string; phone: string }, company: number): Promise<EmployeeType> {

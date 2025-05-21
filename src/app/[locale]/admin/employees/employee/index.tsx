@@ -1,6 +1,6 @@
-import Row from "@/components/table/row"
-import RowActions from "@/components/table/rowActions"
-import { EmployeeType } from "@/stores/employee-store"
+import Row from "../../../../../components/table/row"
+import RowActions from "../../../../../components/table/rowActions"
+import { EmployeeType } from "../../../../../stores/employee-store"
 
 interface EmployeeProps {
   employee: EmployeeType

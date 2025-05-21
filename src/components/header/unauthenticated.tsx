@@ -4,11 +4,16 @@ import Image from "next/image"
 import Link from "next/link"
 import ButtonComponent from "../formFields/button"
 import { useRouter } from "next/navigation"
-import { useCompanyStore } from "@/stores/company-store"
+import { useCompanyStore } from "../../stores/company-store"
 import { ContainerStyles } from "./styles"
 import { WrapperStyles } from "./styles"
 
-export default function UnauthenticatedHeader() {
+interface Props {
+  setIsLoginModalOpen: (open: boolean) => void
+  setIsRegisterModalOpen: (open: boolean) => void
+}
+
+export default function UnauthenticatedHeader({ setIsLoginModalOpen, setIsRegisterModalOpen }: Props) {
   const locale = useLocale()
   const t = useTranslations("Header")
   const router = useRouter()
@@ -28,7 +33,7 @@ export default function UnauthenticatedHeader() {
           </div>
           <nav className="flex items-center gap-2">
             <div className="flex items-center gap-2">
-              <ButtonComponent text="Entrar" onClickFn={() => router.push(`/${locale}/login`)} />
+              <ButtonComponent text="Entrar" onClickFn={() => setIsLoginModalOpen(true)} />
             </div>
           </nav>
         </div>

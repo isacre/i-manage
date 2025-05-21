@@ -1,6 +1,6 @@
-import { UserType } from "@/stores/user-store"
-import { Category } from "@/types"
-import { getCookie } from "@/utils"
+import { UserType } from "../../stores/user-store"
+import { Category } from "../../types"
+import { getCookie } from "../../utils"
 import axios, { AxiosRequestConfig } from "axios"
 
 const config: AxiosRequestConfig = {

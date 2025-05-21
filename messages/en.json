@@ -139,6 +139,31 @@
     "NoResults": "No results found",
     "Company": {
         "Services": "Our Services"
+    },
+    "About": {
+       "header": "Smart bookings for <bold>smart businesses</bold>",
+       "description": "Organize schedules, services and teams in a practical way, integrated with Google Agenda, with payments and much more.",
+       "button": "Start Now",
+       "secondary_button": "See Demo",
+       "features": {
+        "booking": {
+            "title": "Dynamic Bookings",
+            "description": "Sincronize com o Google Agenda, evite conflitos e otimize seus horários automaticamente."
+        },
+        "team": {
+            "title": "Team Management",
+            "description": "Associate professionals to services, control availability and distribute appointments efficiently."
+        },
+        "payment": {
+            "title": "Integrated Payments",
+            "description": "Receive by sessions with Stripe, control commissions by professional and follow the revenue."
+        }
+    },
+    "footer": {
+        "title": "Ideal for small businesses and freelancers",
+        "subtitle": "iManage simplifies the management of bookings, from the registration of services to the check-in via QR Code. All this with a modern, responsive and accessible interface from anywhere.",
+        "button": "I want to test now"
     }
+}
     
 }

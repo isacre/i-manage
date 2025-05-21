@@ -1,10 +1,10 @@
 "use client"
-import { registerCompany } from "@/services/auth"
+import { registerCompany } from "../../../../../../services/auth"
 import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import FormFields from "@/components/formFields"
+import FormFields from "../../../../../../components/formFields"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 export default function RegisterCompany() {

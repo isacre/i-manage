@@ -13,6 +13,7 @@ interface Props {
   weight?: FontWeight
   width?: Width
   disabled?: boolean
+  colorHover?: TextColor
 }
 export default function ButtonComponent({
   onClickFn,
@@ -26,12 +27,13 @@ export default function ButtonComponent({
   backgroundHover = true,
   width = "w-fit",
   disabled = false,
+  colorHover = "text-red-600",
 }: Props) {
   return (
     <button
       disabled={disabled}
       onClick={() => onClickFn()}
-      className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "h-fit hover:bg-red-500" : ""} ${width} ${disabled ? "opacity-50" : ""}`}
+      className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "h-fit hover:bg-red-500" : ""} ${width} ${disabled ? "opacity-50" : ""} ${colorHover ? "hover:text-red-500" : ""} transition-all duration-200`}
     >
       {text}
     </button>

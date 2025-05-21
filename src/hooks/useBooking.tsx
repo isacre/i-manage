@@ -1,6 +1,5 @@
 import { getBookings } from "@/services/company/booking"
 import { BookingStatus, useBookingStore } from "@/stores/booking-store"
-import { useCompanyStore } from "@/stores/company-store"
 import { useUserStore } from "@/stores/user-store"
 import { useEffect, useState } from "react"
 

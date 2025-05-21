@@ -139,6 +139,31 @@
     "NoResults": "Nenhum resultado encontrado",
     "Company": {
         "Services": "Nossos Serviços"
+    },
+    "About": {
+       "header": "Agendamento inteligente para <bold>negócios inteligentes</bold>",
+       "description": "Organize horários, serviços e equipes de forma prática, integrada ao Google Agenda, com pagamentos e muito mais.",
+       "button": "Comece Agora",
+       "secondary_button": "Ver Demonstração",
+       "features": {
+        "booking": {
+            "title": "Agendamentos Dinâmicos",
+            "description": "Sincronize com o Google Agenda, evite conflitos e otimize seus horários automaticamente."
+        },
+        "team": {
+            "title": "Gestão de Equipes",
+            "description": "Associe profissionais aos serviços, controle disponibilidade e distribua atendimentos com eficiência."
+        },
+        "payment": {
+            "title": "Pagamentos Integrados",
+            "description": "Receba por sessões com Stripe, controle comissões por profissional e acompanhe o faturamento."
+        }
+    },
+    "footer": {
+        "title": "Ideal para pequenas empresas e profissionais autônomos",
+        "subtitle": "O iManage simplifica a gestão de agendamentos, desde o cadastro de serviços até o check-in via QR Code. Tudo isso com uma interface moderna, responsiva e acessível de qualquer lugar.",
+        "button": "Quero testar agora"
     }
-    
+}
+
 }

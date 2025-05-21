@@ -1,5 +1,5 @@
 "use client"
-import TabsComponent from "@/components/tabs"
+import TabsComponent from "../../../../../components/tabs"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
 import RegisterCompany from "./company"

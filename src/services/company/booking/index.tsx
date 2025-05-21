@@ -1,4 +1,4 @@
-import { BookingStatus, BookingType } from "@/stores/booking-store"
+import { BookingStatus, BookingType } from "../../../stores/booking-store"
 import { api } from ".."
 
 export async function createBooking(company: number, booking: BookingType) {

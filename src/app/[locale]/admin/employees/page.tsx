@@ -1,12 +1,12 @@
 "use client"
-import { EmployeeType } from "@/stores/employee-store"
+import { EmployeeType } from "../../../../stores/employee-store"
 import { useState } from "react"
 import Employee from "./employee"
 import RegisterEmployeeModal from "./modals/register"
 import EditEmployeeModal from "./modals/edit"
 import DeleteEmployeeModal from "./modals/delete"
-import useEmployees from "@/hooks/useEmployees"
-import TableComponent from "@/components/table"
+import useEmployees from "../../../../hooks/useEmployees"
+import TableComponent from "../../../../components/table"
 import { useTranslations } from "next-intl"
 
 export default function Employees() {

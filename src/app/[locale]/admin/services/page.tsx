@@ -1,14 +1,14 @@
 "use client"
-import useServices from "@/hooks/useServices"
+import useServices from "../../../../hooks/useServices"
 import { useState } from "react"
 import Service from "./service"
 import RegisterServiceModal from "./modals/register"
 import EditServiceModal from "./modals/edit"
 import DeleteServiceModal from "./modals/delete"
-import Table from "@/components/table"
-import { ServiceType } from "@/stores/service-store"
-import TableComponent from "@/components/table"
-import { useUserStore } from "@/stores/user-store"
+import Table from "../../../../components/table"
+import { ServiceType } from "../../../../stores/service-store"
+import TableComponent from "../../../../components/table"
+import { useUserStore } from "../../../../stores/user-store"
 export default function Services() {
   const { user } = useUserStore()
   const { services, servicesLoading } = useServices(user?.company?.id)

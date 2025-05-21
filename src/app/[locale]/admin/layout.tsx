@@ -1,16 +1,10 @@
-import Sidebar from "@/components/sidebar"
-import "@/globals.css"
-import { routing } from "@/i18n/routing"
-import { Theme } from "@radix-ui/themes"
-import { NextIntlClientProvider, useTranslations } from "next-intl"
-import { getMessages } from "next-intl/server"
+import Sidebar from "../../../components/sidebar"
+import { useTranslations } from "next-intl"
 import { Poppins } from "next/font/google"
-import { redirect } from "next/navigation"
-import { Suspense } from "react"
 import { FaCalendar, FaUsers } from "react-icons/fa"
 import { MdOutlinePriceChange } from "react-icons/md"
-import { ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+
+import "@/globals.css"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,13 +12,7 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 })
 
-export default function RootLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: Promise<{ locale: string }>
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations("ADMIN")
   const Menus = [
     {

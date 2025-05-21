@@ -1,7 +1,7 @@
-import { ServiceType } from "@/stores/service-store"
+import { ServiceType } from "../../../../../stores/service-store"
 import React from "react"
-import Row from "@/components/table/row"
-import RowActions from "@/components/table/rowActions"
+import Row from "../../../../../components/table/row"
+import RowActions from "../../../../../components/table/rowActions"
 
 interface ServiceProps {
   service: ServiceType

@@ -1,10 +1,10 @@
 "use client"
-import TableComponent from "@/components/table"
-import useBooking, { useBookingFilters } from "@/hooks/useBooking"
+import TableComponent from "../../../../components/table"
+import useBooking, { useBookingFilters } from "../../../../hooks/useBooking"
 import React, { useState } from "react"
 import Booking from "./booking"
-import TabsComponent from "@/components/tabs"
-import { BookingStatus } from "@/stores/booking-store"
+import TabsComponent from "../../../../components/tabs"
+import { BookingStatus } from "../../../../stores/booking-store"
 
 export default function Bookings() {
   const [FiltersOpen, setFiltersOpen] = useState(false)
