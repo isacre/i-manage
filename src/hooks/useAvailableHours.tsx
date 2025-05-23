@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 export function useAvailableHours(selectedProduct: number | null, clickedDate: string) {
   const [availableHours, setAvailableHours] = useState<string[]>([])
+  const [capableEmployees, setCapableEmployees] = useState<{ id: number; name: string; email: string }[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   function fetch() {
@@ -12,15 +13,14 @@ export function useAvailableHours(selectedProduct: number | null, clickedDate: s
     if (!clickedDate) {
       return
     }
-    console.log(selectedProduct, clickedDate)
     setIsLoading(true)
     getAvailableHours(selectedProduct, clickedDate)
       .then((data) => {
-        setAvailableHours(data)
+        setAvailableHours(data.available_slots)
+        setCapableEmployees(data.capable_employees)
         setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
         setAvailableHours([])
       })
   }
@@ -29,5 +29,5 @@ export function useAvailableHours(selectedProduct: number | null, clickedDate: s
     fetch()
   }, [selectedProduct, clickedDate])
 
-  return { availableHours, isLoading }
+  return { availableHours, capableEmployees, isLoading }
 }

@@ -2,6 +2,7 @@
 import useBookingDays from "@/hooks/useBookingDays"
 import { useCompanyStore } from "@/stores/company-store"
 import { SetStateFn } from "@/types"
+import { twMerge } from "tailwind-merge"
 import dayjs from "dayjs"
 import * as s from "./styles"
 
@@ -26,9 +27,12 @@ export default function DayPicker({ setMonthLabel, clickedDate, setClickedDate }
     const isSelected = dayjs(date).format("DD/MM/YYYY") === dayjs(clickedDate).format("DD/MM/YYYY")
     const isDisabled = company?.work_days.indexOf(weekdayIndex) === -1
 
-    return `${s.dayCardStyle} ${isToday ? s.dayVariants.today : ""} ${isDisabled ? s.dayVariants.disabled : ""} ${
-      isSelected ? s.dayVariants.selected : ""
-    }`
+    return twMerge(
+      s.dayCardStyle,
+      isToday ? s.dayVariants.today : "",
+      isSelected ? s.dayVariants.selected : s.dayVariants.non_selected,
+      isDisabled ? s.dayVariants.disabled : "",
+    )
   }
 
   return (

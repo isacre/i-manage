@@ -21,7 +21,7 @@ export default function Modal({ isOpen, setOpen, title, children }: ModalProps) 
             <IoClose size={24} />
           </button>
         </div>
-        <div className="bg-gray-200 p-4 shadow-inner">{children}</div>
+        <div className="max-h-[80vh] overflow-y-auto bg-gray-200 p-4 shadow-inner">{children}</div>
       </div>
     </div>
   )

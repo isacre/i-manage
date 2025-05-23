@@ -15,7 +15,7 @@ export default function HourPicker({ loading, availableHours, selectedHour, setS
           {availableHours.map((hour) => (
             <div
               className={`cursor-pointer rounded-md border p-2 text-center hover:bg-red-600 hover:text-white ${
-                selectedHour === hour ? "bg-red-600 text-white" : ""
+                selectedHour === hour ? "bg-red-600 text-white" : "bg-white text-black"
               }`}
               key={hour}
               onClick={() => setSelectedHour(hour)}

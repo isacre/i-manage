@@ -33,7 +33,7 @@ export default function ButtonComponent({
     <button
       disabled={disabled}
       onClick={() => onClickFn()}
-      className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "h-fit hover:bg-red-500" : ""} ${width} ${disabled ? "opacity-50" : ""} ${colorHover ? "hover:text-red-500" : ""} transition-all duration-200`}
+      className={`${weight} ${color} ${background} ${borderRadius} ${padding} ${cursor} ${backgroundHover ? "h-fit hover:bg-red-500 hover:text-white" : ""} ${width} ${disabled ? "opacity-50" : ""} ${colorHover ? "hover:text-red-500" : ""} transition-all duration-200`}
     >
       {text}
     </button>

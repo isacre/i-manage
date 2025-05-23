@@ -3,9 +3,9 @@ export const navigationButtonStyle = "cursor-pointer rounded border p-2 text-cen
 export const daysContainerStyle = "flex h-full w-full items-center justify-center gap-1 overflow-auto"
 export const dayVariants = {
   today: "border border-black text-red-500",
-  non_selected: "border text-black",
+  non_selected: "border text-black bg-white",
   selected: "bg-red-500 text-white",
-  disabled: "text-gray-400 cursor-default",
+  disabled: "text-gray-400 cursor-default bg-transparent",
 }
 export const dayCardStyle =
   "flex h-[90px] w-[90px] cursor-pointer flex-col items-center justify-center rounded border text-center text-black"
