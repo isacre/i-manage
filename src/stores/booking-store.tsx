@@ -17,13 +17,17 @@ export declare type BookingType = {
 }
 interface BookingStore {
   bookings: BookingType[]
+  openBookingId: number | undefined
   update: (bookings: BookingType[]) => void
   add: (booking: BookingType) => void
   remove: (id: number) => void
+  updateOpenBookingId: (id: number) => void
 }
 export const useBookingStore = create<BookingStore>((set) => ({
   bookings: [],
+  openBookingId: undefined,
   update: (bookings) => set(() => ({ bookings })),
   add: (booking) => set((state) => ({ bookings: [...state.bookings, booking] })),
   remove: (id: number) => set((state) => ({ bookings: state.bookings.filter((booking) => booking.id !== id) })),
+  updateOpenBookingId: (id: number) => set(() => ({ openBookingId: id })),
 }))

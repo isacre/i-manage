@@ -1,4 +1,5 @@
-import React from "react"
+"use client"
+import React, { useEffect, useState } from "react"
 import Button from "../formFields/button"
 import Image from "next/image"
 import userDefaultImage from "@/assets/defaultAvatar.jpg"
@@ -18,13 +19,23 @@ export default function EmployeePicker({
   setSelectingEmployee,
 }: Props) {
   const employeesList = [{ id: undefined, name: "Sem preferência", email: "" }, ...capableEmployees]
+  const [employeeName, setemployeeName] = useState("Sem Preferência")
+
+  useEffect(() => {
+    const employee = employeesList.find((employee) => employee.id === Number(selectedEmployee))
+    if (employee) {
+      setemployeeName(employee.name)
+    } else {
+      setemployeeName("Sem Preferência")
+    }
+  }, [selectedEmployee])
   return (
     <div className="relative mx-5">
       {!selectingEmployee ? (
         <div className="left-0 mt-4 flex h-[80px] items-center justify-between gap-2 rounded-lg bg-white px-4">
           <>
             <div className="text-sm text-gray-500">
-              <b>Funcionário:</b> {selectedEmployee || "Sem preferência"}
+              <b>Funcionário:</b> {employeeName}
             </div>
             <Button onClickFn={() => setSelectingEmployee(true)} text="Alterar" />
           </>
@@ -39,7 +50,7 @@ export default function EmployeePicker({
               )}
               key={`${employee.id}-${employee.name}`}
               onClick={() => {
-                setSelectedEmployee(employee.name)
+                setSelectedEmployee(employee.id?.toString() || undefined)
                 setSelectingEmployee(false)
               }}
             >

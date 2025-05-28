@@ -1,8 +1,8 @@
-import { BookingStatus, BookingType } from "../../../stores/booking-store"
+import { BookingStatus, BookingType } from "@/stores/booking-store"
 import { api } from ".."
 
-export async function createBooking(company: number, booking: BookingType) {
-  const response = await api.post(`booking/${company}/createBooking/`, booking)
+export async function createBooking(booking: BookingType) {
+  const response = await api.post(`/booking/bookService/`, { ...booking })
   return response.data
 }
 

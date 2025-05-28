@@ -63,7 +63,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={poppins.className}>
       <body>
-        <Theme appearance="light">
+        <Theme accentColor="red">
           <NextIntlClientProvider messages={messages}>
             <ToastContainer />
             <div>{children}</div>

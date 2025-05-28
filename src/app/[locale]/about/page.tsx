@@ -22,11 +22,11 @@ export default async function LandingPage() {
           </h1>
           <p className="mb-6 text-lg">{t("description")}</p>
           <div className="flex flex-row items-center justify-center gap-4">
-            <Button color="tomato" style={{ cursor: "pointer" }}>
+            <Button className="!bg-red-600" style={{ cursor: "pointer" }}>
               {t("button")}
             </Button>
             <Link href="http://clinicadorusso.localhost:3000/">
-              <Button color="tomato" variant="outline" style={{ cursor: "pointer" }}>
+              <Button className="!border-red-600 !text-red-600" variant="outline" style={{ cursor: "pointer" }}>
                 {t("secondary_button")}
               </Button>
             </Link>
@@ -57,7 +57,7 @@ export default async function LandingPage() {
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
         <h2 className="mb-6 text-4xl font-bold">{t("footer.title")}</h2>
         <p className="mb-10 text-lg text-gray-700">{t("footer.subtitle")}</p>
-        <Button color="tomato" style={{ cursor: "pointer" }}>
+        <Button className="!bg-red-600" style={{ cursor: "pointer" }}>
           {t("footer.button")}
         </Button>
       </section>

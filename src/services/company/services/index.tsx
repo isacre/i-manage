@@ -31,8 +31,11 @@ export async function updateService(
 export async function getAvailableHours(
   service: number,
   date: string,
+  preferred_employee: string | undefined,
 ): Promise<{ available_slots: string[]; capable_employees: { id: number; name: string; email: string }[] }> {
-  const response = await api.get(`/booking/${service}/getAvailableHours/`, { params: { date } })
+  const response = await api.get(`/booking/${service}/getAvailableHours/`, {
+    params: { date, preferred_employee },
+  })
   return response.data
 }
 

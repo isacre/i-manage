@@ -1,12 +1,17 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 interface Props {
   loading: boolean
   availableHours: string[]
   selectedHour: string | undefined
-  setSelectedHour: (hour: string) => void
+  setSelectedHour: (hour: string | undefined) => void
 }
 export default function HourPicker({ loading, availableHours, selectedHour, setSelectedHour }: Props) {
+  useEffect(() => {
+    if (selectedHour && availableHours.indexOf(selectedHour) === -1) {
+      setSelectedHour(undefined)
+    }
+  }, [availableHours])
   return (
     <>
       {loading && <div className="m-auto flex h-[200px] items-center justify-center text-center">Carregando...</div>}
