@@ -1,10 +1,13 @@
+"use client"
 import Sidebar from "../../../components/sidebar"
 import { useTranslations } from "next-intl"
 import { Poppins } from "next/font/google"
-import { FaCalendar, FaUsers } from "react-icons/fa"
+import { FaCalendar, FaPalette, FaUsers } from "react-icons/fa"
 import { MdOutlinePriceChange } from "react-icons/md"
 
 import "@/globals.css"
+import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
+import LoadingSpinner from "@/components/loadingSpinner"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -14,7 +17,14 @@ const poppins = Poppins({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations("ADMIN")
+  const {} = useUpdateCompanyByDomain()
+
   const Menus = [
+    {
+      label: t("Customize.title"),
+      link: "/admin/customize",
+      icon: <FaPalette />,
+    },
     {
       label: t("Bookings.title"),
       link: "/admin/bookings",
@@ -34,8 +44,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="flex">
-      <Sidebar menus={Menus} />
-      <div className="flex h-full w-full flex-col">{children}</div>
+      <nav>
+        <Sidebar menus={Menus} />
+      </nav>
+      <main className="flex h-screen w-full flex-col">{children}</main>
     </div>
   )
 }

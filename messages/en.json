@@ -2,7 +2,16 @@
     "Header": {
     "cartText": "Cart",
     "register": "Register",
-    "login": "Login"},
+    "login": "Login",
+    "registerDescription": "We just need a few details to get you started.",
+    "fullName": "Full name",
+    "continueWithGoogle": "Continue with Google",
+    "or": "Or",
+    "bySigningUpYouAgreeToOur": "By signing up you agree to our",
+    "terms": "Terms",
+    "email": "Email",
+    "password": "Password"
+    },
 
     "Loading": "Loading",
     "login": {
@@ -133,8 +142,11 @@
                 "actions": "Actions"
             }
         },
-        "Exit": "Logout"
-        
+        "Exit": "Logout",
+        "Customize": {
+            "title": "Customize",
+            "button": "Customize"
+        }
     },
     "NoResults": "No results found",
     "Company": {

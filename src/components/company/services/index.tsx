@@ -1,14 +1,31 @@
 import { ServiceType } from "@/stores/service-store"
 import React, { useState } from "react"
 import { useTranslations } from "next-intl"
+import { useUserStore } from "@/stores/user-store"
 interface Props {
   services: ServiceType[]
   setBookingModalOpen: (open: boolean) => void
   setSelectedService: (service: number) => void
+  setRegisterModalOpen: (open: string | undefined) => void
 }
 
-export default function ServicesComponent({ services, setBookingModalOpen, setSelectedService }: Props) {
+export default function ServicesComponent({
+  services,
+  setBookingModalOpen,
+  setSelectedService,
+  setRegisterModalOpen,
+}: Props) {
   const t = useTranslations()
+  const { user } = useUserStore()
+
+  function handleBookingButton(service: ServiceType) {
+    if (user) {
+      setSelectedService(service.id)
+      setBookingModalOpen(true)
+    } else {
+      setRegisterModalOpen("login")
+    }
+  }
   return (
     <div className="w-full">
       <div className="grid gap-4">
@@ -23,10 +40,7 @@ export default function ServicesComponent({ services, setBookingModalOpen, setSe
             </div>
             <button
               className="cursor-pointer rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700"
-              onClick={() => {
-                setSelectedService(service.id)
-                setBookingModalOpen(true)
-              }}
+              onClick={() => handleBookingButton(service)}
             >
               {t("Availability.bookable")}
             </button>

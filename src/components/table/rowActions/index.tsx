@@ -6,9 +6,10 @@ import { useTranslations } from "next-intl"
 interface RowActionsProps {
   onEdit: () => void
   onDelete: () => void
+  extraActions?: { label: string; onClick: () => void; icon?: React.ReactNode }[]
 }
 
-export default function RowActions({ onEdit, onDelete }: RowActionsProps) {
+export default function RowActions({ onEdit, onDelete, extraActions }: RowActionsProps) {
   const t = useTranslations("ADMIN")
   return (
     <DropdownMenu.Root>
@@ -26,6 +27,12 @@ export default function RowActions({ onEdit, onDelete }: RowActionsProps) {
           <FiTrash2 size={16} />
           <span>{t("Employees.actions.delete")}</span>
         </DropdownMenu.Item>
+        {extraActions?.map((action) => (
+          <DropdownMenu.Item onClick={action.onClick} className={s.dropdownItem} key={action.label}>
+            {action.icon || <FiEdit2 size={16} />}
+            <span>{action.label}</span>
+          </DropdownMenu.Item>
+        ))}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   )

@@ -1,5 +1,4 @@
 import { UserType } from "../../stores/user-store"
-import { Category } from "../../types"
 import { getCookie } from "../../utils"
 import axios, { AxiosRequestConfig } from "axios"
 
@@ -21,7 +20,6 @@ api.interceptors.request.use((config) => {
 })
 
 export declare type CompanyRegisterForm = {
-  category: Category
   closes_at: string
   description: string
   email: string

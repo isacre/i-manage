@@ -20,7 +20,7 @@ export default function Sidebar({ menus }: { menus: Menu[] }) {
   function handleLogout() {
     deleteCookie("access")
     deleteCookie("refresh")
-    router.push(`/${locale}/login`)
+    router.push(`/${locale}/`)
   }
 
   return (

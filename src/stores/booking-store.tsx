@@ -1,19 +1,21 @@
 import { create } from "zustand"
 import { UserType } from "./user-store"
 
-export type BookingStatus = "PENDING" | "CONFIRMED" | "CANCELED" | "COMPLETED" | ""
+export type BookingStatus = "PENDING" | "CONFIRMED" | "CANCELED" | "COMPLETED" | "EXPIRED" | ""
 
 export declare type BookingType = {
   id?: number
   start_date: string
   end_date: string
   company: string
-  user: UserType | undefined
+  user: number | undefined
   service: number
-  employees: number[]
+  service_name?: string
+  employees: { id: number; name: string; email: string }[] | number[]
   status?: BookingStatus
   created_at?: string
   updated_at?: string
+  employee_names?: string[]
 }
 interface BookingStore {
   bookings: BookingType[]

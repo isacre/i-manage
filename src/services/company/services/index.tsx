@@ -43,3 +43,11 @@ export async function getCompanyServices(identifier: string) {
   const response = await api.get(`/service/get_services_by_identifier/`, { params: { identifier } })
   return response.data
 }
+
+export async function patchCompanyCapableEmployees(
+  serviceId: number,
+  capable_employees: number[],
+): Promise<{ capable_employees: number[] }> {
+  const response = await api.patch(`/service/${serviceId}/`, { capable_employees })
+  return response.data
+}

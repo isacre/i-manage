@@ -16,13 +16,13 @@ export default function DayPicker({ setMonthLabel, clickedDate, setClickedDate }
   const { currentWeek, handleNextWeek, handlePrevWeek, weeks } = useBookingDays({ setMonthLabel })
   const { company } = useCompanyStore()
 
-  const handleDayClick = (weekdayIndex: number, date: dayjs.Dayjs) => {
+  function handleDayClick(weekdayIndex: number, date: dayjs.Dayjs) {
     if (company?.work_days.indexOf(weekdayIndex) !== -1) {
       setClickedDate(date)
     }
   }
 
-  const getDayCardClassName = (date: dayjs.Dayjs, weekdayIndex: number) => {
+  function getDayCardClassName(date: dayjs.Dayjs, weekdayIndex: number) {
     const isToday = dayjs(date).format("DD/MM/YYYY") === dayjs().format("DD/MM/YYYY")
     const isSelected = dayjs(date).format("DD/MM/YYYY") === dayjs(clickedDate).format("DD/MM/YYYY")
     const isDisabled = company?.work_days.indexOf(weekdayIndex) === -1

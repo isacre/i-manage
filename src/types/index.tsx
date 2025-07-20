@@ -1,9 +1,12 @@
 import React from "react"
+import { IconType } from "react-icons/lib"
 
 export declare type Menu = {
   text: string
   onClick?: Function
   link?: string
+  icon?: IconType
+  id?: string
 }
 
 export enum WeekDays {
@@ -44,3 +47,8 @@ export interface Service {
 }
 
 export declare type SetStateFn<T> = React.Dispatch<React.SetStateAction<T>>
+
+export declare interface ModalProps {
+  isOpen: boolean
+  setOpen: SetStateFn<boolean>
+}

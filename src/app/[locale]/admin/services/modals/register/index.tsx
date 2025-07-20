@@ -1,8 +1,8 @@
 "use client"
-import Modal from "../../../../../../components/modal"
-import { registerService } from "../../../../../../services/company/services"
-import { useServiceStore } from "../../../../../../stores/service-store"
-import { useUserStore } from "../../../../../../stores/user-store"
+import Modal from "@/components/modal"
+import { registerService } from "@/services/company/services"
+import { useServiceStore } from "@/stores/service-store"
+import { useUserStore } from "@/stores/user-store"
 import { Button } from "@radix-ui/themes"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
@@ -10,13 +10,12 @@ import { useState } from "react"
 
 type TimeUnit = "minutes" | "hours" | "days"
 
-export default function RegisterServiceModal({
-  isOpen,
-  setOpen,
-}: {
+type Props = {
   isOpen: boolean
   setOpen: (open: boolean) => void
-}) {
+}
+
+export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
   const { register, handleSubmit } = useForm()
   const add = useServiceStore((state) => state.add)
   const user = useUserStore((state) => state.user)
@@ -62,7 +61,7 @@ export default function RegisterServiceModal({
                 id="name"
                 type="text"
                 placeholder="Digite o nome do serviço"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("name")}
               />
             </div>
@@ -74,7 +73,7 @@ export default function RegisterServiceModal({
               <textarea
                 id="description"
                 placeholder="Descreva o serviço"
-                className="h-24 w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
+                className="h-24 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("description")}
               />
             </div>
@@ -87,7 +86,7 @@ export default function RegisterServiceModal({
                 id="price"
                 type="text"
                 placeholder="R$ 0,00"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("price")}
               />
             </div>
@@ -101,13 +100,13 @@ export default function RegisterServiceModal({
                   id="max_duration"
                   type="number"
                   placeholder="Ex: 60"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                   {...register("max_duration")}
                 />
                 <select
                   value={timeUnit}
                   onChange={(e) => setTimeUnit(e.target.value as TimeUnit)}
-                  className="rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  className="rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 >
                   <option value="minutes">Minutos</option>
                   <option value="hours">Horas</option>
@@ -124,13 +123,13 @@ export default function RegisterServiceModal({
                 id="required_employee_amount"
                 type="number"
                 placeholder="Ex: 2"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("required_employee_amount")}
               />
             </div>
           </div>
 
-          <div className="flex justify-end space-x-4 pt-4">
+          <div className="flex justify-end gap-2 space-x-4 pt-4">
             <Button type="button" variant="soft" color="gray" onClick={() => setOpen(false)} className="px-4 py-2">
               Cancelar
             </Button>

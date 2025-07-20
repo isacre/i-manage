@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { iconClassName, labelClassName } from "./styles"
@@ -15,7 +14,7 @@ export default function SidebarItem({ icon, label, link }: Props) {
   const isActive = pathname === link
 
   return (
-    <Link href={link} prefetch={true}>
+    <Link href={link}>
       <div className={containerClassName(isActive)}>
         <div className={iconClassName(isActive)}>{icon}</div>
         <span className={labelClassName(isActive)}>{label}</span>

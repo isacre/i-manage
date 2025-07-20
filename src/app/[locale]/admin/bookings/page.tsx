@@ -1,17 +1,17 @@
 "use client"
-import TableComponent from "../../../../components/table"
-import useBooking, { useBookingFilters } from "../../../../hooks/useBooking"
+import TableComponent from "@/components/table"
+import useBooking, { useBookingFilters } from "@/hooks/useBooking"
 import React, { useState } from "react"
 import Booking from "./booking"
-import TabsComponent from "../../../../components/tabs"
-import { BookingStatus } from "../../../../stores/booking-store"
+import TabsComponent from "@/components/tabs"
+import { BookingStatus } from "@/stores/booking-store"
 
 export default function Bookings() {
-  const [FiltersOpen, setFiltersOpen] = useState(false)
   const [Filters, setFilters] = useState<useBookingFilters>({
     status: "PENDING",
   })
-  const { BookingsLoading, bookings } = useBooking(Filters)
+  const { BookingsLoading, bookings, fetch } = useBooking(Filters)
+  const filteredBookings = bookings.filter((item) => item.status !== "EXPIRED")
   return (
     <TableComponent.Root>
       <TableComponent.TopRow title="Agendamentos" />
@@ -27,13 +27,15 @@ export default function Bookings() {
       />
       <TableComponent.Grid
         itemsAmount={bookings.length}
-        gridTemplateColumns="1fr 1fr 0.25fr 0.25fr"
-        headers={["Horário", "Serviço", "Rejeitar", "Aceitar"]}
+        gridTemplateColumns="1fr 1fr 1fr 1fr 0.5fr"
+        headers={["Horário", "Serviço", "Funcionários", "Status", "Ações"]}
         loading={BookingsLoading}
       >
-        {bookings.map((item) => (
-          <Booking key={item.id} booking={item} />
-        ))}
+        {filteredBookings.length === 0 ? (
+          <div className="py-10 text-center text-gray-500">Nenhum agendamento pendente</div>
+        ) : (
+          filteredBookings.map((item) => <Booking key={item.id} booking={item} fetch={fetch} />)
+        )}
       </TableComponent.Grid>
     </TableComponent.Root>
   )

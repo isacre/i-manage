@@ -10,10 +10,11 @@ import { useCompanyStore } from "@/stores/company-store"
 import { useServiceStore } from "@/stores/service-store"
 import { useUserStore } from "@/stores/user-store"
 import { SetStateFn } from "@/types"
+import { calcWeekDayDiff } from "@/utils"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
-import LoginModal from "../login"
+import ConfirmingBooking from "./confirmBooking"
 
 interface Props {
   isOpen: boolean
@@ -30,7 +31,7 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
   const { services } = useServiceStore()
   const { user } = useUserStore()
   const { company } = useCompanyStore()
-  const { updateOpenBookingId } = useBookingStore()
+  const [ConfirmingBookingState, setConfirmingBooking] = useState(false)
   const [SelectedEmployee, setSelectedEmployee] = useState<string | undefined>(undefined)
   const [registerOpen, setRegisterOpen] = useState(false)
   const { availableHours, capableEmployees, isLoading } = useAvailableHours(
@@ -40,46 +41,54 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
   )
   const service = services.find((service) => service.id === selectedServiceId)
   const t = useTranslations("Months")
+  const datetime =
+    dayjs(`${ClickedDate?.format("YYYY-MM-DD")}T${selectedHour}`).tz("America/Sao_Paulo", true) || undefined
+  const [Booking, setBooking] = useState<BookingType>({
+    company: company?.identifier || "",
+    employees: SelectedEmployee ? [Number(SelectedEmployee)] : [],
+    service: service?.id || 0,
+    user: user?.id || undefined,
+    start_date: "",
+    end_date: "",
+  })
 
   function handleSubmit() {
     if (!selectedHour) return
-    const datetime = dayjs(`${ClickedDate?.format("YYYY-MM-DD")}T${selectedHour}`).tz("America/Sao_Paulo", true) // `true` keeps local time as is
-    const Booking: BookingType = {
+    setBooking({
       company: company?.identifier || "",
       employees: SelectedEmployee ? [Number(SelectedEmployee)] : [],
       service: service?.id || 0,
-      user: user || undefined,
-      start_date: datetime.format("YYYY-MM-DD HH:mm:ssT-03:00"),
-      end_date: datetime.add(service?.max_duration || 0, "minutes").format("YYYY-MM-DD HH:mm:ssT-03:00"),
-    }
-    setRegisterOpen(true)
-    /* createBooking(Booking)
-      .then((res) => {
-        updateOpenBookingId(res.id)
-      })
-      .then(() => {
-        if (user === null) {
-          setRegisterOpen(true)
-        } else {
-          setOpen(false)
-          toast.success("Horário agendado com sucesso")
-        }
-      })
-      .catch((err) => {
-        toast.error("Não foi possível agendar o horário")
-      }) */
+      user: user?.id || undefined,
+      start_date: datetime?.toISOString() || "",
+      end_date: datetime?.add(service?.max_duration || 0, "minutes").toISOString() || "",
+    })
+
+    setConfirmingBooking(true)
   }
 
   useEffect(() => {
     setSelectedHour(undefined)
   }, [ClickedDate, SelectedEmployee])
 
+  // Handle situation where today is not a work day
+  useEffect(() => {
+    const currentWeekDay = dayjs().tz("America/Sao_Paulo").day() - 1
+    if (company?.work_days.indexOf(currentWeekDay) === -1) {
+      setClickedDate(dayjs().add(calcWeekDayDiff(currentWeekDay, company?.work_days), "day"))
+    }
+  }, [isOpen])
+
   return (
-    <>
-      {registerOpen ? (
-        <LoginModal initialOpen="register" isOpen={registerOpen} setOpen={setRegisterOpen} />
+    <Modal
+      isOpen={isOpen}
+      setOpen={setOpen}
+      title={ConfirmingBookingState ? "Confirmar agendamento" : service?.name || "Agendar horário"}
+      returnFunction={ConfirmingBookingState ? () => setConfirmingBooking(false) : undefined}
+    >
+      {ConfirmingBookingState ? (
+        <ConfirmingBooking setOpen={setOpen} setRegisterOpen={setRegisterOpen} Booking={Booking} />
       ) : (
-        <Modal isOpen={isOpen} setOpen={setOpen} title={service?.name || "Agendar horário"}>
+        <>
           <div className="flex h-[600px] flex-col gap-2">
             <h2 className="mb-2 w-full text-center text-2xl font-bold">
               {t(String(Number(DateLabel.split("-")[0])))} - {DateLabel.split("-")[1]}
@@ -104,11 +113,11 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
           <ButtonComponent
             disabled={!selectedHour && !selectingEmployee}
             onClickFn={handleSubmit}
-            text="Agendar"
+            text="Selecionar horário"
             width="w-full"
           />
-        </Modal>
+        </>
       )}
-    </>
+    </Modal>
   )
 }

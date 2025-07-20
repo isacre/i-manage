@@ -11,6 +11,6 @@ export const labelClassName = (isActive: boolean) =>
 
 export const containerClassName = (isActive: boolean) =>
   twMerge(
-    "flex items-center gap-3 px-4 py-2.5 rounded-lg cursor-pointer transition-all duration-200 group hover:bg-red-50 hover:text-red-600 hover:shadow-sm mb-1",
+    "flex items-center gap-3 px-4 py-2.5 rounded-lg cursor-pointer transition-all duration-200 group  hover:text-red-600  mb-1",
     isActive && "bg-red-50 text-red-600 shadow-sm",
   )

@@ -1,17 +1,57 @@
 {
     "Header": {
-    "cartText": "Carrinho",
     "register": "Cadastrar",
     "login": "Entrar"
-},
+    },
+
 "Loading": "Carregando",
     "login": {
-        "user": "Usuário",
-        "company": "Empresa",
+        "login": "Entrar na conta",
+        "registerDescription": "Precisamos de alguns detalhes para começar.",
+    "fullName": "Nome completo",
+    "continueWithGoogle": "Já tenho uma conta",
+    "or": "Ou",
+    "bySigningUpYouAgreeToOur": "Ao se cadastrar, você concorda com nossos",
+    "terms": "Termos",
+    "email": "Email",
+    "password": "Senha",
+    "rememberMe": "Lembrar-me",
+    "forgotPassword": "Esqueceu a senha?",
+    "loginDescription": "Digite suas credenciais para entrar na sua conta.",
+    "passwordPlaceholder": "Digite sua senha",
+    "emailPlaceholder": "Digite seu email",
+    "register": "Criar Conta"
+    
+    },
+    "terms": {
+        "terms": "Termos",
+        "termsDescription": "Termos de uso",
+        "termsPlaceholder": "Termos de uso"
+    },
+    "recoverAccount": {
+        "recoverAccount": "Esqueceu sua senha?",
+        "recoverAccountDescription": "Não se preocupe, vamos te ajudar a recuperar.",
+        "email": "Email",
+        "emailPlaceholder": "fulano@email.com",
+        "submit": "Solicitar recuperação"
+    },
+    "register": {
+        "register": "Cadastrar",
+        "registerDescription": "Precisamos de alguns detalhes para começar.",
+        "fullName": "Nome completo",
+        "continueWithGoogle": "Já tenho uma conta",
+        "or": "Ou",
+        "bySigningUpYouAgreeToOur": "Ao se cadastrar, você concorda com nossos",
+        "terms": "Termos",
         "email": "Email",
         "password": "Senha",
-        "submit": "Enviar",
-        "error": "Algo deu errado, por favor, verifique suas credenciais e tente novamente"
+        "rememberMe": "Lembrar-me",
+        "forgotPassword": "Esqueceu a senha?",
+        "loginDescription": "Digite suas credenciais para entrar na sua conta.",
+        "passwordPlaceholder": "fulano123",
+        "emailPlaceholder": "fulano@email.com",
+        "fullNamePlaceholder": "Fulano de Tal",
+        "login": "Já tenho uma conta"
     },
     "register_company": {
         "title": "Cadastre sua empresa",
@@ -23,7 +63,8 @@
         "password": "Senha",
         "register": "Cadastrar empresa",
         "success": "Empresa cadastrada com sucesso, redirecionando para a página de login",
-        "error": "Erro ao cadastrar empresa"
+        "error": "Erro ao cadastrar empresa",
+        "user": "Usuário"
     },
     "register_user": {
         "title": "Cadastre-se como usuário",
@@ -133,8 +174,11 @@
                 "actions": "Ações"
             }
         },
-        "Exit": "Sair"
-        
+        "Exit": "Sair",
+        "Customize": {
+            "title": "Customizar",
+            "button": "Customizar"
+        }
     },
     "NoResults": "Nenhum resultado encontrado",
     "Company": {
