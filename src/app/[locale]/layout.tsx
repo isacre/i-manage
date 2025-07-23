@@ -11,12 +11,6 @@ import { redirect } from "next/navigation"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-})
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const headersList = await headers()
@@ -61,9 +55,9 @@ export default async function RootLayout({
     redirect(routing.defaultLocale)
   }
   return (
-    <html lang={locale} className={poppins.className}>
+    <html lang={locale}>
       <body>
-        <Theme accentColor="red">
+        <Theme>
           <NextIntlClientProvider messages={messages}>
             <ToastContainer />
             <div>{children}</div>

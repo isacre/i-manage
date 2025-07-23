@@ -1,23 +1,25 @@
 import { Button } from "@/components/ui/button"
-import { UserType } from "@/stores/user-store"
-import { useTranslations } from "next-intl"
-import {} from "@/components/ui/button"
-import { useAuthModal } from "@/app/[locale]/(user)/AuthModalContext"
+import { useRouter } from "next/navigation"
+import { HeaderMenu } from "./navbar"
+import clsx from "clsx"
+import NavbarButton from "./Button"
 
 interface Props {
-  user: UserType | null
+  menus?: HeaderMenu[]
 }
-export default function RightSide({ user }: Props) {
-  const { setAuthModalState } = useAuthModal()
-  const t = useTranslations("Header")
+export default function RightSide({ menus }: Props) {
+  const router = useRouter()
+
+  function getBackgroundColor(buttonStyle: string) {
+    if (buttonStyle === "ghost") {
+      return "bg-transparent"
+    }
+    return "bg-red-500"
+  }
+
   return (
-    <div className="flex items-center gap-2">
-      <Button onClick={() => setAuthModalState("login")} variant="ghost">
-        {t("login")}
-      </Button>
-      <Button onClick={() => setAuthModalState("register")} variant="default">
-        {t("register")}
-      </Button>
+    <div className="hidden items-center gap-2 md:flex">
+      {menus?.map((menu) => <NavbarButton key={menu.label} menu={menu} />)}
     </div>
   )
 }

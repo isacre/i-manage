@@ -17,7 +17,7 @@ interface Props {
 export default function DeleteEmployeeModal({ isOpen, setOpen, employee }: Props) {
   const removeEmployee = useEmployeeStore((state) => state.remove)
   const user = useUserStore((state) => state.user)
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
 
   function handleDelete() {
     if (!user?.company?.id || !employee) return

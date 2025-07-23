@@ -1,5 +1,31 @@
 {
-    "Header": {
+  "Common": {
+    "Loading": "Loading",
+    "Cancel": "Cancel",
+    "Submit": "Submit",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Save": "Save",
+    "Back": "Back",
+    "Next": "Next",
+    "Previous": "Previous",
+    "Close": "Close",
+    "Confirm": "Confirm",
+    "Accept": "Accept",
+    "Reject": "Reject",
+    "Yes": "Yes",
+    "No": "No",
+    "Total": "Total",
+    "Actions": "Actions",
+    "NoResults": "No results found",
+    "Error": "Error",
+    "Success": "Success",
+    "Warning": "Warning",
+    "Info": "Info",
+    "Change": "Change",
+    "Exit": "Exit"
+  },
+  "Header": {
     "cartText": "Cart",
     "register": "Register",
     "login": "Login",
@@ -11,171 +37,326 @@
     "terms": "Terms",
     "email": "Email",
     "password": "Password"
-    },
-
-    "Loading": "Loading",
+  },
+  "Auth": {
     "login": {
-        "user": "User",
-        "company": "Company",
-        "email": "Email",
-        "password": "Password",
-        "submit": "Submit",
-        "error": "Something went wrong, please check your credentials and try again"
+      "title": "Login to your account",
+      "description": "Enter your credentials to access your account.",
+      "user": "User",
+      "company": "Company",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Submit",
+      "error": "Something went wrong, please check your credentials and try again",
+      "or": "Or",
+      "register": "Register"
     },
-    "register_company": {
-        "title": "Register your business",
-        "name": "Company Name",
-        "description": "Description",
-        "phone": "Phone",
-        "category": "Category",
-        "email": "Email",
-        "password": "Password",
-        "register": "Register Company",
-        "success": "Company registered successfully, redirecting to login page",
-        "error": "Error registering company"
+    "register": {
+      "title": "Create Account",
+      "description": "We just need a few details to get you started.",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "John Doe",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "continueWithGoogle": "Continue with Google",
+      "or": "Or",
+      "bySigningUpYouAgreeToOur": "By signing up you agree to our",
+      "terms": "Terms",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login"
     },
-    "register_user": {
-        "title": "Register as User",
-        "name": "Name",
-        "phone": "Phone",
-        "email": "Email",
-        "password": "Password",
-        "register": "Register User",
-        "success": "User registered successfully, redirecting to login page",
-        "error": "Error registering user"
+    "recoverAccount": {
+      "title": "Forgot your password?",
+      "description": "Don't worry, we'll help you recover it.",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "submit": "Request recovery"
     },
-    "Availability": {
-        "available": "Available",
-        "unavailable": "Unavailable",
-        "bookable": "Reserve an hour"    
+    "terms": {
+      "title": "Terms of Use",
+      "description": "Terms of use",
+      "backToRegister": "Back to registration"
+    }
+  },
+  "Company": {
+    "notFound": "Company not found",
+    "Services": "Our Services",
+    "searchPlaceholder": "Search services...",
+    "noServicesFound": "No services found",
+    "noServicesAvailable": "No services available",
+    "searchAdjustment": "Try adjusting your search or check spelling.",
+    "noServicesRegistered": "No services registered at the moment.",
+    "errorFetchingServices": "Error fetching services"
+  },
+  "Booking": {
+    "title": "Schedule Appointment",
+    "confirmTitle": "Confirm Booking",
+    "selectTime": "Select Time",
+    "confirm": "Confirm",
+    "schedule": "Schedule",
+    "employee": "Employee",
+    "noPreference": "No preference",
+    "errorScheduling": "Unable to schedule appointment",
+    "successScheduling": "Appointment scheduled successfully",
+    "confirmBooking": "Do you want to {action} the booking?",
+    "accept": "accept",
+    "reject": "reject",
+    "cancel": "cancel",
+    "bookingAccepted": "Booking accepted successfully",
+    "bookingRejected": "Booking rejected successfully",
+    "bookingCanceled": "Booking canceled successfully",
+    "errorUpdatingBooking": "Error updating booking"
+  },
+  "Register": {
+    "company": {
+      "title": "Register your business",
+      "name": "Company Name",
+      "description": "Description",
+      "phone": "Phone",
+      "category": "Category",
+      "email": "Email",
+      "password": "Password",
+      "register": "Register Company",
+      "success": "Company registered successfully, redirecting to login page",
+      "error": "Error registering company"
     },
-    "Location": {
-        "local": "local",
-        "online": "online"
+    "user": {
+      "title": "Register as User",
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "password": "Password",
+      "register": "Register User",
+      "success": "User registered successfully, redirecting to login page",
+      "error": "Error registering user"
     },
-    "Currency": {
-        "symbol": "$",
-        "full_name": "dollars"
-    },
+    "register": "Register",
+    "registerDescription": "We just need a few details to get you started.",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "john@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "phone": "Phone",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "or": "Or",
+    "login": "Login",
+    "bySigningUpYouAgreeToOur": "By signing up you agree to our",
+    "terms": "Terms"
+  },
+  "Availability": {
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "bookable": "Reserve an hour"
+  },
+  "Location": {
+    "local": "local",
+    "online": "online"
+  },
+  "Currency": {
+    "symbol": "$",
+    "full_name": "dollars"
+  },
+  "Time": {
     "Months": {
-          "0": "January",
-          "1": "February",
-          "2": "March",
-          "3": "April",
-          "4": "May",
-          "5": "June",
-          "6": "July",
-          "7": "August",
-          "8": "September",
-          "9": "October",
-          "10": "November",
-          "11": "December"
-},
+      "0": "January",
+      "1": "February",
+      "2": "March",
+      "3": "April",
+      "4": "May",
+      "5": "June",
+      "6": "July",
+      "7": "August",
+      "8": "September",
+      "9": "October",
+      "10": "November",
+      "11": "December"
+    },
     "DaysOfWeek": {
-        "Sunday": "Sunday",
-        "Monday": "Monday",
-        "Tuesday": "Tuesday",
-        "Wednesday": "Wednesday",
-        "Thursday": "Thursday",
-        "Friday": "Friday",
-        "Saturday": "Saturday"
+      "Sunday": "Sunday",
+      "Monday": "Monday",
+      "Tuesday": "Tuesday",
+      "Wednesday": "Wednesday",
+      "Thursday": "Thursday",
+      "Friday": "Friday",
+      "Saturday": "Saturday"
+    }
+  },
+  "Admin": {
+    "Bookings": {
+      "title": "Bookings",
+      "tabs": {
+        "pending": "Pending",
+        "all": "All",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled"
+      },
+      "headers": {
+        "hour": "Hour",
+        "service": "Service",
+        "status": "Status",
+        "employees": "Employees",
+        "accept": "Accept",
+        "reject": "Reject"
+      },
+      "noPendingBookings": "No pending bookings"
     },
-    "ADMIN": {
-        "Bookings": {
-            "title": "Bookings",
-            "tabs": {
-                "pending": "Pending",
-                "all": "All",
-                "confirmed": "Confirmed",
-                "cancelled": "Cancelled"
-            },
-            "headers": {
-                "hour": "Hour",
-                "service": "Service",
-                "accept": "Accept",
-                "reject": "Reject"
-            }
+    "Employees": {
+      "title": "Employees",
+      "button": "Add Employee",
+      "headers": {
+        "name": "Name",
+        "email": "Email",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "modals": {
+        "register": {
+          "title": "Register Employee",
+          "name": "Name",
+          "email": "Email",
+          "cancel": "Cancel",
+          "submit": "Submit"
         },
-        "Employees": {
-            "title": "Employees",
-            "button": "Add Employee",
-            "headers": {
-                "name": "Name",
-                "email": "Email",
-                "actions": "Actions"
-            },
-            "actions": {
-                "edit": "Edit",
-                "delete": "Delete"
-            },
-            "modals": {
-                "register": {
-                    "title": "Register Employee",
-                    "name": "Name",
-                    "email": "Email",
-                    "cancel": "Cancel",
-                    "submit": "Submit"
-                },
-                "edit": {
-                    "title": "Edit Employee",
-                    "name": "Name",
-                    "email": "Email",
-                    "cancel": "Cancel",
-                    "submit": "Submit"
-                },
-                "delete": {
-                    "title": "Delete Employee",
-                    "name": "Name",
-                    "cancel": "Cancel",
-                    "submit": "Submit",
-                    "success": "Employee deleted successfully",
-                    "error": "Error deleting employee",
-                    "message": "Are you sure you want to delete the employee {name}? This action cannot be undone."                }
-            }
+        "edit": {
+          "title": "Edit Employee",
+          "name": "Name",
+          "email": "Email",
+          "cancel": "Cancel",
+          "submit": "Submit"
         },
-        "Services": {
-            "title": "Services",
-            "button": "Add Service",
-            "headers": {
-                "name": "Name",
-                "price": "Price",
-                "actions": "Actions"
-            }
-        },
-        "Exit": "Logout",
-        "Customize": {
-            "title": "Customize",
-            "button": "Customize"
+        "delete": {
+          "title": "Delete Employee",
+          "name": "Name",
+          "cancel": "Cancel",
+          "submit": "Submit",
+          "success": "Employee deleted successfully",
+          "error": "Error deleting employee",
+          "message": "Are you sure you want to delete the employee {name}? This action cannot be undone."
         }
+      }
     },
-    "NoResults": "No results found",
-    "Company": {
-        "Services": "Our Services"
+    "Services": {
+      "title": "Services",
+      "button": "Add Service",
+      "headers": {
+        "name": "Name",
+        "price": "Price",
+        "employees": "Employees",
+        "actions": "Actions"
+      },
+      "editEmployees": "Edit Employees",
+      "deleteTitle": "Delete Service",
+      "deleteMessage": "Are you sure you want to delete the service {name}? This action cannot be undone.",
+      "deleteSuccess": "Service deleted successfully",
+      "deleteError": "Error deleting service",
+      "registerTitle": "Add Service",
+      "registerSuccess": "Service added successfully",
+      "register": {
+        "name": "Service Name",
+        "namePlaceholder": "Enter service name",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe the service",
+        "price": "Price",
+        "pricePlaceholder": "R$ 0.00",
+        "maxDuration": "Maximum Duration",
+        "maxDurationPlaceholder": "Ex: 60",
+        "minutes": "Minutes",
+        "hours": "Hours",
+        "days": "Days",
+        "requiredEmployeeAmount": "Required Employee Amount",
+        "requiredEmployeeAmountPlaceholder": "Ex: 2",
+        "submit": "Add Service"
+      },
+      "editTitle": "Edit Service",
+      "editSuccess": "Service updated successfully",
+      "editError": "Error updating service",
+      "edit": {
+        "submit": "Save Service"
+      },
+      "capableEmployeesTitle": "Capable Employees - {name}",
+      "capableEmployeesSuccess": "Capable employees updated successfully",
+      "capableEmployeesError": "Error updating capable employees"
     },
-    "About": {
-       "header": "Smart bookings for <bold>smart businesses</bold>",
-       "description": "Organize schedules, services and teams in a practical way, integrated with Google Agenda, with payments and much more.",
-       "button": "Start Now",
-       "secondary_button": "See Demo",
-       "features": {
-        "booking": {
-            "title": "Dynamic Bookings",
-            "description": "Sincronize com o Google Agenda, evite conflitos e otimize seus horários automaticamente."
-        },
-        "team": {
-            "title": "Team Management",
-            "description": "Associate professionals to services, control availability and distribute appointments efficiently."
-        },
-        "payment": {
-            "title": "Integrated Payments",
-            "description": "Receive by sessions with Stripe, control commissions by professional and follow the revenue."
-        }
+    "Exit": "Logout",
+    "Customize": {
+      "title": "Customize Company",
+      "button": "Save Changes",
+      "sections": {
+        "basic": "Basic Information",
+        "appearance": "Appearance",
+        "contact": "Contact Information",
+        "schedule": "Schedule"
+      },
+      "fields": {
+        "name": "Company Name",
+        "namePlaceholder": "Enter company name",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter company description",
+        "identifier": "URL Identifier",
+        "identifierPlaceholder": "your-company",
+        "phone": "Phone",
+        "phonePlaceholder": "+1 (555) 123-4567",
+        "address": "Address",
+        "addressPlaceholder": "Enter company address",
+        "primaryColor": "Primary Color",
+        "logo": "Company Logo",
+        "banner": "Company Banner",
+        "opensAt": "Opens At",
+        "closesAt": "Closes At",
+        "timezone": "Timezone",
+        "timezonePlaceholder": "Select timezone"
+      },
+      "success": "Company information updated successfully",
+      "error": "Error updating company information"
+    }
+  },
+  "About": {
+    "header": "Smart bookings for <bold>smart businesses</bold>",
+    "description": "Organize schedules, services and teams in a practical way, integrated with Google Agenda, with payments and much more.",
+    "button": "Start Now",
+    "secondary_button": "See Demo",
+    "features": {
+      "booking": {
+        "title": "Dynamic Bookings",
+        "description": "Synchronize with Google Calendar, avoid conflicts and optimize your schedules automatically."
+      },
+      "team": {
+        "title": "Team Management",
+        "description": "Associate professionals to services, control availability and distribute appointments efficiently."
+      },
+      "payment": {
+        "title": "Integrated Payments",
+        "description": "Receive by sessions with Stripe, control commissions by professional and follow the revenue."
+      }
     },
     "footer": {
-        "title": "Ideal for small businesses and freelancers",
-        "subtitle": "iManage simplifies the management of bookings, from the registration of services to the check-in via QR Code. All this with a modern, responsive and accessible interface from anywhere.",
-        "button": "I want to test now"
+      "title": "Ideal for small businesses and freelancers",
+      "subtitle": "iManage simplifies the management of bookings, from the registration of services to the check-in via QR Code. All this with a modern, responsive and accessible interface from anywhere.",
+      "button": "I want to test now"
     }
-}
-    
+  },
+  "User": {
+    "myBookings": "My Bookings",
+    "noBookingsYet": "You don't have any bookings yet.",
+    "noPendingBookings": "No pending bookings"
+  },
+  "Table": {
+    "time": "Time",
+    "service": "Service",
+    "status": "Status",
+    "employees": "Employees"
+  }
 }

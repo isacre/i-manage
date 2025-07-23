@@ -23,16 +23,7 @@ export default function CompanyProfileComponent({ company }: Props) {
     <div className="">
       <div className="flex flex-col gap-4">
         <div className="justify-left flex items-center gap-4">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${image_url}`}
-            alt={name}
-            width={150}
-            height={150}
-            className="rounded-full border border-gray-200 bg-white"
-          />
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold">{name}</h1>
-            <p className="text-sm text-gray-500">{address}</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <b>{working_days}</b> | {opens_at.substring(0, 5)} - {closes_at.substring(0, 5)}
             </div>

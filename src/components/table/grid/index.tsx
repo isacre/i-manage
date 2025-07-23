@@ -17,7 +17,7 @@ export default function Grid({
   gridTemplateColumns = `repeat(${headers.length}, 1fr)`,
   itemsAmount,
 }: GridProps) {
-  const t = useTranslations()
+  const t = useTranslations("Common")
   return (
     <div className={s.container}>
       <div className={s.grid} style={{ gridTemplateColumns: gridTemplateColumns }}>

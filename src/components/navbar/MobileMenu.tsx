@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import {
   NavigationMenu,
-  NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
 } from "@/components/ui/navigation-menu"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { HeaderMenu } from "./navbar"
 
 interface Props {
-  menus?: { href: string; label: string; active: boolean }[]
+  menus?: HeaderMenu[]
 }
 export default function MobileMenu({ menus }: Props) {
   return (
@@ -42,12 +43,18 @@ export default function MobileMenu({ menus }: Props) {
           </svg>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="start" className="w-36 p-1 md:hidden">
+      <PopoverContent align="start" className="w-48 p-1 md:hidden">
         <NavigationMenu className="max-w-none *:w-full">
           <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
             {menus?.map((link, index) => (
               <NavigationMenuItem key={index} className="w-full">
-                <NavigationMenuLink href={link.href} className="py-1.5" active={link.active}>
+                <NavigationMenuLink
+                  href={link.href || "#"}
+                  className="py-1.5"
+                  onClick={() => {
+                    link.onClick?.()
+                  }}
+                >
                   {link.label}
                 </NavigationMenuLink>
               </NavigationMenuItem>

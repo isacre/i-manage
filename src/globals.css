@@ -9,13 +9,11 @@
 }
 
 body {
-  color: #717171;
-  font-family: var(--font-mono);
   padding: 0;
   margin: 0;
-
- 
 }
+
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

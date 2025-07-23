@@ -16,7 +16,7 @@ const poppins = Poppins({
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
   const {} = useUpdateCompanyByDomain()
 
   const Menus = [
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <nav>
         <Sidebar menus={Menus} />
       </nav>
-      <main className="flex h-screen w-full flex-col">{children}</main>
+      <main className="flex h-screen w-full flex-col overflow-y-auto">{children}</main>
     </div>
   )
 }

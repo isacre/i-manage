@@ -7,6 +7,7 @@ import { Button } from "@radix-ui/themes"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 type TimeUnit = "minutes" | "hours" | "days"
 
@@ -16,10 +17,20 @@ type Props = {
 }
 
 export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
-  const { register, handleSubmit } = useForm()
+  const t = useTranslations("Admin.Services")
+  const tCommon = useTranslations("Common")
+  const [timeUnit, setTimeUnit] = useState<TimeUnit>("minutes")
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: "",
+      description: "",
+      price: "",
+      max_duration: "",
+      required_employee_amount: "",
+    },
+  })
   const add = useServiceStore((state) => state.add)
   const user = useUserStore((state) => state.user)
-  const [timeUnit, setTimeUnit] = useState<TimeUnit>("minutes")
 
   function convertToMinutes(value: number, unit: TimeUnit): number {
     switch (unit) {
@@ -43,24 +54,24 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
       company: user?.company?.id,
     }).then((service) => {
       setOpen(false)
-      toast.success("Serviço adicionado com sucesso")
+      toast.success(t("registerSuccess"))
       add(service)
     })
   }
 
   return (
     <div>
-      <Modal isOpen={isOpen} setOpen={setOpen} title="Adicionar Serviço">
+      <Modal isOpen={isOpen} setOpen={setOpen} title={t("registerTitle")}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
-                Nome do Serviço
+                {t("register.name")}
               </label>
               <input
                 id="name"
                 type="text"
-                placeholder="Digite o nome do serviço"
+                placeholder={t("register.namePlaceholder")}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("name")}
               />
@@ -68,11 +79,11 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
 
             <div>
               <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-700">
-                Descrição
+                {t("register.description")}
               </label>
               <textarea
                 id="description"
-                placeholder="Descreva o serviço"
+                placeholder={t("register.descriptionPlaceholder")}
                 className="h-24 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("description")}
               />
@@ -80,12 +91,12 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
 
             <div>
               <label htmlFor="price" className="mb-1 block text-sm font-medium text-gray-700">
-                Preço
+                {t("register.price")}
               </label>
               <input
                 id="price"
                 type="text"
-                placeholder="R$ 0,00"
+                placeholder={t("register.pricePlaceholder")}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("price")}
               />
@@ -93,13 +104,13 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
 
             <div>
               <label htmlFor="max_duration" className="mb-1 block text-sm font-medium text-gray-700">
-                Duração Máxima
+                {t("register.maxDuration")}
               </label>
               <div className="flex gap-2">
                 <input
                   id="max_duration"
                   type="number"
-                  placeholder="Ex: 60"
+                  placeholder={t("register.maxDurationPlaceholder")}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                   {...register("max_duration")}
                 />
@@ -108,21 +119,21 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
                   onChange={(e) => setTimeUnit(e.target.value as TimeUnit)}
                   className="rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 >
-                  <option value="minutes">Minutos</option>
-                  <option value="hours">Horas</option>
-                  <option value="days">Dias</option>
+                  <option value="minutes">{t("register.minutes")}</option>
+                  <option value="hours">{t("register.hours")}</option>
+                  <option value="days">{t("register.days")}</option>
                 </select>
               </div>
             </div>
 
             <div>
               <label htmlFor="required_employee_amount" className="mb-1 block text-sm font-medium text-gray-700">
-                Quantidade de Funcionários Necessários
+                {t("register.requiredEmployeeAmount")}
               </label>
               <input
                 id="required_employee_amount"
                 type="number"
-                placeholder="Ex: 2"
+                placeholder={t("register.requiredEmployeeAmountPlaceholder")}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition focus:border-transparent focus:ring-2 focus:ring-red-500 focus:outline-none"
                 {...register("required_employee_amount")}
               />
@@ -131,13 +142,13 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
 
           <div className="flex justify-end gap-2 space-x-4 pt-4">
             <Button type="button" variant="soft" color="gray" onClick={() => setOpen(false)} className="px-4 py-2">
-              Cancelar
+              {tCommon("Cancel")}
             </Button>
             <Button
               type="submit"
               className="rounded-lg bg-red-600 px-4 py-2 text-white transition-colors duration-200 hover:bg-red-500"
             >
-              Adicionar Serviço
+              {t("register.submit")}
             </Button>
           </div>
         </form>

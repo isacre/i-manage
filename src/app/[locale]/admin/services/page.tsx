@@ -9,7 +9,11 @@ import { ServiceType } from "../../../../stores/service-store"
 import TableComponent from "../../../../components/table"
 import { useUserStore } from "../../../../stores/user-store"
 import CapableEmployeesModal from "./modals/capableEmployees"
+import { useTranslations } from "next-intl"
+
 export default function Services() {
+  const t = useTranslations("Admin.Services")
+  const tCommon = useTranslations("Common")
   const { user } = useUserStore()
   const { services, servicesLoading } = useServices(user?.company?.identifier)
   const [addServiceIsOpen, setAddServiceIsOpen] = useState(false)
@@ -45,12 +49,12 @@ export default function Services() {
       <DeleteServiceModal isOpen={isDeleteModalOpen} setOpen={setIsDeleteModalOpen} service={selectedService} />
       <TableComponent.Root>
         <TableComponent.TopRow
-          title="Serviços"
-          actionButton={[{ label: "Adicionar Serviço", onClick: () => setAddServiceIsOpen(true) }]}
+          title={t("title")}
+          actionButton={[{ label: t("button"), onClick: () => setAddServiceIsOpen(true) }]}
         />
         <TableComponent.Grid
           itemsAmount={services.length}
-          headers={["Nome", "Preço", "Funcionários", "Ações"]}
+          headers={[t("headers.name"), t("headers.price"), t("headers.employees"), tCommon("Actions")]}
           loading={servicesLoading}
           gridTemplateColumns="1fr 1fr 1fr 0.25fr"
         >

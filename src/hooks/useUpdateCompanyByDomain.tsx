@@ -1,5 +1,4 @@
 "use client"
-import "@/globals.css"
 import { getCompanyByDomain } from "@/services/company"
 import { useCompanyStore } from "@/stores/company-store"
 import "@radix-ui/themes/styles.css"

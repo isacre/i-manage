@@ -10,7 +10,7 @@ interface RowActionsProps {
 }
 
 export default function RowActions({ onEdit, onDelete, extraActions }: RowActionsProps) {
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>

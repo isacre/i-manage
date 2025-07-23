@@ -5,20 +5,25 @@ import Button from "@/components/formFields/button"
 import { patchBookingStatus } from "@/services/company/booking"
 import { toast } from "react-toastify"
 import dayjs from "dayjs"
+import { useTranslations } from "next-intl"
 
 export default function Booking({ booking, fetch }: { booking: BookingType; fetch: () => void }) {
+  const t = useTranslations("Booking")
+
   function handleUpdatingBooking(status: BookingStatus) {
-    const confirmation = window.confirm(`Deseja ${status === "CONFIRMED" ? "aceitar" : "negar"} o agendamento?`)
+    const action = status === "CONFIRMED" ? t("accept") : t("cancel")
+    const confirmation = window.confirm(t("confirmBooking", { action }))
     if (!confirmation) return
     if (booking.id) {
       patchBookingStatus(booking?.id, { status })
         .then(() => {
-          toast.success(`Agendamento ${status === "CONFIRMED" ? "aceito" : "negado"} com sucesso`)
+          const successMessage = status === "CONFIRMED" ? t("bookingAccepted") : t("bookingCanceled")
+          toast.success(successMessage)
           fetch()
         })
         .catch((err) => {
           console.log(err)
-          toast.error(`Erro ao ${status === "CONFIRMED" ? "aceitar" : "negar"} o agendamento`)
+          toast.error(t("errorUpdatingBooking"))
         })
     }
   }
@@ -33,9 +38,9 @@ export default function Booking({ booking, fetch }: { booking: BookingType; fetc
       <p>{booking.status}</p>
       {["PENDING", "CONFIRMED"].indexOf(booking.status ?? "") !== -1 && (
         <div className="flex items-center gap-2">
-          <Button onClickFn={() => handleUpdatingBooking("CANCELED")} text="Cancelar" />
+          <Button onClickFn={() => handleUpdatingBooking("CANCELED")} text={t("cancel")} />
           {booking.status === "PENDING" && (
-            <Button onClickFn={() => handleUpdatingBooking("CONFIRMED")} text="Aceitar" />
+            <Button onClickFn={() => handleUpdatingBooking("CONFIRMED")} text={t("accept")} />
           )}
         </div>
       )}

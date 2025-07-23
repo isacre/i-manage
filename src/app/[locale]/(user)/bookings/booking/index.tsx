@@ -4,20 +4,25 @@ import { patchBookingStatus } from "@/services/company/booking"
 import { BookingStatus, BookingType } from "@/stores/booking-store"
 import dayjs from "dayjs"
 import { toast } from "react-toastify"
+import { useTranslations } from "next-intl"
 
 export default function Booking({ booking, fetch }: { booking: BookingType; fetch: () => void }) {
+  const t = useTranslations("Booking")
+
   function handleUpdatingBooking(status: BookingStatus) {
-    const confirmation = window.confirm(`Deseja ${status === "CONFIRMED" ? "aceitar" : "negar"} o agendamento?`)
+    const action = status === "CONFIRMED" ? t("accept") : t("cancel")
+    const confirmation = window.confirm(t("confirmBooking", { action }))
     if (!confirmation) return
     if (booking.id) {
       patchBookingStatus(booking?.id, { status })
         .then(() => {
-          toast.success(`Agendamento ${status === "CONFIRMED" ? "aceito" : "negado"} com sucesso`)
+          const successMessage = status === "CONFIRMED" ? t("bookingAccepted") : t("bookingCanceled")
+          toast.success(successMessage)
           fetch()
         })
         .catch((err) => {
           console.log(err)
-          toast.error(`Erro ao ${status === "CONFIRMED" ? "aceitar" : "negar"} o agendamento`)
+          toast.error(t("errorUpdatingBooking"))
         })
     }
   }
@@ -32,7 +37,7 @@ export default function Booking({ booking, fetch }: { booking: BookingType; fetc
       <p>{booking.employee_names?.join(", ")}</p>
       {["EXPIRED", "CANCELED", "COMPLETED"].indexOf(booking.status ?? "") === -1 && (
         <div>
-          <ButtonComponent text="Cancelar" onClickFn={() => handleUpdatingBooking("CANCELED")} />
+          <ButtonComponent text={t("cancel")} onClickFn={() => handleUpdatingBooking("CANCELED")} />
         </div>
       )}
     </Row>

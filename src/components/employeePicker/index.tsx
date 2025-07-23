@@ -4,6 +4,8 @@ import Button from "../formFields/button"
 import Image from "next/image"
 import userDefaultImage from "@/assets/defaultAvatar.jpg"
 import { twMerge } from "tailwind-merge"
+import { useTranslations } from "next-intl"
+
 interface Props {
   selectedEmployee: string | undefined
   setSelectedEmployee: (employee: string | undefined) => void
@@ -18,26 +20,28 @@ export default function EmployeePicker({
   selectingEmployee,
   setSelectingEmployee,
 }: Props) {
-  const employeesList = [{ id: undefined, name: "Sem preferência", email: "" }, ...capableEmployees]
-  const [employeeName, setemployeeName] = useState("Sem Preferência")
+  const t = useTranslations("Booking")
+  const employeesList = [{ id: undefined, name: t("noPreference"), email: "" }, ...capableEmployees]
+  const [employeeName, setemployeeName] = useState(t("noPreference"))
 
   useEffect(() => {
     const employee = employeesList.find((employee) => employee.id === Number(selectedEmployee))
     if (employee) {
       setemployeeName(employee.name)
     } else {
-      setemployeeName("Sem Preferência")
+      setemployeeName(t("noPreference"))
     }
-  }, [selectedEmployee])
+  }, [selectedEmployee, t])
+
   return (
     <div className="relative mx-5">
       {!selectingEmployee ? (
         <div className="left-0 mt-4 flex h-[80px] items-center justify-between gap-2 rounded-lg bg-white px-4">
           <>
             <div className="text-sm text-gray-500">
-              <b>Funcionário:</b> {employeeName}
+              <b>{t("employee")}:</b> {employeeName}
             </div>
-            <Button onClickFn={() => setSelectingEmployee(true)} text="Alterar" />
+            <Button onClickFn={() => setSelectingEmployee(true)} text={t("Common.Change")} />
           </>
         </div>
       ) : (

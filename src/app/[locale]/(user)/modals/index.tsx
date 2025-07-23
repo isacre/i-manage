@@ -22,6 +22,7 @@ export default function AuthModal({ state, setState }: Props) {
       if (res.company !== null) {
         router.push(`/${locale}/admin/employees`)
       }
+      setState(undefined)
     })
   }
 

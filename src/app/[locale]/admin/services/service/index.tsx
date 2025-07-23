@@ -3,6 +3,7 @@ import React from "react"
 import Row from "@/components/table/row"
 import RowActions from "@/components/table/rowActions"
 import { FaUsers } from "react-icons/fa"
+import { useTranslations } from "next-intl"
 
 interface ServiceProps {
   service: ServiceType
@@ -12,6 +13,8 @@ interface ServiceProps {
 }
 
 export default function Service({ service, onEdit, onDelete, onCapableEmployees }: ServiceProps) {
+  const t = useTranslations("Admin.Services")
+
   return (
     <Row gridTemplateColumns="1fr 1fr 1fr 0.25fr">
       <div>{service.name}</div>
@@ -20,7 +23,7 @@ export default function Service({ service, onEdit, onDelete, onCapableEmployees 
       <RowActions
         onEdit={onEdit}
         onDelete={onDelete}
-        extraActions={[{ label: "Editar Funcionários", onClick: onCapableEmployees, icon: <FaUsers /> }]}
+        extraActions={[{ label: t("editEmployees"), onClick: onCapableEmployees, icon: <FaUsers /> }]}
       />
     </Row>
   )

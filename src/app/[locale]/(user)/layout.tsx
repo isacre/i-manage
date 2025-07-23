@@ -1,36 +1,36 @@
 "use client"
-import Header from "@/components/header"
-import "@/globals.css"
+import Navbar, { HeaderMenu } from "@/components/navbar/navbar"
 import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
 import { useUserStore } from "@/stores/user-store"
-import { Menu } from "@/types"
 import { deleteCookie } from "@/utils"
 import "@radix-ui/themes/styles.css"
-import { useState, createContext, useContext } from "react"
-import { CiLogout } from "react-icons/ci"
-import { FaCalendar } from "react-icons/fa"
-import AuthModal from "./modals/auth"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { AuthModalContext } from "./AuthModalContext"
-import Navbar from "@/components/navbar/navbar"
+import AuthModal from "./modals"
+import { useTranslations } from "next-intl"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { update: updateUser } = useUserStore()
   const { company } = useUpdateCompanyByDomain()
   const { user } = useUserStore()
+  const router = useRouter()
+  const t = useTranslations()
 
-  const menus: Menu[] = [
+  const menus: HeaderMenu[] = [
     {
-      text: "Meus Agendamentos",
-      icon: FaCalendar,
-      link: "/bookings",
+      label: t("User.myBookings"),
+      href: "/bookings",
+      buttonStyle: "ghost",
     },
     {
-      text: "Sair",
-      icon: CiLogout,
+      href: "",
+      label: t("Common.Exit"),
       onClick: () => {
         deleteCookie("access")
         deleteCookie("refresh")
         updateUser(null)
+        router.push("/")
       },
     },
   ]
@@ -40,9 +40,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <AuthModalContext.Provider value={{ authModalState, setAuthModalState }}>
       <div>
         <AuthModal state={authModalState} setState={setAuthModalState} />
-        {/* <Header menus={menus} setAuthModalState={setAuthModalState} /> */}
-        <Navbar setAuthModalState={setAuthModalState} user={user} company={company} />
-        <div className="m-auto lg:w-[80vw]">{children}</div>
+        <Navbar setAuthModalState={setAuthModalState} user={user} company={company} menus={menus} />
+        <div className="m-auto lg:w-[78vw]">{children}</div>
       </div>
     </AuthModalContext.Provider>
   )

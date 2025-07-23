@@ -6,12 +6,15 @@ import { ServiceType, useServiceStore } from "@/stores/service-store"
 import { ModalProps } from "@/types"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { useTranslations } from "next-intl"
 
 interface Props extends ModalProps {
   service: ServiceType | null
 }
 
 export default function CapableEmployeesModal({ isOpen, setOpen, service }: Props) {
+  const t = useTranslations("Admin.Services")
+  const tCommon = useTranslations("Common")
   const [capableEmployees, setCapableEmployees] = useState<number[]>([])
   const { employees, employeesLoading } = useEmployees()
   const { updateCapableEmployees } = useServiceStore()
@@ -28,14 +31,14 @@ export default function CapableEmployeesModal({ isOpen, setOpen, service }: Prop
     if (!service) return
     patchCompanyCapableEmployees(service.id, capableEmployees)
       .then((res) => {
-        toast.success("Funcionários capacitados atualizados com sucesso")
+        toast.success(t("capableEmployeesSuccess"))
         updateCapableEmployees(
           service.id,
           employees.filter((employee) => res.capable_employees.includes(employee.id)),
         )
       })
       .catch((err) => {
-        toast.error("Erro ao atualizar funcionários capacitados")
+        toast.error(t("capableEmployeesError"))
       })
       .finally(() => {
         setOpen(false)
@@ -51,7 +54,7 @@ export default function CapableEmployeesModal({ isOpen, setOpen, service }: Prop
       loadingDependencies={[employeesLoading]}
       isOpen={isOpen}
       setOpen={setOpen}
-      title={`Funcionários Capacitados - ${service?.name}`}
+      title={t("capableEmployeesTitle", { name: service?.name })}
     >
       <div className="flex flex-col gap-2">
         {employees.map((employee) => (
@@ -62,7 +65,7 @@ export default function CapableEmployeesModal({ isOpen, setOpen, service }: Prop
         ))}
       </div>
       <div className="flex justify-end">
-        <Button text="Salvar" onClickFn={() => handleSave()} />
+        <Button text={tCommon("Save")} onClickFn={() => handleSave()} />
       </div>
     </Modal>
   )

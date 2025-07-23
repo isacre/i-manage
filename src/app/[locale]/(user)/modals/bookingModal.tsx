@@ -14,7 +14,7 @@ import { calcWeekDayDiff } from "@/utils"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
-import ConfirmingBooking from "./confirmBooking"
+import ConfirmingBooking from "./bookingConfirm"
 
 interface Props {
   isOpen: boolean
@@ -40,7 +40,8 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
     SelectedEmployee,
   )
   const service = services.find((service) => service.id === selectedServiceId)
-  const t = useTranslations("Months")
+  const t = useTranslations("Time.Months")
+  const tBooking = useTranslations("Booking")
   const datetime =
     dayjs(`${ClickedDate?.format("YYYY-MM-DD")}T${selectedHour}`).tz("America/Sao_Paulo", true) || undefined
   const [Booking, setBooking] = useState<BookingType>({
@@ -82,7 +83,7 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
     <Modal
       isOpen={isOpen}
       setOpen={setOpen}
-      title={ConfirmingBookingState ? "Confirmar agendamento" : service?.name || "Agendar horário"}
+      title={ConfirmingBookingState ? tBooking("confirmTitle") : service?.name || tBooking("title")}
       returnFunction={ConfirmingBookingState ? () => setConfirmingBooking(false) : undefined}
     >
       {ConfirmingBookingState ? (
@@ -113,7 +114,7 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
           <ButtonComponent
             disabled={!selectedHour && !selectingEmployee}
             onClickFn={handleSubmit}
-            text="Selecionar horário"
+            text={tBooking("selectTime")}
             width="w-full"
           />
         </>

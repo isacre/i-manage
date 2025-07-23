@@ -19,7 +19,7 @@ interface Props {
   setOpen: (state: string | undefined) => void
 }
 export default function RecoverAccountModal({ isOpen, setOpen }: Props) {
-  const t = useTranslations("recoverAccount")
+  const t = useTranslations("Auth.recoverAccount")
   const id = useId()
 
   function handleOpenChange(open: boolean) {
@@ -34,8 +34,8 @@ export default function RecoverAccountModal({ isOpen, setOpen }: Props) {
     <DialogueComponent open={isOpen} setOpen={handleOpenChange}>
       <div className="flex flex-col items-center gap-2">
         <DialogHeader>
-          <DialogTitle className="sm:text-center">{t("recoverAccount")}</DialogTitle>
-          <DialogDescription className="sm:text-center">{t("recoverAccountDescription")}</DialogDescription>
+          <DialogTitle className="sm:text-center">{t("title")}</DialogTitle>
+          <DialogDescription className="sm:text-center">{t("description")}</DialogDescription>
         </DialogHeader>
       </div>
       <form className="space-y-5">

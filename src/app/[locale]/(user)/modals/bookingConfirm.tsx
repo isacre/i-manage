@@ -29,8 +29,10 @@ export default function ConfirmingBooking({ Booking, setRegisterOpen, setOpen }:
   const hour = date.format("HH")
   const minute = date.format("mm")
   const dayOfWeek = date.format("dddd")
-  const t = useTranslations("Months")
-  const weekDay = useTranslations("DaysOfWeek")
+  const t = useTranslations("Time.Months")
+  const weekDay = useTranslations("Time.DaysOfWeek")
+  const tBooking = useTranslations("Booking")
+  const tCurrency = useTranslations("Currency")
   const { updateOpenBookingId } = useBookingStore()
   const { user } = useUserStore()
 
@@ -45,11 +47,11 @@ export default function ConfirmingBooking({ Booking, setRegisterOpen, setOpen }:
           setRegisterOpen(true)
         } else {
           setOpen(false)
-          toast.success("Horário agendado com sucesso")
+          toast.success(tBooking("successScheduling"))
         }
       })
       .catch((err) => {
-        toast.error("Não foi possível agendar o horário")
+        toast.error(tBooking("errorScheduling"))
       })
   }
 
@@ -68,26 +70,31 @@ export default function ConfirmingBooking({ Booking, setRegisterOpen, setOpen }:
         <div className="my-8 flex flex-col gap-4 rounded-lg border-y border-gray-200 bg-white p-2 py-4">
           <div className="flex justify-between">
             <p className="text-gray-800">{service?.name}</p>
-            <p className="font-medium">R$ {service?.price}</p>
+            <p className="font-medium">
+              {tCurrency("symbol")} {service?.price}
+            </p>
           </div>
           <div className="flex justify-between text-sm">
             <p className="text-gray-500">
-              Funcionário:{" "}
+              {tBooking("employee")}:{" "}
               {Booking.employees.length > 0
                 ? Booking.employees.map((employeeId: any) => getEmployeeName(employeeId)).join(", ")
-                : "Sem preferência"}
+                : tBooking("noPreference")}
             </p>
             <p className="text-gray-500">
               {hour}:{minute} - {endDate}
             </p>
           </div>
           <div className="flex items-center justify-end gap-2 border-t border-gray-200 pt-3 font-bold">
-            <p>Total:</p>
-            <p>R${service?.price}</p>
+            <p>{t("Common.Total")}:</p>
+            <p>
+              {tCurrency("symbol")}
+              {service?.price}
+            </p>
           </div>
         </div>
       </div>
-      <ButtonComponent onClickFn={handleSubmit} text="Agendar" width="w-full" />
+      <ButtonComponent onClickFn={handleSubmit} text={tBooking("schedule")} width="w-full" />
     </div>
   )
 }

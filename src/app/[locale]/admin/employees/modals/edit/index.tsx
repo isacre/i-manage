@@ -30,7 +30,7 @@ export default function EditEmployeeModal({ isOpen, setOpen, employee }: Props) 
   } = useForm({ resolver: zodResolver(schema) })
   const editEmployee = useEmployeeStore((state) => state.update)
   const user = useUserStore((state) => state.user)
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
   function onSubmit(data: any) {
     if (!user?.company?.id || !employee) return
 

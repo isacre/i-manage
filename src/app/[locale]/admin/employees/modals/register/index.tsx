@@ -22,7 +22,7 @@ export default function RegisterEmployeeModal({
     name: z.string().min(1, { message: "Nome é obrigatório" }),
     email: z.string().email({ message: "Email inválido" }),
   })
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
 
   const {
     register,

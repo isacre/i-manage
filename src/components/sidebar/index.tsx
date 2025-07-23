@@ -8,19 +8,22 @@ import { useRouter } from "next/navigation"
 import { CiLogout } from "react-icons/ci"
 import SidebarItem from "./item"
 import * as s from "./styles"
+import { useUserStore } from "@/stores/user-store"
 
 type Menu = { icon: React.ReactNode; label: string; link: string }
 
 export default function Sidebar({ menus }: { menus: Menu[] }) {
   const locale = useLocale()
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
   const router = useRouter()
+  const { update } = useUserStore()
   useUserData()
 
   function handleLogout() {
     deleteCookie("access")
     deleteCookie("refresh")
     router.push(`/${locale}/`)
+    update(null)
   }
 
   return (

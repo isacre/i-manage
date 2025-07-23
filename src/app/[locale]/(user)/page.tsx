@@ -4,11 +4,11 @@ import useServices from "@/hooks/useServices"
 import { useCompanyStore } from "@/stores/company-store"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
-import BookingModal from "./modals/booking"
+import BookingModal from "./modals/bookingModal"
 import { useAuthModal } from "./AuthModalContext"
 
 export default function Home() {
-  const t = useTranslations("DaysOfWeek")
+  const t = useTranslations()
   const { company } = useCompanyStore()
   const { services } = useServices(company?.identifier)
   const [bookingModalOpen, setBookingModalOpen] = useState(false)
@@ -16,17 +16,14 @@ export default function Home() {
   const { setAuthModalState } = useAuthModal()
 
   if (!company) {
-    return <div className="flex h-screen items-center justify-center">Empresa não encontrada</div>
+    return <div className="flex h-screen items-center justify-center">{t("Company.notFound")}</div>
   }
   return (
     <div className="">
       <BookingModal isOpen={bookingModalOpen} setOpen={setBookingModalOpen} selectedServiceId={selectedService} />
-      <div className="h-[200px] w-full bg-gray-100 bg-[url('https://png.pngtree.com/background/20211217/original/pngtree-health-care-abstract-light-effect-icon-decoration-picture-image_1591329.jpg')] bg-cover bg-center lg:rounded-b-lg" />
-      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[3fr_1.5fr]">
-        <div className="flex flex-col gap-4">
-          <div className="mt-[-25px] pl-4">
-            <Company.Profile company={company} />
-          </div>
+      <div className="flex h-[200px] w-full items-center justify-start bg-gray-100 bg-[url('/assets/clinicadorusso.jpg')] bg-cover bg-center pl-2 lg:rounded-b-md lg:bg-contain" />
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[3.25fr_1.25fr]">
+        <div className="flex flex-col">
           <Company.Services
             services={services}
             setBookingModalOpen={setBookingModalOpen}

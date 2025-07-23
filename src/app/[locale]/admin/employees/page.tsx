@@ -10,7 +10,7 @@ import TableComponent from "../../../../components/table"
 import { useTranslations } from "next-intl"
 
 export default function Employees() {
-  const t = useTranslations("ADMIN")
+  const t = useTranslations("Admin")
   const { employees, employeesLoading } = useEmployees()
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false)
   const [selectedEmployee, setSelectedEmployee] = useState<EmployeeType | null>(null)

@@ -1,5 +1,5 @@
 // Example `tailwind.config.js` file
-const colors = require("tailwindcss/colors");
+const colors = require("tailwindcss/colors")
 
 module.exports = {
   theme: {
@@ -9,10 +9,7 @@ module.exports = {
       red: colors.rose,
       pink: colors.fuchsia,
     },
-    fontFamily: {
-      sans: ["Graphik", "sans-serif"],
-      serif: ["Merriweather", "serif"],
-    },
+    fontFamily: {},
     extend: {
       spacing: {
         128: "32rem",
@@ -29,4 +26,4 @@ module.exports = {
       opacity: ["disabled"],
     },
   },
-};
+}
