@@ -18,7 +18,7 @@ export default function useBookingDays({ setMonthLabel }: Props) {
   const [currentMonth, setCurrentMonth] = useState(dayjs().month())
   const [currentYear, setCurrentYear] = useState(dayjs().year())
   const [currentWeek, setCurrentWeek] = useState(0)
-  const t = useTranslations("DaysOfWeek")
+  const t = useTranslations("Time.DaysOfWeek")
   const weeks: { day: number; weekday: string; weekdayIndex: number; date: dayjs.Dayjs }[][] = []
 
   for (let i = 0; i < days.length; i += 7) {

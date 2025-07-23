@@ -113,7 +113,8 @@
     "bookingAccepted": "Agendamento aceito com sucesso",
     "bookingRejected": "Agendamento negado com sucesso",
     "bookingCanceled": "Agendamento cancelado com sucesso",
-    "errorUpdatingBooking": "Erro ao atualizar agendamento"
+    "errorUpdatingBooking": "Erro ao atualizar agendamento",
+    "noAvailableHours": "Nenhum horário disponível"
   },
   "Register": {
     "company": {

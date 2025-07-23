@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import { useTranslations } from "next-intl"
 
 interface Props {
   loading: boolean
@@ -7,6 +8,9 @@ interface Props {
   setSelectedHour: (hour: string | undefined) => void
 }
 export default function HourPicker({ loading, availableHours, selectedHour, setSelectedHour }: Props) {
+  const t = useTranslations("Common")
+  const tBooking = useTranslations("Booking")
+
   useEffect(() => {
     if (selectedHour && availableHours.indexOf(selectedHour) === -1) {
       setSelectedHour(undefined)
@@ -14,7 +18,7 @@ export default function HourPicker({ loading, availableHours, selectedHour, setS
   }, [availableHours])
   return (
     <>
-      {loading && <div className="m-auto flex h-[200px] items-center justify-center text-center">Carregando...</div>}
+      {loading && <div className="m-auto flex h-[200px] items-center justify-center text-center">{t("Loading")}</div>}
       {!loading && availableHours.length > 0 && (
         <div className="my-2 grid max-h-[400px] grid-cols-6 gap-1 overflow-y-auto p-5">
           {availableHours.map((hour) => (
@@ -31,7 +35,9 @@ export default function HourPicker({ loading, availableHours, selectedHour, setS
         </div>
       )}
       {!loading && availableHours.length === 0 && (
-        <div className="m-auto flex h-[200px] items-center justify-center text-center">Nenhum horário disponível</div>
+        <div className="m-auto flex h-[200px] items-center justify-center text-center">
+          {tBooking("noAvailableHours")}
+        </div>
       )}
     </>
   )

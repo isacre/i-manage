@@ -113,7 +113,8 @@
     "bookingAccepted": "Booking accepted successfully",
     "bookingRejected": "Booking rejected successfully",
     "bookingCanceled": "Booking canceled successfully",
-    "errorUpdatingBooking": "Error updating booking"
+    "errorUpdatingBooking": "Error updating booking",
+    "noAvailableHours": "No available hours"
   },
   "Register": {
     "company": {

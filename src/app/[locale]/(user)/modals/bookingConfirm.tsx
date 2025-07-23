@@ -30,6 +30,7 @@ export default function ConfirmingBooking({ Booking, setRegisterOpen, setOpen }:
   const minute = date.format("mm")
   const dayOfWeek = date.format("dddd")
   const t = useTranslations("Time.Months")
+  const tCommon = useTranslations("Common")
   const weekDay = useTranslations("Time.DaysOfWeek")
   const tBooking = useTranslations("Booking")
   const tCurrency = useTranslations("Currency")
@@ -86,7 +87,7 @@ export default function ConfirmingBooking({ Booking, setRegisterOpen, setOpen }:
             </p>
           </div>
           <div className="flex items-center justify-end gap-2 border-t border-gray-200 pt-3 font-bold">
-            <p>{t("Common.Total")}:</p>
+            <p>{tCommon("Total")}:</p>
             <p>
               {tCurrency("symbol")}
               {service?.price}

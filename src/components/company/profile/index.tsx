@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function CompanyProfileComponent({ company }: Props) {
-  const t = useTranslations("DaysOfWeek")
+  const t = useTranslations("Time.DaysOfWeek")
   const { name, address, opens_at, closes_at, work_days, image_url } = company
   const dayjsFormatDayOfWeek = (day: number) => {
     return dayjs()

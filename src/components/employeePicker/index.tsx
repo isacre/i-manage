@@ -21,6 +21,7 @@ export default function EmployeePicker({
   setSelectingEmployee,
 }: Props) {
   const t = useTranslations("Booking")
+  const tCommon = useTranslations("Common")
   const employeesList = [{ id: undefined, name: t("noPreference"), email: "" }, ...capableEmployees]
   const [employeeName, setemployeeName] = useState(t("noPreference"))
 
@@ -41,7 +42,7 @@ export default function EmployeePicker({
             <div className="text-sm text-gray-500">
               <b>{t("employee")}:</b> {employeeName}
             </div>
-            <Button onClickFn={() => setSelectingEmployee(true)} text={t("Common.Change")} />
+            <Button onClickFn={() => setSelectingEmployee(true)} text={tCommon("Change")} />
           </>
         </div>
       ) : (
