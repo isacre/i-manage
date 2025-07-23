@@ -38,7 +38,7 @@ export declare type CompanyType = {
   address: string
   identifier: string
   primary_color: string
-  banner_url: string
+  banner: string
 }
 
 export interface Service {

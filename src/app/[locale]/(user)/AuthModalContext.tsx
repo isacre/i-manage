@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react"
 
 export const AuthModalContext = createContext<{
-  authModalState: string | undefined
+  authModalState?: string
   setAuthModalState: React.Dispatch<React.SetStateAction<string | undefined>>
 } | null>(null)
 

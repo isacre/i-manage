@@ -1,5 +1,5 @@
 "use client"
-import ButtonComponent from "@/components/formFields/button"
+import { Button } from "@/components/ui/button"
 import { createBooking } from "@/services/company/booking"
 import { BookingType, useBookingStore } from "@/stores/booking-store"
 import { useCompanyStore } from "@/stores/company-store"
@@ -62,40 +62,55 @@ export default function ConfirmingBooking({ Booking, setRegisterOpen, setOpen }:
   }
 
   return (
-    <div>
-      <div className="flex flex-col">
-        <h2 className="w-full text-center text-2xl font-bold">
+    <div className="space-y-6">
+      {/* Booking Summary */}
+      <div className="space-y-2 text-center">
+        <h2 className="text-2xl font-bold text-gray-900">
           {weekDay(dayOfWeek)}, {day} de {t(String(Number(month)))} de {year}
         </h2>
-        <h3 className="text-center text-sm font-light">{company?.name}</h3>
-        <div className="my-8 flex flex-col gap-4 rounded-lg border-y border-gray-200 bg-white p-2 py-4">
+        <p className="text-gray-600">{company?.name}</p>
+      </div>
+
+      {/* Booking Details Card */}
+      <div className="space-y-4 rounded-lg bg-gray-50 p-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900">{service?.name}</h3>
+          <p className="text-lg font-bold text-gray-900">
+            {tCurrency("symbol")} {service?.price}
+          </p>
+        </div>
+
+        <div className="space-y-3 text-sm">
           <div className="flex justify-between">
-            <p className="text-gray-800">{service?.name}</p>
-            <p className="font-medium">
-              {tCurrency("symbol")} {service?.price}
-            </p>
-          </div>
-          <div className="flex justify-between text-sm">
-            <p className="text-gray-500">
-              {tBooking("employee")}:{" "}
+            <span className="text-gray-600">{tBooking("employee")}:</span>
+            <span className="font-medium">
               {Booking.employees.length > 0
                 ? Booking.employees.map((employeeId: any) => getEmployeeName(employeeId)).join(", ")
                 : tBooking("noPreference")}
-            </p>
-            <p className="text-gray-500">
-              {hour}:{minute} - {endDate}
-            </p>
+            </span>
           </div>
-          <div className="flex items-center justify-end gap-2 border-t border-gray-200 pt-3 font-bold">
-            <p>{tCommon("Total")}:</p>
-            <p>
-              {tCurrency("symbol")}
-              {service?.price}
-            </p>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Time:</span>
+            <span className="font-medium">
+              {hour}:{minute} - {endDate}
+            </span>
           </div>
         </div>
+
+        <div className="flex items-center justify-between border-t pt-4">
+          <span className="text-lg font-bold text-gray-900">{tCommon("Total")}:</span>
+          <span className="text-xl font-bold text-gray-900">
+            {tCurrency("symbol")} {service?.price}
+          </span>
+        </div>
       </div>
-      <ButtonComponent onClickFn={handleSubmit} text={tBooking("schedule")} width="w-full" />
+
+      {/* Action Button */}
+      <div className="pt-4">
+        <Button onClick={handleSubmit} className="w-full" size="lg">
+          {tBooking("schedule")}
+        </Button>
+      </div>
     </div>
   )
 }

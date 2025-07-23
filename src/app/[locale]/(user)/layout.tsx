@@ -1,14 +1,14 @@
 "use client"
 import Navbar, { HeaderMenu } from "@/components/navbar/navbar"
-import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
 import { useUserStore } from "@/stores/user-store"
 import { deleteCookie } from "@/utils"
-import "@radix-ui/themes/styles.css"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { AuthModalContext } from "./AuthModalContext"
-import AuthModal from "./modals"
 import { useTranslations } from "next-intl"
+import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
+import AuthModal from "./modals"
+import "@radix-ui/themes/styles.css"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { update: updateUser } = useUserStore()

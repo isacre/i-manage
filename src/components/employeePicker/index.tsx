@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import Button from "../formFields/button"
+import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import userDefaultImage from "@/assets/defaultAvatar.jpg"
 import { twMerge } from "tailwind-merge"
@@ -35,36 +35,57 @@ export default function EmployeePicker({
   }, [selectedEmployee, t])
 
   return (
-    <div className="relative mx-5">
+    <div className="space-y-3">
       {!selectingEmployee ? (
-        <div className="left-0 mt-4 flex h-[80px] items-center justify-between gap-2 rounded-lg bg-white px-4">
-          <>
-            <div className="text-sm text-gray-500">
-              <b>{t("employee")}:</b> {employeeName}
+        <div className="flex items-center justify-between rounded-lg border bg-white p-4 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100">
+              <span className="text-sm font-medium text-gray-600">👤</span>
             </div>
-            <Button onClickFn={() => setSelectingEmployee(true)} text={tCommon("Change")} />
-          </>
+            <div>
+              <p className="text-sm text-gray-500">{t("employee")}</p>
+              <p className="font-medium text-gray-900">{employeeName}</p>
+            </div>
+          </div>
+          <Button onClick={() => setSelectingEmployee(true)} variant="outline" size="sm">
+            {tCommon("Change")}
+          </Button>
         </div>
       ) : (
-        <div className="absolute top-[90%] left-0 mt-4 h-fit w-full overflow-y-auto rounded-lg bg-white">
-          {employeesList.map((employee, index) => (
-            <div
-              className={twMerge(
-                "flex cursor-pointer items-center gap-4 p-4 hover:bg-gray-100",
-                index !== employeesList.length - 1 && "border-b-1 border-gray-200",
-              )}
-              key={`${employee.id}-${employee.name}`}
-              onClick={() => {
-                setSelectedEmployee(employee.id?.toString() || undefined)
-                setSelectingEmployee(false)
-              }}
-            >
-              {employee.id && (
-                <Image src={userDefaultImage} alt={employee.name} width={30} height={30} className="rounded-full" />
-              )}
-              <p>{employee.name}</p>
-            </div>
-          ))}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <h5 className="text-sm font-medium text-gray-700">Select Employee</h5>
+            <Button onClick={() => setSelectingEmployee(false)} variant="ghost" size="sm">
+              Cancel
+            </Button>
+          </div>
+          <div className="max-h-48 overflow-y-auto rounded-lg border bg-white shadow-sm">
+            {employeesList.map((employee, index) => (
+              <div
+                className={twMerge(
+                  "flex cursor-pointer items-center gap-3 p-3 transition-colors hover:bg-gray-50",
+                  index !== employeesList.length - 1 && "border-b border-gray-100",
+                )}
+                key={`${employee.id}-${employee.name}`}
+                onClick={() => {
+                  setSelectedEmployee(employee.id?.toString() || undefined)
+                  setSelectingEmployee(false)
+                }}
+              >
+                {employee.id ? (
+                  <Image src={userDefaultImage} alt={employee.name} width={32} height={32} className="rounded-full" />
+                ) : (
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+                    <span className="text-xs text-gray-500">⚪</span>
+                  </div>
+                )}
+                <div className="flex-1">
+                  <p className="font-medium text-gray-900">{employee.name}</p>
+                  {employee.email && <p className="text-xs text-gray-500">{employee.email}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
