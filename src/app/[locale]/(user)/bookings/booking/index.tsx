@@ -14,9 +14,15 @@ import {
   FaExclamationCircle,
   FaHourglassHalf,
 } from "react-icons/fa"
+import Header from "./Header"
+import Section from "./Section"
+import Action from "./Action"
 
 export default function Booking({ booking, fetch }: { booking: BookingType; fetch: () => void }) {
   const t = useTranslations("Booking")
+  const statusConfig = getStatusConfig(booking.status || "")
+  const startDate = dayjs(booking.start_date)
+  const endDate = dayjs(booking.end_date)
 
   function handleUpdatingBooking(status: BookingStatus) {
     const action = status === "CONFIRMED" ? t("accept") : t("cancel")
@@ -36,7 +42,7 @@ export default function Booking({ booking, fetch }: { booking: BookingType; fetc
     }
   }
 
-  const getStatusConfig = (status: string) => {
+  function getStatusConfig(status: string) {
     switch (status) {
       case "CONFIRMED":
         return {
@@ -89,84 +95,35 @@ export default function Booking({ booking, fetch }: { booking: BookingType; fetc
     }
   }
 
-  const statusConfig = getStatusConfig(booking.status || "")
-  const StatusIcon = statusConfig.icon
-  const startDate = dayjs(booking.start_date)
-  const endDate = dayjs(booking.end_date)
-  const isToday = startDate.isSame(dayjs(), "day")
-
   return (
     <div
       className={`rounded-xl border bg-white shadow-sm ${statusConfig.borderColor} overflow-hidden transition-shadow duration-200 hover:shadow-md`}
     >
-      {/* Date Header */}
-      <div className={`${statusConfig.bgColor} border-b px-6 py-4 ${statusConfig.borderColor}`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <FaCalendarAlt className={`h-5 w-5 ${statusConfig.color}`} />
-            <div>
-              <p className="text-sm font-medium text-gray-900">{startDate.format("dddd, MMMM D")}</p>
-              <p className={`text-xs ${statusConfig.color} font-medium`}>
-                {isToday ? "Today" : startDate.format("YYYY")}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <StatusIcon className={`h-5 w-5 ${statusConfig.color}`} />
-            <span className={`text-sm font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
-          </div>
+      <Header booking={booking} statusConfig={statusConfig} />
+      <Section>
+        <FaClock className="h-4 w-4 text-gray-400" />
+        <div>
+          <p className="text-lg font-semibold text-gray-900">
+            {startDate.format("HH:mm")} - {endDate.format("HH:mm")}
+          </p>
+          <p className="text-sm text-gray-500">{endDate.diff(startDate, "minute")} minutes</p>
         </div>
-      </div>
-
-      {/* Time Section */}
-      <div className="border-b border-gray-100 px-6 py-4">
-        <div className="flex items-center space-x-3">
-          <FaClock className="h-4 w-4 text-gray-400" />
-          <div>
-            <p className="text-lg font-semibold text-gray-900">
-              {startDate.format("HH:mm")} - {endDate.format("HH:mm")}
-            </p>
-            <p className="text-sm text-gray-500">{endDate.diff(startDate, "minute")} minutes</p>
-          </div>
+      </Section>
+      <Section>
+        <FaTag className="h-4 w-4 text-gray-400" />
+        <div>
+          <p className="font-medium text-gray-900">{booking.service_name}</p>
+          <p className="text-sm text-gray-500">Service</p>
         </div>
-      </div>
-
-      {/* Service Section */}
-      <div className="border-b border-gray-100 px-6 py-4">
-        <div className="flex items-center space-x-3">
-          <FaTag className="h-4 w-4 text-gray-400" />
-          <div>
-            <p className="font-medium text-gray-900">{booking.service_name}</p>
-            <p className="text-sm text-gray-500">Service</p>
-          </div>
+      </Section>
+      <Section>
+        <FaUser className="h-4 w-4 text-gray-400" />
+        <div>
+          <p className="font-medium text-gray-900">{booking.employee_names?.join(", ") || "No employee assigned"}</p>
+          <p className="text-sm text-gray-500">Assigned staff</p>
         </div>
-      </div>
-
-      {/* Employee Section */}
-      <div className="border-b border-gray-100 px-6 py-4">
-        <div className="flex items-center space-x-3">
-          <FaUser className="h-4 w-4 text-gray-400" />
-          <div>
-            <p className="font-medium text-gray-900">{booking.employee_names?.join(", ") || "No employee assigned"}</p>
-            <p className="text-sm text-gray-500">Assigned staff</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Action Section */}
-      <div className="px-6 py-4">
-        {["EXPIRED", "CANCELED", "COMPLETED"].indexOf(booking.status ?? "") === -1 && (
-          <ButtonComponent
-            text={t("cancel")}
-            onClickFn={() => handleUpdatingBooking("CANCELED")}
-            color="text-red-700"
-            background="bg-red-50"
-            width="w-full"
-            padding="p-3"
-            borderRadius="rounded-lg"
-          />
-        )}
-      </div>
+      </Section>
+      <Action booking={booking} handleUpdatingBooking={handleUpdatingBooking} />
     </div>
   )
 }

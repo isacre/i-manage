@@ -1,10 +1,10 @@
 "use server"
 import iManageLogo from "@/assets/logo/imanagelogo.png"
-import { Button, Link } from "@radix-ui/themes"
+import { Link } from "@radix-ui/themes"
+import { Button } from "@/components/ui/button"
 import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import { FaCalendar, FaCheckCircle, FaUsers } from "react-icons/fa"
-import { redirect } from "next/navigation"
 
 export default async function LandingPage() {
   const t = await getTranslations("About")
@@ -23,7 +23,12 @@ export default async function LandingPage() {
           <p className="mb-6 text-lg">{t("description")}</p>
           <div className="flex flex-row items-center justify-center gap-4">
             <Link href="http://clinicadorusso.localhost:3000/">
-              <Button className="!border-red-600 !text-red-600" variant="outline" style={{ cursor: "pointer" }}>
+              <Button
+                color="red"
+                className="!border-red-600 !text-red-600"
+                variant="outline"
+                style={{ cursor: "pointer" }}
+              >
                 {t("secondary_button")}
               </Button>
             </Link>
