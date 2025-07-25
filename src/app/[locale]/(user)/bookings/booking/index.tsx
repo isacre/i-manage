@@ -93,7 +93,6 @@ export default function Booking({ booking, fetch }: { booking: BookingType; fetc
   const StatusIcon = statusConfig.icon
   const startDate = dayjs(booking.start_date)
   const endDate = dayjs(booking.end_date)
-  const isPast = startDate.isBefore(dayjs(), "day")
   const isToday = startDate.isSame(dayjs(), "day")
 
   return (

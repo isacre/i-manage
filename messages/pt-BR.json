@@ -114,7 +114,14 @@
     "bookingRejected": "Agendamento negado com sucesso",
     "bookingCanceled": "Agendamento cancelado com sucesso",
     "errorUpdatingBooking": "Erro ao atualizar agendamento",
-    "noAvailableHours": "Nenhum horário disponível"
+    "noAvailableHours": "Nenhum horário disponível",
+    "cancelBooking": "Deseja cancelar o agendamento?",
+    "cancelBookingDescription": "Esta ação não pode ser revertida.",
+    "cancelBookingLoading": "Cancelando agendamento...",
+    "cancelBookingSuccess": "Agendamento cancelado com sucesso",
+    "cancelBookingError": "Erro ao cancelar agendamento",
+    "cancelBookingNo": "Não",
+    "cancelBookingYes": "Sim"
   },
   "Register": {
     "company": {

@@ -4,10 +4,10 @@ import useServices from "@/hooks/useServices"
 import { useCompanyStore } from "@/stores/company-store"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
-import BookingModal from "./modals/bookingModal"
+import BookingModal from "./modals/booking/booking/bookingModal"
 import { useAuthModal } from "./AuthModalContext"
 
-export default function Home() {
+export default function CompanyLandingPage() {
   const t = useTranslations()
   const { company } = useCompanyStore()
   const { services } = useServices(company?.identifier)
@@ -18,6 +18,7 @@ export default function Home() {
   if (!company) {
     return <div className="flex h-screen items-center justify-center">{t("Company.notFound")}</div>
   }
+
   return (
     <div className="flex flex-col gap-4">
       <BookingModal isOpen={bookingModalOpen} setOpen={setBookingModalOpen} selectedServiceId={selectedService} />

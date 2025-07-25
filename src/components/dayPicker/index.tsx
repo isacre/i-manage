@@ -70,17 +70,12 @@ export default function DayPicker({ setMonthLabel, clickedDate, setClickedDate }
   // Filter only work days
   const currentWeekDays = weeks[currentWeek] || []
   const workDays = currentWeekDays.filter(({ weekdayIndex }) => company?.work_days.indexOf(weekdayIndex) !== -1)
-
   // Take only the first N days based on screen size
+
   const visibleDays = workDays.slice(0, visibleDaysCount)
 
   return (
     <div className="space-y-4">
-      {/* Week indicator */}
-      <div className="text-center">
-        <p className="text-sm text-gray-600">Week {currentWeek + 1}</p>
-      </div>
-
       {/* Days with side navigation */}
       <div className="flex items-center gap-2 sm:gap-4">
         {/* Previous button */}
@@ -121,18 +116,6 @@ export default function DayPicker({ setMonthLabel, clickedDate, setClickedDate }
         >
           <IoChevronForward size={16} />
         </button>
-      </div>
-
-      {/* Legend */}
-      <div className="flex items-center justify-center gap-4 text-xs text-gray-600">
-        <div className="flex items-center gap-1">
-          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-          <span>Available</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="h-2 w-2 rounded-full" style={{ backgroundColor: company?.primary_color }}></div>
-          <span>Today</span>
-        </div>
       </div>
     </div>
   )

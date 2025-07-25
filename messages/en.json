@@ -114,7 +114,14 @@
     "bookingRejected": "Booking rejected successfully",
     "bookingCanceled": "Booking canceled successfully",
     "errorUpdatingBooking": "Error updating booking",
-    "noAvailableHours": "No available hours"
+    "noAvailableHours": "No available hours",
+    "cancelBooking": "Do you want to cancel the booking?",
+    "cancelBookingDescription": "This action cannot be undone.",
+    "cancelBookingLoading": "Cancelling booking...",
+    "cancelBookingSuccess": "Booking canceled successfully",
+    "cancelBookingError": "Error canceling booking",
+    "cancelBookingNo": "No",
+    "cancelBookingYes": "Yes"
   },
   "Register": {
     "company": {
