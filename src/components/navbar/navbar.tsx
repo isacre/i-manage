@@ -10,6 +10,7 @@ export type HeaderMenu = {
   label: string
   onClick?: () => void
   buttonStyle?: "default" | "ghost" | "outline"
+  show?: boolean
 }
 interface Props {
   menus?: HeaderMenu[]

@@ -30,6 +30,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       label: t("Common.Exit"),
       onClick: handleLogout,
     },
+    {
+      href: "/admin/bookings",
+      label: "Admin",
+      show: user?.company?.id !== null,
+    },
   ]
 
   function handleLogout() {
