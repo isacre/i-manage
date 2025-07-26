@@ -3,7 +3,7 @@ import { getBookings } from "@/services/company/booking"
 import { BookingStatus, useBookingStore } from "@/stores/booking-store"
 import { useCompanyStore } from "@/stores/company-store"
 import { useUserStore } from "@/stores/user-store"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 export type useBookingFilters = {
   status: BookingStatus
@@ -13,11 +13,10 @@ export default function useBooking(filters: useBookingFilters) {
   const [BookingsLoading, setBookingsLoading] = useState(false)
   const bookings = useBookingStore((state) => state.bookings)
   const saveBookings = useBookingStore((state) => state.update)
-  const company = useCompanyStore((state) => state.company?.id)
+  const company = useUserStore((state) => state.user?.company?.id)
 
-  function fetch() {
+  const fetch = useCallback(() => {
     if (!company) {
-      console.log(company)
       return
     }
 
@@ -31,11 +30,11 @@ export default function useBooking(filters: useBookingFilters) {
         console.log(err)
         setBookingsLoading(false)
       })
-  }
+  }, [company, filters.status, filters.user, saveBookings])
 
   useEffect(() => {
     fetch()
-  }, [company, filters.status, filters.user])
+  }, [company, filters.status, filters.user, fetch])
 
   return { BookingsLoading, bookings, fetch }
 }

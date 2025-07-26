@@ -1,24 +1,18 @@
-"use client"
-import Sidebar from "../../../components/sidebar"
 import { useTranslations } from "next-intl"
-import { Poppins } from "next/font/google"
 import { FaCalendar, FaPalette, FaUsers } from "react-icons/fa"
 import { MdOutlinePriceChange } from "react-icons/md"
+import Sidebar from "@/components/sidebar"
+import getCompanyByDomainAndGenerateMetadata from "../metadata"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-import "@/globals.css"
-import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
-import LoadingSpinner from "@/components/loadingSpinner"
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-})
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  return await getCompanyByDomainAndGenerateMetadata(locale)
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations("Admin")
-  const {} = useUpdateCompanyByDomain()
-
   const Menus = [
     {
       label: t("Customize.title"),
@@ -44,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="flex">
+      <ToastContainer />
       <nav>
         <Sidebar menus={Menus} />
       </nav>

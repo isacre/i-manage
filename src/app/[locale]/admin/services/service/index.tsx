@@ -1,3 +1,4 @@
+"use client"
 import { ServiceType } from "@/stores/service-store"
 import React from "react"
 import Row from "@/components/table/row"

@@ -1,14 +1,14 @@
 import { getEmployees } from "@/services/company/employee"
 import { useEmployeeStore } from "@/stores/employee-store"
 import { useUserStore } from "@/stores/user-store"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
-export default function useEmployees() {
+export default function useEmployees(fetchOnRender = true) {
   const { employees, update } = useEmployeeStore()
   const { user } = useUserStore()
   const [isLoading, setIsLoading] = useState(false)
-  function fetch() {
+  const fetch = useCallback(() => {
     if (!user?.company?.id) {
       return
     }
@@ -22,10 +22,13 @@ export default function useEmployees() {
         setIsLoading(false)
         toast.error("Erro ao buscar funcionários")
       })
-  }
-  useEffect(() => {
-    fetch()
-  }, [user])
+  }, [user?.company?.id, update])
 
-  return { employees, employeesLoading: isLoading }
+  useEffect(() => {
+    if (fetchOnRender) {
+      fetch()
+    }
+  }, [user?.company?.id, fetchOnRender])
+
+  return { employees, employeesLoading: isLoading, fetch }
 }

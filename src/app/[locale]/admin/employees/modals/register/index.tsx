@@ -1,23 +1,21 @@
 "use client"
-import FormFields from "../../../../../../components/formFields"
-import Modal from "../../../../../../components/modal"
-import useEmployees from "../../../../../../hooks/useEmployees"
-import { registerEmployee } from "../../../../../../services/company/employee"
-import { useEmployeeStore } from "../../../../../../stores/employee-store"
-import { useUserStore } from "../../../../../../stores/user-store"
-import { Button } from "@radix-ui/themes"
+import FormFields from "@/components/formFields"
+import Modal from "@/components/modal"
+import { registerEmployee } from "@/services/company/employee"
+import { useEmployeeStore } from "@/stores/employee-store"
+import { useUserStore } from "@/stores/user-store"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
-export default function RegisterEmployeeModal({
-  isOpen,
-  setOpen,
-}: {
+
+type Props = {
   isOpen: boolean
   setOpen: (open: boolean) => void
-}) {
+}
+
+export default function RegisterEmployeeModal({ isOpen, setOpen }: Props) {
   const schema = z.object({
     name: z.string().min(1, { message: "Nome é obrigatório" }),
     email: z.string().email({ message: "Email inválido" }),

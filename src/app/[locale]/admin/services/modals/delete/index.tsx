@@ -1,12 +1,13 @@
 "use client"
-import Modal from "../../../../../../components/modal"
-import { deleteService } from "../../../../../../services/company/services"
-import { useServiceStore } from "../../../../../../stores/service-store"
-import { useUserStore } from "../../../../../../stores/user-store"
+import Modal from "@/components/modal"
+import { deleteService } from "@/services/company/services"
+import { useServiceStore } from "@/stores/service-store"
+import { useUserStore } from "@/stores/user-store"
 import { Button } from "@radix-ui/themes"
 import { toast } from "react-toastify"
-import { ServiceType } from "../../../../../../stores/service-store"
+import { ServiceType } from "@/stores/service-store"
 import { useTranslations } from "next-intl"
+import { useCallback } from "react"
 
 interface DeleteServiceModalProps {
   isOpen: boolean
@@ -20,9 +21,8 @@ export default function DeleteServiceModal({ isOpen, setOpen, service }: DeleteS
   const t = useTranslations("Admin.Services")
   const tCommon = useTranslations("Common")
 
-  function handleDelete() {
+  const handleDelete = useCallback(() => {
     if (!user?.company?.id || !service?.id) return
-
     deleteService(service.id.toString())
       .then(() => {
         setOpen(false)
@@ -32,14 +32,13 @@ export default function DeleteServiceModal({ isOpen, setOpen, service }: DeleteS
       .catch(() => {
         toast.error(t("deleteError"))
       })
-  }
+  }, [service, user?.company?.id, remove, t])
 
   return (
     <div>
       <Modal isOpen={isOpen} setOpen={setOpen} title={t("deleteTitle")}>
         <div className="space-y-6 p-2">
           <p className="text-gray-700">{t("deleteMessage", { name: service?.name })}</p>
-
           <div className="flex justify-end space-x-4 pt-4">
             <Button type="button" variant="soft" color="gray" onClick={() => setOpen(false)} className="px-4 py-2">
               {tCommon("Cancel")}

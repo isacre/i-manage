@@ -14,7 +14,7 @@ export default function SidebarItem({ icon, label, link }: Props) {
   const isActive = pathname === link
 
   return (
-    <Link href={link}>
+    <Link href={link} prefetch={true}>
       <div className={containerClassName(isActive)}>
         <div className={iconClassName(isActive)}>{icon}</div>
         <span className={labelClassName(isActive)}>{label}</span>

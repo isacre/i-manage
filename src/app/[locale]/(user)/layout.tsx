@@ -9,6 +9,8 @@ import { useTranslations } from "next-intl"
 import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
 import AuthModal from "./modals/auth"
 import "@radix-ui/themes/styles.css"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { update: updateUser } = useUserStore()
@@ -39,6 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <AuthModalContext.Provider value={{ authModalState, setAuthModalState }}>
+      <ToastContainer />
+
       <AuthModal state={authModalState} setState={setAuthModalState} />
       <Navbar setAuthModalState={setAuthModalState} user={user} company={company} menus={menus} />
       <div className="m-auto lg:w-[78vw]">{children}</div>

@@ -31,15 +31,17 @@ export default function RegisterServiceModal({ isOpen, setOpen }: Props) {
   })
   const add = useServiceStore((state) => state.add)
   const user = useUserStore((state) => state.user)
+  const minutesInHour = 60
+  const minutesInDay = 1440
 
   function convertToMinutes(value: number, unit: TimeUnit): number {
     switch (unit) {
       case "minutes":
         return value
       case "hours":
-        return value * 60
+        return value * minutesInHour
       case "days":
-        return value * 1440
+        return value * minutesInDay
       default:
         return value
     }

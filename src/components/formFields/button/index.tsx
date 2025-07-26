@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import type { BorderRadius, TextColor, BackgroundColor, Padding, Cursor, FontWeight, Width } from "tailwindcss-types"
 

@@ -1,10 +1,11 @@
+"use client"
 import Button from "@/components/formFields/button"
 import Modal from "@/components/modal"
 import useEmployees from "@/hooks/useEmployees"
 import { patchCompanyCapableEmployees } from "@/services/company/services"
 import { ServiceType, useServiceStore } from "@/stores/service-store"
 import { ModalProps } from "@/types"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 
@@ -16,18 +17,21 @@ export default function CapableEmployeesModal({ isOpen, setOpen, service }: Prop
   const t = useTranslations("Admin.Services")
   const tCommon = useTranslations("Common")
   const [capableEmployees, setCapableEmployees] = useState<number[]>([])
-  const { employees, employeesLoading } = useEmployees()
+  const { employees, employeesLoading } = useEmployees(isOpen)
   const { updateCapableEmployees } = useServiceStore()
 
-  function handleCheckBoxToggle(employeeId: number) {
-    if (capableEmployees.includes(employeeId)) {
-      setCapableEmployees(capableEmployees.filter((id) => id !== employeeId))
-    } else {
-      setCapableEmployees([...capableEmployees, employeeId])
-    }
-  }
+  const handleCheckBoxToggle = useCallback(
+    (employeeId: number) => {
+      if (capableEmployees.includes(employeeId)) {
+        setCapableEmployees(capableEmployees.filter((id) => id !== employeeId))
+      } else {
+        setCapableEmployees([...capableEmployees, employeeId])
+      }
+    },
+    [capableEmployees],
+  )
 
-  function handleSave() {
+  const handleSave = useCallback(() => {
     if (!service) return
     patchCompanyCapableEmployees(service.id, capableEmployees)
       .then((res) => {
@@ -43,12 +47,13 @@ export default function CapableEmployeesModal({ isOpen, setOpen, service }: Prop
       .finally(() => {
         setOpen(false)
       })
-  }
+  }, [service, capableEmployees, employees, updateCapableEmployees, t, setOpen])
 
   useEffect(() => {
     if (!service) return
     setCapableEmployees(service.capable_employees.map((employee) => employee.id))
   }, [service, isOpen])
+
   return (
     <Modal
       loadingDependencies={[employeesLoading]}

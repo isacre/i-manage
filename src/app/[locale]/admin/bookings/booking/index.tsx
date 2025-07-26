@@ -1,4 +1,5 @@
-import React from "react"
+"use client"
+import React, { useCallback } from "react"
 import Row from "@/components/table/row"
 import { BookingStatus, BookingType } from "@/stores/booking-store"
 import Button from "@/components/formFields/button"
@@ -10,23 +11,26 @@ import { useTranslations } from "next-intl"
 export default function Booking({ booking, fetch }: { booking: BookingType; fetch: () => void }) {
   const t = useTranslations("Booking")
 
-  function handleUpdatingBooking(status: BookingStatus) {
-    const action = status === "CONFIRMED" ? t("accept") : t("cancel")
-    const confirmation = window.confirm(t("confirmBooking", { action }))
-    if (!confirmation) return
-    if (booking.id) {
-      patchBookingStatus(booking?.id, { status })
-        .then(() => {
-          const successMessage = status === "CONFIRMED" ? t("bookingAccepted") : t("bookingCanceled")
-          toast.success(successMessage)
-          fetch()
-        })
-        .catch((err) => {
-          console.log(err)
-          toast.error(t("errorUpdatingBooking"))
-        })
-    }
-  }
+  const handleUpdatingBooking = useCallback(
+    (status: BookingStatus) => {
+      const action = status === "CONFIRMED" ? t("accept") : t("cancel")
+      const confirmation = window.confirm(t("confirmBooking", { action }))
+      if (!confirmation) return
+      if (booking.id) {
+        patchBookingStatus(booking?.id, { status })
+          .then(() => {
+            const successMessage = status === "CONFIRMED" ? t("bookingAccepted") : t("bookingCanceled")
+            toast.success(successMessage)
+            fetch()
+          })
+          .catch((err) => {
+            console.log(err)
+            toast.error(t("errorUpdatingBooking"))
+          })
+      }
+    },
+    [booking.id, fetch, t, patchBookingStatus],
+  )
 
   return (
     <Row gridTemplateColumns="1fr 1fr 1fr 1fr 0.5fr">

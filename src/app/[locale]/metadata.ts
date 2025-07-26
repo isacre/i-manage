@@ -1,8 +1,7 @@
 import { getCompanyByDomain } from "@/services/company"
 import { headers } from "next/headers"
-import React from "react"
 
-export default async function getCompanyByDomainAndGenerateMetadata(locale: string) {
+export default async function getCompanyByDomainAndGenerateMetadata(locale: string, title?: string) {
   const headersList = await headers()
   const domain = headersList.get("host")?.split(":")[0]
   const subdomain = domain?.split(".")[0]
@@ -12,6 +11,7 @@ export default async function getCompanyByDomainAndGenerateMetadata(locale: stri
   try {
     const company = await getCompanyByDomain(subdomain)
     return {
+      title: title || company.name,
       description: company.description || "Sistema de agendamento inteligente.",
       icons: {
         title: `${company.name}`,

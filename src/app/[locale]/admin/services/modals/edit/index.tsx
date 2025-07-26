@@ -7,10 +7,9 @@ import { Button } from "@radix-ui/themes"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { ServiceType } from "../../../../../../stores/service-store"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
-
-type TimeUnit = "minutes" | "hours" | "days"
+import { TimeUnit } from "@/types"
 
 interface EditServiceModalProps {
   isOpen: boolean
@@ -22,7 +21,7 @@ export default function EditServiceModal({ isOpen, setOpen, service }: EditServi
   const t = useTranslations("Admin.Services")
   const tCommon = useTranslations("Common")
   const [timeUnit, setTimeUnit] = useState<TimeUnit>("minutes")
-  const { register, handleSubmit, reset, setValue } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       name: "",
       description: "",
@@ -33,41 +32,43 @@ export default function EditServiceModal({ isOpen, setOpen, service }: EditServi
   })
   const update = useServiceStore((state) => state.update)
   const user = useUserStore((state) => state.user)
+  const minutesInHour = 60
+  const minutesInDay = 1440
 
-  // Set initial values when modal opens
-  React.useEffect(() => {
-    if (service) {
-      setValue("name", service.name)
-      setValue("price", String(service.price))
-      setValue("description", service.description)
-
-      // Convert minutes to the appropriate unit for display
-      if (service.max_duration >= 1440) {
-        setTimeUnit("days")
-        setValue("max_duration", String(service.max_duration / 1440))
-      } else if (service.max_duration >= 60) {
-        setTimeUnit("hours")
-        setValue("max_duration", String(service.max_duration / 60))
-      } else {
-        setTimeUnit("minutes")
-        setValue("max_duration", String(service.max_duration))
-      }
-      setValue("required_employee_amount", String(service.required_employee_amount))
+  function setInitialValues() {
+    if (!service) return
+    setValue("name", service.name)
+    setValue("price", String(service.price))
+    setValue("description", service.description)
+    if (service.max_duration >= minutesInDay) {
+      setTimeUnit("days")
+      setValue("max_duration", String(service.max_duration / minutesInDay))
+    } else if (service.max_duration >= minutesInHour) {
+      setTimeUnit("hours")
+      setValue("max_duration", String(service.max_duration / minutesInHour))
+    } else {
+      setTimeUnit("minutes")
+      setValue("max_duration", String(service.max_duration))
     }
-  }, [service, setValue])
+    setValue("required_employee_amount", String(service.required_employee_amount))
+  }
 
   function convertToMinutes(value: number, unit: TimeUnit): number {
     switch (unit) {
       case "minutes":
         return value
       case "hours":
-        return value * 60
+        return value * minutesInHour
       case "days":
-        return value * 1440
+        return value * minutesInDay
       default:
         return value
     }
   }
+
+  useEffect(() => {
+    setInitialValues()
+  }, [service, setValue, setInitialValues])
 
   function onSubmit(data: any) {
     if (!user?.company?.id || !service?.id) return

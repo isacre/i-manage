@@ -1,6 +1,6 @@
 "use client"
 import useServices from "../../../../hooks/useServices"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import Service from "./service"
 import RegisterServiceModal from "./modals/register"
 import EditServiceModal from "./modals/edit"
@@ -22,20 +22,20 @@ export default function Services() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isCapableEmployeesModalOpen, setIsCapableEmployeesModalOpen] = useState(false)
 
-  function handleEditServiceButton(service: ServiceType) {
+  const handleEditServiceButton = useCallback((service: ServiceType) => {
     setSelectedService(service)
     setIsEditModalOpen(true)
-  }
+  }, [])
 
-  function handleDeleteServiceButton(service: ServiceType) {
+  const handleDeleteServiceButton = useCallback((service: ServiceType) => {
     setSelectedService(service)
     setIsDeleteModalOpen(true)
-  }
+  }, [])
 
-  function handleEditCapableEmployeesButton(service: ServiceType) {
+  const handleEditCapableEmployeesButton = useCallback((service: ServiceType) => {
     setSelectedService(service)
     setIsCapableEmployeesModalOpen(true)
-  }
+  }, [])
 
   return (
     <div>

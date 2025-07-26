@@ -1,9 +1,9 @@
 "use client"
-import FormFields from "../../../../../../components/formFields"
-import Modal from "../../../../../../components/modal"
-import { updateEmployee } from "../../../../../../services/company/employee"
-import { EmployeeType, useEmployeeStore } from "../../../../../../stores/employee-store"
-import { useUserStore } from "../../../../../../stores/user-store"
+import FormFields from "@/components/formFields"
+import Modal from "@/components/modal"
+import { updateEmployee } from "@/services/company/employee"
+import { EmployeeType, useEmployeeStore } from "@/stores/employee-store"
+import { useUserStore } from "@/stores/user-store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
 import { useEffect } from "react"
@@ -31,14 +31,13 @@ export default function EditEmployeeModal({ isOpen, setOpen, employee }: Props) 
   const editEmployee = useEmployeeStore((state) => state.update)
   const user = useUserStore((state) => state.user)
   const t = useTranslations("Admin")
+
   function onSubmit(data: any) {
     if (!user?.company?.id || !employee) return
-
     updateEmployee(employee.id.toString(), data, user.company.id)
       .then((updatedEmployee) => {
         setOpen(false)
         toast.success("Funcionário atualizado com sucesso")
-        // Update the employee in the store
         const employees = useEmployeeStore.getState().employees
         const updatedEmployees = employees.map((emp) => (emp.id === updatedEmployee.id ? updatedEmployee : emp))
         editEmployee(updatedEmployees)
