@@ -7,15 +7,17 @@ import { getMessages } from "next-intl/server"
 import { redirect } from "next/navigation"
 import "react-toastify/dist/ReactToastify.css"
 import getCompanyByDomainAndGenerateMetadata from "./metadata"
+import { headers } from "next/headers"
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  return await getCompanyByDomainAndGenerateMetadata(locale)
+  const host = (await headers()).get("host") || ""
+  return await getCompanyByDomainAndGenerateMetadata({ locale, host })
 }
 
 type RootLayoutProps = {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {

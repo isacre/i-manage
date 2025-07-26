@@ -5,10 +5,12 @@ import Sidebar from "@/components/sidebar"
 import getCompanyByDomainAndGenerateMetadata from "../metadata"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { headers } from "next/headers"
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  return await getCompanyByDomainAndGenerateMetadata(locale)
+  const host = (await headers()).get("host") || ""
+  return await getCompanyByDomainAndGenerateMetadata({ locale, host })
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

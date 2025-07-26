@@ -1,12 +1,17 @@
 import { getCompanyByDomain } from "@/services/company"
-import { headers } from "next/headers"
+import { cache } from "react"
 
-export default async function getCompanyByDomainAndGenerateMetadata(locale: string, title?: string) {
-  const headersList = await headers()
-  const domain = headersList.get("host")?.split(":")[0]
+type MetadataProps = {
+  locale: string
+  host: string
+  title?: string
+}
+
+export default cache(async function getCompanyByDomainAndGenerateMetadata({ locale, host, title }: MetadataProps) {
+  const domain = host?.split(":")[0]
   const subdomain = domain?.split(".")[0]
 
-  if (!subdomain) return { title: "iManage" }
+  if (!subdomain) return { title: "iManage", locale: "pt-BR" }
 
   try {
     const company = await getCompanyByDomain(subdomain)
@@ -29,5 +34,7 @@ export default async function getCompanyByDomainAndGenerateMetadata(locale: stri
         ],
       },
     }
-  } catch (err) {}
-}
+  } catch (err) {
+    return { title: "iManage" }
+  }
+})

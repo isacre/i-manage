@@ -12,7 +12,7 @@ export default function Preview({ company }: Props) {
     <div className="flex flex-col gap-4">
       <div className="mb-8 h-full overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-sm">
         <CompanyLayout>
-          <CompanyPage edit_mode={true} />
+          <CompanyPage />
         </CompanyLayout>
       </div>
     </div>

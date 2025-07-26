@@ -11,7 +11,7 @@ type Props = {
   edit_mode?: boolean
 }
 
-export default function CompanyLandingPage({ edit_mode }: Props) {
+export default function CompanyLandingPage() {
   const t = useTranslations()
   const { company } = useCompanyStore()
   const { services } = useServices(company?.identifier)
@@ -26,7 +26,7 @@ export default function CompanyLandingPage({ edit_mode }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <BookingModal isOpen={bookingModalOpen} setOpen={setBookingModalOpen} selectedServiceId={selectedService} />
-      <Company.Banner edit_mode={edit_mode} />
+      <Company.Banner />
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[3.25fr_1.25fr]">
         <Company.Services
           services={services}

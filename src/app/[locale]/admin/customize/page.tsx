@@ -14,8 +14,6 @@ export default function CustomizeCompany() {
   const [isLoading, setIsLoading] = useState(false)
 
   const {
-    register,
-    handleSubmit,
     formState: { errors },
     setValue,
   } = useForm({
@@ -46,10 +44,6 @@ export default function CustomizeCompany() {
       setValue("timezone", company.timezone)
     }
   }, [company, setValue])
-
-  function onSubmit(data: any) {
-    console.log(data)
-  }
 
   if (!company) {
     return (
