@@ -2,7 +2,6 @@
 import { getBookings } from "@/services/company/booking"
 import { BookingStatus, useBookingStore } from "@/stores/booking-store"
 import { useCompanyStore } from "@/stores/company-store"
-import { useUserStore } from "@/stores/user-store"
 import { useCallback, useEffect, useState } from "react"
 
 export type useBookingFilters = {
@@ -13,7 +12,7 @@ export default function useBooking(filters: useBookingFilters) {
   const [BookingsLoading, setBookingsLoading] = useState(false)
   const bookings = useBookingStore((state) => state.bookings)
   const saveBookings = useBookingStore((state) => state.update)
-  const company = useUserStore((state) => state.user?.company?.id)
+  const company = useCompanyStore((state) => state.company)
 
   const fetch = useCallback(() => {
     if (!company) {
@@ -21,7 +20,7 @@ export default function useBooking(filters: useBookingFilters) {
     }
 
     setBookingsLoading(true)
-    getBookings(company, filters)
+    getBookings(company.id, filters)
       .then((res) => {
         saveBookings(res)
         setBookingsLoading(false)

@@ -7,7 +7,6 @@ import { useEffect } from "react"
 
 export default function useUpdateCompanyByDomain() {
   const { update, company } = useCompanyStore()
-
   useEffect(() => {
     const company = window?.location?.hostname?.split(".")[0]
     if (["imanage", "imanage.com", "localhost"].includes(company)) {

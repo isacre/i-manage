@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     {
       href: "/admin/bookings",
       label: "Admin",
-      show: user?.company?.id !== null,
+      show: user?.company !== null,
     },
   ]
 
@@ -47,7 +47,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <AuthModalContext.Provider value={{ authModalState, setAuthModalState }}>
       <ToastContainer />
-
       <AuthModal state={authModalState} setState={setAuthModalState} />
       <Navbar setAuthModalState={setAuthModalState} user={user} company={company} menus={menus} />
       <div className="m-auto lg:w-[78vw]">{children}</div>
