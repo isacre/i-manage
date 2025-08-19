@@ -1,0 +1,370 @@
+{
+  "Common": {
+    "Loading": "Carregando",
+    "Cancel": "Cancelar",
+    "Submit": "Enviar",
+    "Edit": "Editar",
+    "Delete": "Deletar",
+    "Save": "Salvar",
+    "Back": "Voltar",
+    "Next": "Próximo",
+    "Previous": "Anterior",
+    "Close": "Fechar",
+    "Confirm": "Confirmar",
+    "Accept": "Aceitar",
+    "Reject": "Rejeitar",
+    "Yes": "Sim",
+    "No": "Não",
+    "Total": "Total",
+    "Actions": "Ações",
+    "NoResults": "Nenhum resultado encontrado",
+    "Error": "Erro",
+    "Success": "Sucesso",
+    "Warning": "Aviso",
+    "Info": "Informação",
+    "Change": "Alterar",
+    "Exit": "Sair"
+  },
+  "Header": {
+    "cartText": "Carrinho",
+    "register": "Cadastrar",
+    "login": "Entrar",
+    "registerDescription": "Precisamos de alguns detalhes para começar.",
+    "fullName": "Nome completo",
+    "continueWithGoogle": "Continuar com Google",
+    "or": "Ou",
+    "bySigningUpYouAgreeToOur": "Ao se cadastrar, você concorda com nossos",
+    "terms": "Termos",
+    "email": "Email",
+    "password": "Senha"
+  },
+  "Auth": {
+    "login": {
+      "title": "Entrar na conta",
+      "description": "Digite suas credenciais para entrar na sua conta.",
+      "user": "Usuário",
+      "company": "Empresa",
+      "email": "Email",
+      "password": "Senha",
+      "emailPlaceholder": "Digite seu email",
+      "passwordPlaceholder": "Digite sua senha",
+      "rememberMe": "Lembrar-me",
+      "forgotPassword": "Esqueceu a senha?",
+      "submit": "Enviar",
+      "error": "Algo deu errado, verifique suas credenciais e tente novamente",
+      "or": "Ou",
+      "register": "Cadastrar"
+    },
+    "register": {
+      "title": "Criar Conta",
+      "description": "Precisamos de alguns detalhes para começar.",
+      "fullName": "Nome completo",
+      "fullNamePlaceholder": "Fulano de Tal",
+      "phone": "Telefone",
+      "phonePlaceholder": "11 99999-9999",
+      "email": "Email",
+      "emailPlaceholder": "fulano@email.com",
+      "password": "Senha",
+      "passwordPlaceholder": "fulano123",
+      "continueWithGoogle": "Continuar com Google",
+      "or": "Ou",
+      "bySigningUpYouAgreeToOur": "Ao se cadastrar, você concorda com nossos",
+      "terms": "Termos",
+      "alreadyHaveAccount": "Já tenho uma conta",
+      "login": "Entrar"
+    },
+    "recoverAccount": {
+      "title": "Esqueceu sua senha?",
+      "description": "Não se preocupe, vamos te ajudar a recuperar.",
+      "email": "Email",
+      "emailPlaceholder": "fulano@email.com",
+      "submit": "Solicitar recuperação"
+    },
+    "terms": {
+      "title": "Termos de Uso",
+      "description": "Termos de uso",
+      "backToRegister": "Voltar para o cadastro"
+    }
+  },
+  "Company": {
+    "notFound": "Empresa não encontrada",
+    "Services": "Nossos Serviços",
+    "searchPlaceholder": "Buscar serviços...",
+    "noServicesFound": "Nenhum serviço encontrado",
+    "noServicesAvailable": "Nenhum serviço disponível",
+    "searchAdjustment": "Tente ajustar sua busca ou verificar a ortografia.",
+    "noServicesRegistered": "Não há serviços cadastrados no momento.",
+    "errorFetchingServices": "Erro ao buscar serviços"
+  },
+  "Booking": {
+    "title": "Agendar horário",
+    "confirmTitle": "Confirmar agendamento",
+    "selectTime": "Selecionar horário",
+    "confirm": "Confirmar",
+    "schedule": "Agendar",
+    "employee": "Funcionário",
+    "noPreference": "Sem preferência",
+    "errorScheduling": "Não foi possível agendar o horário",
+    "successScheduling": "Horário agendado com sucesso",
+    "confirmBooking": "Deseja {action} o agendamento?",
+    "accept": "aceitar",
+    "reject": "negar",
+    "cancel": "cancelar",
+    "bookingAccepted": "Agendamento aceito com sucesso",
+    "bookingRejected": "Agendamento negado com sucesso",
+    "bookingCanceled": "Agendamento cancelado com sucesso",
+    "errorUpdatingBooking": "Erro ao atualizar agendamento",
+    "noAvailableHours": "Nenhum horário disponível",
+    "cancelBooking": "Deseja cancelar o agendamento?",
+    "cancelBookingDescription": "Esta ação não pode ser revertida.",
+    "cancelBookingLoading": "Cancelando agendamento...",
+    "cancelBookingSuccess": "Agendamento cancelado com sucesso",
+    "cancelBookingError": "Erro ao cancelar agendamento",
+    "cancelBookingNo": "Não",
+    "cancelBookingYes": "Sim"
+  },
+  "Register": {
+    "company": {
+      "title": "Cadastre sua empresa",
+      "name": "Nome da empresa",
+      "description": "Descrição",
+      "phone": "Telefone",
+      "category": "Categoria",
+      "email": "Email",
+      "password": "Senha",
+      "register": "Cadastrar empresa",
+      "success": "Empresa cadastrada com sucesso, redirecionando para a página de login",
+      "error": "Erro ao cadastrar empresa"
+    },
+    "user": {
+      "title": "Cadastre-se como usuário",
+      "name": "Nome",
+      "phone": "Telefone",
+      "email": "Email",
+      "password": "Senha",
+      "register": "Cadastrar usuário",
+      "success": "Usuário cadastrado com sucesso, redirecionando para a página de login",
+      "error": "Erro ao cadastrar usuário"
+    },
+    "register": "Cadastrar",
+    "registerDescription": "Precisamos de alguns detalhes para começar.",
+    "fullName": "Nome completo",
+    "fullNamePlaceholder": "Fulano de Tal",
+    "email": "Email",
+    "emailPlaceholder": "fulano@email.com",
+    "password": "Senha",
+    "passwordPlaceholder": "fulano123",
+    "phone": "Telefone",
+    "phonePlaceholder": "11 99999-9999",
+    "or": "Ou",
+    "login": "Entrar",
+    "bySigningUpYouAgreeToOur": "Ao se cadastrar, você concorda com nossos",
+    "terms": "Termos"
+  },
+  "Availability": {
+    "available": "Disponível",
+    "unavailable": "Indisponível",
+    "bookable": "Reservar"
+  },
+  "Location": {
+    "local": "presencial",
+    "online": "online"
+  },
+  "Currency": {
+    "symbol": "R$",
+    "full_name": "reais"
+  },
+  "Time": {
+    "Months": {
+      "0": "Janeiro",
+      "1": "Fevereiro",
+      "2": "Março",
+      "3": "Abril",
+      "4": "Maio",
+      "5": "Junho",
+      "6": "Julho",
+      "7": "Agosto",
+      "8": "Setembro",
+      "9": "Outubro",
+      "10": "Novembro",
+      "11": "Dezembro"
+    },
+    "DaysOfWeek": {
+      "Sunday": "Domingo",
+      "Monday": "Segunda-feira",
+      "Tuesday": "Terça-feira",
+      "Wednesday": "Quarta-feira",
+      "Thursday": "Quinta-feira",
+      "Friday": "Sexta-feira",
+      "Saturday": "Sábado"
+    }
+  },
+  "Admin": {
+    "Bookings": {
+      "title": "Agendamentos",
+      "tabs": {
+        "pending": "Pendente",
+        "all": "Todos",
+        "confirmed": "Confirmado",
+        "cancelled": "Cancelado"
+      },
+      "headers": {
+        "hour": "Hora",
+        "service": "Serviço",
+        "status": "Status",
+        "employees": "Funcionários",
+        "accept": "Aceitar",
+        "reject": "Rejeitar"
+      },
+      "noPendingBookings": "Nenhum agendamento pendente"
+    },
+    "Employees": {
+      "title": "Funcionários",
+      "button": "Adicionar funcionário",
+      "headers": {
+        "name": "Nome",
+        "email": "Email",
+        "actions": "Ações"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Deletar"
+      },
+      "modals": {
+        "register": {
+          "title": "Cadastrar funcionário",
+          "name": "Nome",
+          "email": "Email",
+          "cancel": "Cancelar",
+          "submit": "Enviar"
+        },
+        "edit": {
+          "title": "Editar funcionário",
+          "name": "Nome",
+          "email": "Email",
+          "cancel": "Cancelar",
+          "submit": "Enviar"
+        },
+        "delete": {
+          "title": "Deletar funcionário",
+          "name": "Nome",
+          "cancel": "Cancelar",
+          "submit": "Enviar",
+          "success": "Funcionário deletado com sucesso",
+          "error": "Erro ao deletar funcionário",
+          "message": "Tem certeza que deseja deletar o funcionário {name}? Esta ação não pode ser revertida."
+        }
+      }
+    },
+    "Services": {
+      "title": "Serviços",
+      "button": "Adicionar serviço",
+      "headers": {
+        "name": "Nome",
+        "price": "Preço",
+        "employees": "Funcionários",
+        "actions": "Ações"
+      },
+      "editEmployees": "Editar Funcionários",
+      "deleteTitle": "Excluir Serviço",
+      "deleteMessage": "Tem certeza que deseja excluir o serviço {name}? Esta ação não pode ser desfeita.",
+      "deleteSuccess": "Serviço excluído com sucesso",
+      "deleteError": "Erro ao excluir serviço",
+      "registerTitle": "Adicionar Serviço",
+      "registerSuccess": "Serviço adicionado com sucesso",
+      "register": {
+        "name": "Nome do Serviço",
+        "namePlaceholder": "Digite o nome do serviço",
+        "description": "Descrição",
+        "descriptionPlaceholder": "Descreva o serviço",
+        "price": "Preço",
+        "pricePlaceholder": "R$ 0,00",
+        "maxDuration": "Duração Máxima",
+        "maxDurationPlaceholder": "Ex: 60",
+        "minutes": "Minutos",
+        "hours": "Horas",
+        "days": "Dias",
+        "requiredEmployeeAmount": "Quantidade de Funcionários Necessários",
+        "requiredEmployeeAmountPlaceholder": "Ex: 2",
+        "submit": "Adicionar Serviço"
+      },
+      "editTitle": "Editar Serviço",
+      "editSuccess": "Serviço atualizado com sucesso",
+      "editError": "Erro ao atualizar serviço",
+      "edit": {
+        "submit": "Salvar Serviço"
+      },
+      "capableEmployeesTitle": "Funcionários Capacitados - {name}",
+      "capableEmployeesSuccess": "Funcionários capacitados atualizados com sucesso",
+      "capableEmployeesError": "Erro ao atualizar funcionários capacitados"
+    },
+    "Exit": "Sair",
+    "Customize": {
+      "title": "Customizar Empresa",
+      "button": "Salvar Alterações",
+      "sections": {
+        "basic": "Informações Básicas",
+        "appearance": "Aparência",
+        "contact": "Informações de Contato",
+        "schedule": "Horário"
+      },
+      "fields": {
+        "name": "Nome da Empresa",
+        "namePlaceholder": "Digite o nome da empresa",
+        "description": "Descrição",
+        "descriptionPlaceholder": "Digite a descrição da empresa",
+        "identifier": "Identificador da URL",
+        "identifierPlaceholder": "sua-empresa",
+        "phone": "Telefone",
+        "phonePlaceholder": "+55 (11) 99999-9999",
+        "address": "Endereço",
+        "addressPlaceholder": "Digite o endereço da empresa",
+        "primaryColor": "Cor Primária",
+        "logo": "Logo da Empresa",
+        "banner": "Banner da Empresa",
+        "opensAt": "Abre às",
+        "closesAt": "Fecha às",
+        "timezone": "Fuso Horário",
+        "timezonePlaceholder": "Selecione o fuso horário"
+      },
+      "success": "Informações da empresa atualizadas com sucesso",
+      "error": "Erro ao atualizar informações da empresa"
+    }
+  },
+  "About": {
+    "header": "Agendamento inteligente para <bold>negócios inteligentes</bold>",
+    "description": "Organize horários, serviços e equipes de forma prática, integrada ao Google Agenda, com pagamentos e muito mais.",
+    "button": "Comece Agora",
+    "secondary_button": "Ver Demonstração",
+    "features": {
+      "booking": {
+        "title": "Agendamentos Dinâmicos",
+        "description": "Sincronize com o Google Agenda, evite conflitos e otimize seus horários automaticamente."
+      },
+      "team": {
+        "title": "Gestão de Equipes",
+        "description": "Associe profissionais aos serviços, controle disponibilidade e distribua atendimentos com eficiência."
+      },
+      "payment": {
+        "title": "Pagamentos Integrados",
+        "description": "Receba por sessões com Stripe, controle comissões por profissional e acompanhe o faturamento."
+      }
+    },
+    "footer": {
+      "title": "Ideal para pequenas empresas e profissionais autônomos",
+      "subtitle": "O iManage simplifica a gestão de agendamentos, desde o cadastro de serviços até o check-in via QR Code. Tudo isso com uma interface moderna, responsiva e acessível de qualquer lugar.",
+      "button": "Quero testar agora"
+    }
+  },
+  "User": {
+    "myBookings": "Meus Agendamentos",
+    "noBookingsYet": "Você ainda não possui nenhum agendamento.",
+    "noPendingBookings": "Nenhum agendamento pendente"
+  },
+  "Table": {
+    "time": "Horário",
+    "service": "Serviço",
+    "status": "Status",
+    "employees": "Funcionários"
+  }
+}

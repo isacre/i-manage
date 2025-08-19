@@ -1,0 +1,44 @@
+"use client"
+import logo from "@/assets/logo/imanagelogo.png"
+import { useUserStore } from "@/stores/user-store"
+import { useLocale, useTranslations } from "next-intl"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { useCallback } from "react"
+import { CiLogout } from "react-icons/ci"
+import { deleteCookie } from "../../utils"
+import SidebarItem from "./item"
+import * as s from "./styles"
+
+type Menu = { icon: React.ReactNode; label: string; link: string }
+
+export default function Sidebar({ menus }: { menus: Menu[] }) {
+  const locale = useLocale()
+  const t = useTranslations("Admin")
+  const router = useRouter()
+  const { update } = useUserStore()
+
+  const handleLogout = useCallback(() => {
+    deleteCookie("access")
+    deleteCookie("refresh")
+    router.push(`/${locale}/`)
+    update(null)
+  }, [locale])
+
+  return (
+    <div className={s.wrapperStyles}>
+      <div className={s.logoContainerStyles}>
+        <Image src={logo} alt="logo" width={120} className={s.logoStyles} />
+      </div>
+      <nav className={s.navStyles}>
+        {menus.map((menu) => (
+          <SidebarItem key={menu.label} icon={menu.icon} label={menu.label} link={`/${locale}${menu.link}`} />
+        ))}
+      </nav>
+      <button className={s.logoutButtonStyles} onClick={handleLogout}>
+        <CiLogout size={26} />
+        <span className="font-medium">{t("Exit")}</span>
+      </button>
+    </div>
+  )
+}
