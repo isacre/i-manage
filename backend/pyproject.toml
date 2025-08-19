@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "i-manage-api"
+version = "0.1.0"
+description = ""
+authors = ["Isaac Melo", "Renan Poggian"]
+readme = "README.md"
+packages = [{include = "i_manage_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.2.2"
+djangorestframework = "^3.16.0"
+djoser = "^2.3.1"
+drf-yasg = "^1.21.10"
+dotenv = "^0.9.9"
+django-cors-headers = "^4.7.0"
+psycopg2 = "^2.9.10"
+psycopg2-binary = "^2.9.10"
+arrow = "^1.3.0"
+google-auth = "^2.40.3"
+google-auth-oauthlib = "^1.2.2"
+google-api-python-client = "^2.171.0"
+pillow = "^11.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
