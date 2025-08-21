@@ -30,8 +30,8 @@ class EmployeeModule:
         # Convert given start and end dates into busy time intervals (5 minutes)
         for employee in bookings_per_employee:
             for booking in bookings_per_employee[employee]:
-                employee_busy_hours.extend(generateBookedHours(booking['start'], booking['end'], service_duration, interval))
-                print("employee_busy_hours",generateBookedHours(booking['start'], booking['end'], service_duration, interval))
+                employee_busy_hours.extend(generateBookedHours(booking['start'], booking['end'], interval))
+                print("employee_busy_hours",generateBookedHours(booking['start'], booking['end'], interval))
 
         # Given the list of employees (specific one or all), remove the hours that are not available for all employees in list 
         for busy_hour in employee_busy_hours:

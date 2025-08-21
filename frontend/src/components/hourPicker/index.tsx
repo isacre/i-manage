@@ -49,7 +49,7 @@ export default function HourPicker({ loading, availableHours, selectedHour, setS
           <button
             key={hour}
             onClick={() => setSelectedHour(hour)}
-            className={`rounded-lg border p-3 text-sm font-medium transition-all duration-200 ${
+            className={`cursor-pointer rounded-lg border p-3 text-sm font-medium transition-all duration-200 ${
               selectedHour === hour
                 ? "border-blue-600 bg-blue-600 text-white shadow-md"
                 : "border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50"
@@ -59,13 +59,6 @@ export default function HourPicker({ loading, availableHours, selectedHour, setS
           </button>
         ))}
       </div>
-      {selectedHour && (
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Selected time: <span className="font-medium text-blue-600">{selectedHour}</span>
-          </p>
-        </div>
-      )}
     </div>
   )
 }

@@ -27,3 +27,16 @@ def create_checkout_session(service_name: str, service_description: str, amount:
         return session
     except Exception as e:
         raise e
+
+def verify_checkout_session(session_id: str):
+    try:
+        session = stripe.checkout.Session.retrieve(session_id, expand=["payment_intent"])
+        payment_intent = session.payment_intent
+
+        # Check payment status
+        if payment_intent and payment_intent["status"] == "succeeded":
+            return {"valid": True, "session": session}
+        else:
+            return {"valid": False, "session": session}
+    except Exception as e:
+        return {"valid": False, "error": str(e)}

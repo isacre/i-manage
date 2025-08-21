@@ -3,7 +3,6 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 import pytz
 from typing import List
-import arrow
 from api.models.booking import Booking
 from api.models.employee import Employee
 from api.models.service import Service
@@ -64,7 +63,6 @@ def select_most_available_employees_to_book(service_id, start_date, end_date, da
     datetime_end = end_date.datetime  
     service = Service.objects.get(id=service_id)
     service_data = ServiceSerializer(service).data
-    service_duration = service_data.get("max_duration")
     capable_employees = service_data.get("capable_employees")
     bookings_this_day = Booking.objects.filter(
         service_id=service_id,

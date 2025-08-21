@@ -26,7 +26,7 @@ class Booking(BaseModel):
         choices=BookingStatus.choices, 
         default=BookingStatus.PENDING
     )
-    
+    session_id = models.CharField(max_length=255, null=True, blank=True)
     class Meta:
         db_table = 'booking'
 

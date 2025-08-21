@@ -1,5 +1,5 @@
 from datetime import timedelta
-from api.integrations.stripe.service import create_checkout_session
+from api.integrations.stripe.service import create_checkout_session, verify_checkout_session
 from api.models.booking import Booking, BookingStatus
 from api.models.company import Company
 from api.models.service import Service
@@ -48,6 +48,7 @@ class BookingViewSet(viewsets.ModelViewSet):
        booking = Booking.objects.create(**data)
        booking.employees.set(employees)
        session = create_checkout_session(service.name, service.description, service.price, user.email)
+       booking.session_id = session.id
        if serializer.is_valid(raise_exception=True): 
           booking.save()
           return Response({"sessionId": session.id, "url": session.url}, status=200)
@@ -112,12 +113,21 @@ class BookingViewSet(viewsets.ModelViewSet):
                 google_calendar.delete_event(booking)
             if request_status == BookingStatus.CONFIRMED.value:
                 google_calendar.create_event(booking)
-            print(request_status)
             booking.status = request_status
             booking.save()
             return Response(BookingSerializer(booking).data, status=200)
         except Booking.DoesNotExist:
             return Response({"error": "Booking not found"}, status=404)
-
-
         
+    
+    @action(methods=["POST"], detail=False)
+    def completeBookingAfterPayment(self, request):
+        session_id = request.data.get("session_id")
+        session = verify_checkout_session(session_id)
+        if session.get("valid"):
+            booking = Booking.objects.get(session_id=session_id)
+            booking.status = BookingStatus.CONFIRMED.value
+            booking.save() 
+            google_calendar.create_event(booking)
+            return Response(BookingSerializer(booking).data, status=200)
+        return Response({"error": "Invalid session"}, status=400)
