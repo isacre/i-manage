@@ -15,7 +15,7 @@ i-Manage is a powerful, customizable business management solution that enables e
 ## 🛠️ Technology Stack
 
 - **Frontend**: Next.js with React
-- **Backend**: Node.js/Next.js API routes
+- **Backend**: Python/Django
 - **Database**: PostgreSQL
 - **Payment**: Stripe API integration
 - **Calendar**: Google Calendar API
