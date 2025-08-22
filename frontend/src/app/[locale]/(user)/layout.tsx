@@ -1,7 +1,7 @@
 "use client"
 import Navbar, { HeaderMenu } from "@/components/navbar/navbar"
 import { useUserStore } from "@/stores/user-store"
-import { deleteCookie } from "@/utils"
+import { Cookie } from "@/utils"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { AuthModalContext } from "./AuthModalContext"
@@ -38,8 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   ]
 
   function handleLogout() {
-    deleteCookie("access")
-    deleteCookie("refresh")
+    Cookie.delete("access")
+    Cookie.delete("refresh")
     updateUser(null)
     router.push("/")
   }

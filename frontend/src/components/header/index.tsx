@@ -3,7 +3,7 @@ import { getUserData } from "@/services/auth"
 import { useCompanyStore } from "@/stores/company-store"
 import { useUserStore } from "@/stores/user-store"
 import { Menu } from "@/types"
-import { deleteCookie, getCookie } from "@/utils"
+import { Cookie } from "@/utils"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect } from "react"
@@ -16,7 +16,7 @@ interface Props {
   setAuthModalState: (state: string | undefined) => void
 }
 export default function Header({ menus, setAuthModalState }: Props) {
-  const access = getCookie("access")
+  const access = Cookie.get("access")
   const update = useUserStore((state) => state.update)
   const user = useUserStore((state) => state.user)
   const { company } = useCompanyStore()
@@ -28,7 +28,7 @@ export default function Header({ menus, setAuthModalState }: Props) {
           update(res)
         })
         .catch(() => {
-          deleteCookie("access")
+          Cookie.delete("access")
         })
     } else {
       update(null)

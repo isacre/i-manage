@@ -1,4 +1,3 @@
-import { getCookie } from "../../utils"
 import axios, { AxiosRequestConfig } from "axios"
 import { CompanyType } from "../../types"
 
@@ -9,7 +8,9 @@ const config: AxiosRequestConfig = {
   },
 }
 
-export async function getCompanyByDomain(domain: string) {
+export const api = axios.create(config)
+
+export async function getCompanyByDomain(domain: string): Promise<CompanyType> {
   const response = await api.get(`/company/get_company_by_identifier/`, {
     params: { identifier: domain },
     headers: config.headers,
@@ -17,7 +18,7 @@ export async function getCompanyByDomain(domain: string) {
   return response.data
 }
 
-export async function updateCompany(companyId: number, data: Partial<CompanyType> | FormData) {
+export async function updateCompany(companyId: number, data: Partial<CompanyType> | FormData): Promise<CompanyType> {
   const response = await api.patch(`/company/${companyId}/`, data, {
     headers:
       data instanceof FormData
@@ -30,5 +31,3 @@ export async function updateCompany(companyId: number, data: Partial<CompanyType
   })
   return response.data
 }
-
-export const api = axios.create(config)

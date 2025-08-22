@@ -1,10 +1,10 @@
 import { getUserData } from "@/services/auth"
 import { useUserStore } from "@/stores/user-store"
-import { deleteCookie, getCookie } from "@/utils"
+import { Cookie } from "@/utils"
 import { useEffect } from "react"
 
 export default function useUserData() {
-  const accessToken = getCookie("access")
+  const accessToken = Cookie.get("access")
   const setUser = useUserStore((state) => state.update)
   const user = useUserStore((state) => state.user)
   function getAndStoreUserData() {
@@ -14,7 +14,7 @@ export default function useUserData() {
           setUser(res)
         })
         .catch(() => {
-          deleteCookie("access")
+          Cookie.delete("access")
         })
     } else {
       setUser(null)

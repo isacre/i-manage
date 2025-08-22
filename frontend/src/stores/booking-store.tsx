@@ -1,5 +1,4 @@
 import { create } from "zustand"
-import { UserType } from "./user-store"
 
 export type BookingStatus = "PENDING" | "CONFIRMED" | "CANCELED" | "COMPLETED" | "EXPIRED" | ""
 

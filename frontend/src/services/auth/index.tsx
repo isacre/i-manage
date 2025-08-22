@@ -1,5 +1,6 @@
+import { CompanyType } from "@/types"
 import { UserType } from "../../stores/user-store"
-import { getCookie } from "../../utils"
+import { Cookie } from "../../utils"
 import axios, { AxiosRequestConfig } from "axios"
 
 const config: AxiosRequestConfig = {
@@ -12,7 +13,7 @@ const config: AxiosRequestConfig = {
 const api = axios.create(config)
 
 api.interceptors.request.use((config) => {
-  const accessToken = getCookie("access")
+  const accessToken = Cookie.get("access")
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`
   }
@@ -31,7 +32,7 @@ export declare type CompanyRegisterForm = {
   work_days: string[]
 }
 
-export async function registerCompany(data: CompanyRegisterForm) {
+export async function registerCompany(data: CompanyRegisterForm): Promise<CompanyType> {
   const company = await api.post(`/company/register_company/`, data)
   return company.data
 }
@@ -56,7 +57,7 @@ export declare type UserRegisterForm = {
   phone: string
 }
 
-export async function registerUser(data: UserRegisterForm) {
+export async function registerUser(data: UserRegisterForm): Promise<UserType> {
   const user = await api.post(`/auth/users/`, data)
   return user.data
 }

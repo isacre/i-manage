@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { getTokens } from "@/services/auth"
-import { setCookie } from "@/utils"
+import { Cookie } from "@/utils"
 import { toast } from "react-toastify"
 import LoadingSpinner from "@/components/loadingSpinner"
 
@@ -35,8 +35,8 @@ export default function LoginModal({ isOpen, setOpen, fetchAndStoreUserData }: P
     setIsLoading(true)
     getTokens(data)
       .then((res) => {
-        setCookie("access", res.access)
-        setCookie("refresh", res.refresh)
+        Cookie.set("access", res.access)
+        Cookie.set("refresh", res.refresh)
         fetchAndStoreUserData()
         reset()
       })

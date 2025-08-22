@@ -39,7 +39,7 @@ export async function getAvailableHours(
   return response.data
 }
 
-export async function getCompanyServices(identifier: string) {
+export async function getCompanyServices(identifier: string): Promise<ServiceType[]> {
   const response = await api.get(`/service/get_services_by_identifier/`, { params: { identifier } })
   return response.data
 }
