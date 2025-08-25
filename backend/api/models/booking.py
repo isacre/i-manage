@@ -27,6 +27,7 @@ class Booking(BaseModel):
         default=BookingStatus.PENDING
     )
     session_id = models.CharField(max_length=255, null=True, blank=True)
+    payment = models.ForeignKey("payments.Payment", on_delete=models.DO_NOTHING, null=True, blank=True)
     class Meta:
         db_table = 'booking'
 

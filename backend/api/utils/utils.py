@@ -24,10 +24,10 @@ def round_time_to_next_10min(time):
 
 def generateBookedHours(start, end, interval):
   booked_hours = []
-  start = datetime.fromisoformat(start) - timedelta(minutes=interval)
-  end = datetime.fromisoformat(end) + timedelta(minutes=interval)
-  while start + timedelta(minutes=interval) < end:
-    start += timedelta(minutes=interval)
+  start = datetime.fromisoformat(start) - interval
+  end = datetime.fromisoformat(end) + interval
+  while start + interval < end:
+    start += interval
     booked_hours.append(start.strftime("%H:%M"))
   return booked_hours
 

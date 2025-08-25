@@ -21,7 +21,6 @@ export default function ConfirmingBooking({ Booking, setOpen }: Props) {
   const service = services.find((service) => service.id === Booking.service)
   const { month, year, hour, day, minute, dayOfWeek } = useFormatedDates(Booking.start_date)
   const { hour: endHour, minute: endMinute } = useFormatedDates(Booking.end_date)
-  const { updateOpenBookingId } = useBookingStore()
   const [isLoading, setIsLoading] = useState(false)
   const t = useTranslations()
 
@@ -33,7 +32,6 @@ export default function ConfirmingBooking({ Booking, setOpen }: Props) {
       })
       .then(() => {
         setOpen(false)
-
         toast.success(t("Booking.successScheduling"))
       })
       .catch((err) => {

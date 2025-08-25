@@ -15,6 +15,7 @@ export declare type BookingType = {
   created_at?: string
   updated_at?: string
   employee_names?: string[]
+  session_id?: string
 }
 interface BookingStore {
   bookings: BookingType[]

@@ -60,6 +60,9 @@ cd backend
 conda create -n i-manage python=3.10
 conda activate i-manage
 pip install -r requirements.txt
+python -m manage migrate
+python -m manage runserver
+ngrok http --url=burro-charmed-hermit.ngrok-free.app 8000
 ```
 
 # Frontend (Open a new terminal)

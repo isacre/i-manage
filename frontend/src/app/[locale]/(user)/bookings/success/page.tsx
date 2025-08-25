@@ -5,19 +5,27 @@ import { useSearchParams } from "next/navigation"
 import PaymentDetailsComponent, { createMockPaymentDetails, PaymentDetailsType } from "./paymentDetails"
 import PaymentStatus from "./paymentStatus"
 import PaymentActions from "./paymentActions"
+import { completeBookingAfterPayment, getBookingBySessionId } from "@/services/company/booking"
+import { toast } from "react-toastify"
 
 export default function SuccessPage() {
   const sessionId = useSearchParams().get("session_id")
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetailsType | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPaymentDetails(createMockPaymentDetails(sessionId))
-      setIsLoading(false)
-    }, 1500)
-
-    return () => clearTimeout(timer)
+    if (!sessionId) {
+      return
+    }
+    setIsLoading(true)
+    getBookingBySessionId(sessionId)
+      .then((res) => {
+        console.log(res)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [sessionId])
 
   if (isLoading) {

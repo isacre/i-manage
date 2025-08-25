@@ -7,7 +7,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 DATABASE_PORT = os.environ.get("DATABASE_PORT")
@@ -15,6 +15,8 @@ DATABASE_NAME = os.environ.get("DATABASE_NAME")
 DATABASE_USER = os.environ.get("DATABASE_USER")
 DATABASE_PASS = os.environ.get("DATABASE_PASS")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 DOMAIN = os.getenv("DOMAIN", "http://localhost:3000") 
 CORS_ALLOW_ALL_ORIGINS = True
 

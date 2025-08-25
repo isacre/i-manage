@@ -25,3 +25,8 @@ export async function completeBookingAfterPayment(session_id: string): Promise<B
   const response = await api.post(`/booking/completeBookingAfterPayment/`, { session_id })
   return response.data
 }
+
+export async function getBookingBySessionId(session_id: string): Promise<any> {
+  const response = await api.get(`/booking/getBookingBySessionId/`, { params: { session_id } })
+  return response.data
+}

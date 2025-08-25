@@ -5,7 +5,7 @@ from api.models.company import Company
 from api.models.service import Service
 from api.modules.company import CompanyModule
 from api.modules.employee import EmployeeModule
-from api.serializers.booking import BokingUpdateStatusSerializer, BookingCreateSerializer, BookingSerializer
+from api.serializers.booking import BokingUpdateStatusSerializer, BookingCreateSerializer, BookingSerializer, ConfirmedBookingSerializer    
 from rest_framework import viewsets
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -65,7 +65,6 @@ class BookingViewSet(viewsets.ModelViewSet):
         status = request.GET.get("status")
         user_id = request.GET.get("user")
         bookings = Booking.objects.filter(company=pk).order_by("-created_at")
-        print("bookings", bookings)
         if status:
             bookings = bookings.filter(status=status)
         if user_id:
@@ -89,7 +88,7 @@ class BookingViewSet(viewsets.ModelViewSet):
         interval = timedelta(minutes=15)
        
         available_slots = []
-        employee_busy_hours = EmployeeModule.get_employee_bookings(self, company, opens_at, closes_at, capable_employees, service.max_duration, interval)
+        employee_busy_hours = EmployeeModule.get_employee_bookings(self, company, opens_at, closes_at, capable_employees, interval)
         while booking_slot + interval <= closes_at:
             if booking_slot >= opens_at:
                 available_slots.append(booking_slot.format("HH:mm"))
@@ -119,15 +118,14 @@ class BookingViewSet(viewsets.ModelViewSet):
         except Booking.DoesNotExist:
             return Response({"error": "Booking not found"}, status=404)
         
-    
-    @action(methods=["POST"], detail=False)
-    def completeBookingAfterPayment(self, request):
-        session_id = request.data.get("session_id")
-        session = verify_checkout_session(session_id)
-        if session.get("valid"):
+
+    @action(methods=["GET"], detail=False)
+    def getBookingBySessionId(self, request, pk=None):
+        session_id = request.GET.get("session_id")
+        try:
             booking = Booking.objects.get(session_id=session_id)
-            booking.status = BookingStatus.CONFIRMED.value
-            booking.save() 
-            google_calendar.create_event(booking)
-            return Response(BookingSerializer(booking).data, status=200)
-        return Response({"error": "Invalid session"}, status=400)
+            return Response(ConfirmedBookingSerializer(booking).data, status=200)
+        except Booking.DoesNotExist:
+            return Response({"error": "Booking not found"}, status=404)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
