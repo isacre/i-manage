@@ -1,20 +1,17 @@
+import { useAuthModal } from "@/contexts/authModal/AuthModalContext"
 import { getUserData } from "@/services/auth"
 import { useUserStore } from "@/stores/user-store"
 import { useLocale } from "next-intl"
 import { useRouter } from "next/navigation"
 import LoginModal from "./loginmodal"
 import RegisterModal from "./siginmodal"
-import RecoverAccountModal from "./recoverAccount"
 import TermsModal from "./terms"
 
-interface Props {
-  state: string | undefined
-  setState: (state: string | undefined) => void
-}
-export default function AuthModal({ state, setState }: Props) {
+export default function AuthModal() {
   const { update } = useUserStore()
   const router = useRouter()
   const locale = useLocale()
+  const { setAuthModalState, authModalState } = useAuthModal()
 
   function fetchAndStoreUserData() {
     getUserData().then((res) => {
@@ -22,24 +19,23 @@ export default function AuthModal({ state, setState }: Props) {
       if (res.company !== null) {
         router.push(`/${locale}/admin/employees`)
       }
-      setState(undefined)
+      setAuthModalState(undefined)
     })
   }
 
   return (
     <>
       <LoginModal
-        isOpen={state === "login"}
-        setOpen={(state) => setState(state)}
+        isOpen={authModalState === "login"}
+        setOpen={(state) => setAuthModalState(state)}
         fetchAndStoreUserData={fetchAndStoreUserData}
       />
       <RegisterModal
-        isOpen={state === "register"}
-        setOpen={(state) => setState(state)}
+        isOpen={authModalState === "register"}
+        setOpen={(state) => setAuthModalState(state)}
         fetchAndStoreUserData={fetchAndStoreUserData}
       />
-      <RecoverAccountModal isOpen={state === "recoverAccount"} setOpen={(state) => setState(state)} />
-      <TermsModal isOpen={state === "terms"} setOpen={(state) => setState(state)} />
+      <TermsModal isOpen={authModalState === "terms"} setOpen={(state) => setAuthModalState(state)} />
     </>
   )
 }

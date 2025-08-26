@@ -2,14 +2,13 @@
 import { Button } from "@/components/ui/button"
 import useFormatedDates from "@/hooks/useFormatedDates"
 import { createBooking } from "@/services/company/booking"
-import { BookingType, useBookingStore } from "@/stores/booking-store"
+import { BookingType } from "@/stores/booking-store"
 import { useServiceStore } from "@/stores/service-store"
-import { SetStateFn } from "@/types"
+import { Loader2 } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import BookingDetails from "./bookingDetails"
-import { useState } from "react"
-import { Loader2 } from "lucide-react"
 
 interface Props {
   Booking: BookingType

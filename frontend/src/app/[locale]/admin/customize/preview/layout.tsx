@@ -1,13 +1,11 @@
 "use client"
 import Navbar from "@/components/navbar/navbar"
+import { AuthModalProvider } from "@/contexts/authModal/AuthModalContext"
 import useUpdateCompanyByDomain from "@/hooks/useUpdateCompanyByDomain"
 import useUserMenus from "@/hooks/useUserMenus"
 import { useUserStore } from "@/stores/user-store"
 import "@radix-ui/themes/styles.css"
-import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { AuthModalProvider } from "../../../contexts/authModal/AuthModalContext"
-import AuthModal from "./modals/auth"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { company } = useUpdateCompanyByDomain()
@@ -16,9 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <AuthModalProvider>
-      <ToastContainer />
-      <AuthModal />
-      <Navbar user={user} company={company} menus={menus} />
+      <Navbar user={user} company={company} menus={menus} editMode={true} />
       <div className="m-auto lg:w-[78vw]">{children}</div>
     </AuthModalProvider>
   )

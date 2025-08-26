@@ -1,12 +1,8 @@
 import ButtonComponent from "@/components/formFields/button"
+import { retrievePaymentUrlWithSessionId } from "@/services/company/payment"
 import { BookingStatus, BookingType } from "@/stores/booking-store"
 import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
-import React from "react"
-import { PDFDownloadButton } from "../success/PDFUtils"
-import { Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { retrievePaymentUrlWithSessionId } from "@/services/company/payment"
 import { toast } from "react-toastify"
 
 interface Props {

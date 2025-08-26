@@ -28,7 +28,7 @@ export default function Header({
           </button>
         )}
         <h2 className="text-lg font-semibold text-gray-900">
-          {ConfirmingBookingState ? tBooking("confirmTitle") : service?.name || tBooking("title")}
+          {ConfirmingBookingState ? tBooking("confirmTitle") : `${service?.name}` || tBooking("title")}
         </h2>
       </div>
       <button onClick={handleClose} className="rounded-full p-1 transition-colors hover:bg-gray-200">

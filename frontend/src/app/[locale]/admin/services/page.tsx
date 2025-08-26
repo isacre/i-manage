@@ -1,13 +1,13 @@
 "use client"
-import useServices from "../../../../hooks/useServices"
+import useServices from "@/hooks/useServices"
 import { useCallback, useState } from "react"
 import Service from "./service"
 import RegisterServiceModal from "./modals/register"
 import EditServiceModal from "./modals/edit"
 import DeleteServiceModal from "./modals/delete"
-import { ServiceType } from "../../../../stores/service-store"
-import TableComponent from "../../../../components/table"
-import { useUserStore } from "../../../../stores/user-store"
+import { ServiceType } from "@/stores/service-store"
+import TableComponent from "@/components/table"
+import { useUserStore } from "@/stores/user-store"
 import CapableEmployeesModal from "./modals/capableEmployees"
 import { useTranslations } from "next-intl"
 
@@ -22,20 +22,29 @@ export default function Services() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isCapableEmployeesModalOpen, setIsCapableEmployeesModalOpen] = useState(false)
 
-  const handleEditServiceButton = useCallback((service: ServiceType) => {
-    setSelectedService(service)
-    setIsEditModalOpen(true)
-  }, [])
+  const handleEditServiceButton = useCallback(
+    (service: ServiceType) => {
+      setSelectedService(service)
+      setIsEditModalOpen(true)
+    },
+    [services, setSelectedService, setIsEditModalOpen],
+  )
 
-  const handleDeleteServiceButton = useCallback((service: ServiceType) => {
-    setSelectedService(service)
-    setIsDeleteModalOpen(true)
-  }, [])
+  const handleDeleteServiceButton = useCallback(
+    (service: ServiceType) => {
+      setSelectedService(service)
+      setIsDeleteModalOpen(true)
+    },
+    [services, setSelectedService, setIsDeleteModalOpen],
+  )
 
-  const handleEditCapableEmployeesButton = useCallback((service: ServiceType) => {
-    setSelectedService(service)
-    setIsCapableEmployeesModalOpen(true)
-  }, [])
+  const handleEditCapableEmployeesButton = useCallback(
+    (service: ServiceType) => {
+      setSelectedService(service)
+      setIsCapableEmployeesModalOpen(true)
+    },
+    [services, setSelectedService, setIsCapableEmployeesModalOpen],
+  )
 
   return (
     <div>

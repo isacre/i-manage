@@ -1,18 +1,9 @@
 import { useId } from "react"
 
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useTranslations } from "next-intl"
 import DialogueComponent from "@/components/dialogue"
+import { Button } from "@/components/ui/button"
+import { DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useTranslations } from "next-intl"
 
 interface Props {
   isOpen: boolean

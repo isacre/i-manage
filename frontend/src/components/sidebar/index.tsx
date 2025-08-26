@@ -6,7 +6,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useCallback } from "react"
 import { CiLogout } from "react-icons/ci"
-import { deleteCookie } from "../../utils"
+import { Cookie } from "../../utils"
 import SidebarItem from "./item"
 import * as s from "./styles"
 
@@ -19,8 +19,8 @@ export default function Sidebar({ menus }: { menus: Menu[] }) {
   const { update } = useUserStore()
 
   const handleLogout = useCallback(() => {
-    deleteCookie("access")
-    deleteCookie("refresh")
+    Cookie.delete("access")
+    Cookie.delete("refresh")
     router.push(`/${locale}/`)
     update(null)
   }, [locale])

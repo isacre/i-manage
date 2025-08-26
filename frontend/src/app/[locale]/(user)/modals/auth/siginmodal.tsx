@@ -1,14 +1,13 @@
-import { useId, useState } from "react"
-
+import DialogueComponent from "@/components/dialogue"
+import LoadingSpinner from "@/components/loadingSpinner"
 import { Button } from "@/components/ui/button"
 import { DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "next-intl"
-import DialogueComponent from "@/components/dialogue"
-import { useForm } from "react-hook-form"
 import { registerUser } from "@/services/auth"
-import LoadingSpinner from "@/components/loadingSpinner"
+import { useTranslations } from "next-intl"
+import { useId, useState } from "react"
+import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 
 interface Props {

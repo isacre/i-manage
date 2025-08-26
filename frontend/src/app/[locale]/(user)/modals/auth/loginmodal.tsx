@@ -89,9 +89,6 @@ export default function LoginModal({ isOpen, setOpen, fetchAndStoreUserData }: P
             </div>
             <div className="flex justify-between gap-2">
               <div className="flex items-center gap-2"></div>
-              <a className="text-sm underline hover:no-underline" onClick={() => setOpen("recoverAccount")}>
-                {t("forgotPassword")}
-              </a>
             </div>
             <Button type="submit" className="w-full">
               {t("submit")}

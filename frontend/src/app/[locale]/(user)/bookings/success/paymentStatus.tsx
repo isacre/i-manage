@@ -1,10 +1,4 @@
-import React from "react"
-import { CheckCircle, CreditCard, Calendar, MapPin, Clock, User, Building2 } from "lucide-react"
-import { PaymentDetailsType } from "./paymentDetails"
-
-interface PaymentStatusProps {
-  paymentDetails: PaymentDetailsType | null
-}
+import { CheckCircle } from "lucide-react"
 
 export default function PaymentStatus() {
   return (

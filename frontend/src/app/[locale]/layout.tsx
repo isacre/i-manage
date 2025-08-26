@@ -8,23 +8,21 @@ import { redirect } from "next/navigation"
 import "react-toastify/dist/ReactToastify.css"
 import getCompanyByDomainAndGenerateMetadata from "./metadata"
 import { headers } from "next/headers"
+import { RootLayoutProps } from "./types"
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+const locales = ["en", "pt-BR"] as const
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: (typeof locales)[number] }> }) {
   const { locale } = await params
   const host = (await headers()).get("host") || ""
   return await getCompanyByDomainAndGenerateMetadata({ locale, host })
-}
-
-type RootLayoutProps = {
-  children: React.ReactNode
-  params: Promise<{ locale: string }>
 }
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   const { locale } = await params
   const messages = await getMessages()
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof locales)[number])) {
     redirect(routing.defaultLocale)
   }
 

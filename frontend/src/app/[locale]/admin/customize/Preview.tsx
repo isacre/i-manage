@@ -1,5 +1,5 @@
-import CompanyLayout from "@/app/[locale]/(user)/layout"
-import CompanyPage from "@/app/[locale]/(user)/page"
+import CompanyLayout from "./preview/layout"
+import CompanyPage from "./preview/page"
 import { CompanyType } from "@/types"
 
 type Props = {

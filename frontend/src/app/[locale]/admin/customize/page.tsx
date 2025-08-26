@@ -1,6 +1,5 @@
 "use client"
-import FormFields from "@/components/formFields"
-import { useCompanyStore } from "@/stores/company-store"
+
 import { useUserStore } from "@/stores/user-store"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"

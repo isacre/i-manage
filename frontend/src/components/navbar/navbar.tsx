@@ -3,7 +3,7 @@ import { CompanyType } from "@/types"
 import LeftSide from "./LeftSide"
 import RightSide from "./RightSide"
 import { useTranslations } from "next-intl"
-import { useAuthModal } from "@/app/[locale]/(user)/AuthModalContext"
+import { useAuthModal } from "@/contexts/authModal/AuthModalContext"
 
 export type HeaderMenu = {
   href: string
@@ -14,11 +14,11 @@ export type HeaderMenu = {
 }
 interface Props {
   menus?: HeaderMenu[]
-  setAuthModalState: (state: string | undefined) => void
   user: UserType | null
   company: CompanyType | null
+  editMode?: boolean
 }
-export default function Navbar({ menus, user, company }: Props) {
+export default function Navbar({ menus, user, company, editMode = false }: Props) {
   const t = useTranslations("Header")
   const { setAuthModalState } = useAuthModal()
   const loggedOutMenus: HeaderMenu[] = [
@@ -41,8 +41,8 @@ export default function Navbar({ menus, user, company }: Props) {
   return (
     <header className="border-b px-4">
       <div className="mx-auto flex h-16 items-center justify-between gap-4 lg:w-[80%]">
-        <LeftSide company={company} menus={visibleMenus} />
-        <RightSide menus={visibleMenus} />
+        <LeftSide company={company} menus={visibleMenus} editMode={editMode} />
+        <RightSide menus={visibleMenus} editMode={editMode} />
       </div>
     </header>
   )

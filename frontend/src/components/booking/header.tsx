@@ -1,15 +1,15 @@
 import { BookingType } from "@/stores/booking-store"
 import dayjs from "dayjs"
 import { FaCalendarAlt } from "react-icons/fa"
+import useBookingStyles from "./useBookingStyles"
 
 interface Props {
   booking: BookingType
-  statusConfig: any
 }
 
-export default function Header({ booking, statusConfig }: Props) {
+export default function Header({ booking }: Props) {
+  const statusConfig = useBookingStyles(booking.status)
   const startDate = dayjs(booking.start_date)
-  const endDate = dayjs(booking.end_date)
   const isToday = startDate.isSame(dayjs(), "day")
   const StatusIcon = statusConfig.icon
   return (
