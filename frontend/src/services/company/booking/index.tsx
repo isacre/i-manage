@@ -1,6 +1,7 @@
 import { BookingType } from "@/stores/booking-store"
 import { api } from ".."
 import { useBookingFilters } from "@/hooks/useBooking"
+import { BookingBySessionIdResponse } from "./types"
 
 export async function createBooking(booking: BookingType): Promise<{ sessionId: string; url: string }> {
   const response = await api.post(`/booking/bookService/`, { ...booking })
@@ -26,7 +27,7 @@ export async function completeBookingAfterPayment(session_id: string): Promise<B
   return response.data
 }
 
-export async function getBookingBySessionId(session_id: string): Promise<any> {
+export async function getBookingBySessionId(session_id: string): Promise<BookingBySessionIdResponse> {
   const response = await api.get(`/booking/getBookingBySessionId/`, { params: { session_id } })
   return response.data
 }

@@ -14,7 +14,7 @@ def create_checkout_session(service_name: str, service_description: str, amount:
                         "name": service_name,
                         "description": service_description,
                     },
-                    "unit_amount": int(amount),  # em centavos
+                    "unit_amount": int(amount * 100),  # em centavos
                 },
                 "quantity": 1,
             }],

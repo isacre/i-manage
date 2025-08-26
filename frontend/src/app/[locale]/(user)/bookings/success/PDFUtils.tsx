@@ -1,12 +1,13 @@
 "use client"
 
-import React from "react"
+import { BookingBySessionIdResponse } from "@/services/company/booking/types"
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer"
-import { PaymentReceiptPDF } from "./paymentReceiptPDF"
+import React from "react"
 import { PaymentDetailsType } from "./paymentDetails"
+import { PaymentReceiptPDF } from "./paymentReceiptPDF"
 
 interface PDFDownloadButtonProps {
-  paymentDetails: PaymentDetailsType | null
+  paymentDetails: BookingBySessionIdResponse | null
   children: React.ReactNode
   className?: string
 }
@@ -19,7 +20,7 @@ export const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({ paymentDet
   return (
     <PDFDownloadLink
       document={<PaymentReceiptPDF paymentDetails={paymentDetails} />}
-      fileName={`recibo-pagamento-${paymentDetails.transactionId}.pdf`}
+      fileName={`recibo-pagamento-${paymentDetails.payment_details.payment_id}.pdf`}
       className={className}
     >
       {({ loading, error }) => {
@@ -32,7 +33,7 @@ export const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({ paymentDet
 }
 
 interface PDFPreviewProps {
-  paymentDetails: PaymentDetailsType | null
+  paymentDetails: BookingBySessionIdResponse | null
   className?: string
 }
 

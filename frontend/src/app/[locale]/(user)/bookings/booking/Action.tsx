@@ -6,6 +6,8 @@ import React from "react"
 import { PDFDownloadButton } from "../success/PDFUtils"
 import { Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { retrievePaymentUrlWithSessionId } from "@/services/company/payment"
+import { toast } from "react-toastify"
 
 interface Props {
   booking: BookingType
@@ -14,6 +16,19 @@ interface Props {
 export default function Action({ booking, handleUpdatingBooking }: Props) {
   const t = useTranslations("Booking")
   const router = useRouter()
+
+  function handleRedirectingToPaymentPage() {
+    if (booking.session_id) {
+      retrievePaymentUrlWithSessionId(booking.session_id).then(({ session }) => {
+        if (session.url) {
+          window.open(session.url, "_blank")
+        } else {
+          toast.error("Payment session is not open")
+        }
+      })
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2 px-6 py-4">
       {["EXPIRED", "CANCELED", "COMPLETED"].indexOf(booking.status ?? "") === -1 && (
@@ -30,7 +45,7 @@ export default function Action({ booking, handleUpdatingBooking }: Props) {
       {booking.status === "PENDING" && booking.session_id && (
         <ButtonComponent
           text={t("pay")}
-          onClickFn={() => router.push(`/bookings/success?session_id=${booking.session_id}`)}
+          onClickFn={handleRedirectingToPaymentPage}
           color="text-green-700"
           background="bg-green-50"
           width="w-full"

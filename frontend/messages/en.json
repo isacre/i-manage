@@ -97,6 +97,7 @@
     "errorFetchingServices": "Error fetching services"
   },
   "Booking": {
+    "pay": "Pay",
     "title": "Schedule Appointment",
     "confirmTitle": "Confirm Booking",
     "selectTime": "Select Time",

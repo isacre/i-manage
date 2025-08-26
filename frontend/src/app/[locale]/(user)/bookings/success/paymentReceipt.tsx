@@ -1,11 +1,12 @@
 "use client"
 
 import React from "react"
-import { PaymentDetailsType } from "./paymentDetails"
 import { PDFDownloadButton } from "./PDFUtils"
+import { BookingBySessionIdResponse } from "@/services/company/booking/types"
+import dayjs from "dayjs"
 
 interface PaymentReceiptProps {
-  paymentDetails: PaymentDetailsType | null
+  paymentDetails: BookingBySessionIdResponse | null
 }
 
 export const PaymentReceipt: React.FC<PaymentReceiptProps> = ({ paymentDetails }) => {
@@ -20,13 +21,15 @@ export const PaymentReceipt: React.FC<PaymentReceiptProps> = ({ paymentDetails }
           <h3 className="mb-3 text-xl font-semibold text-gray-700">Dados da Loja</h3>
           <div className="space-y-2">
             <p className="text-gray-600">
-              <span className="font-semibold">Nome:</span> {paymentDetails?.storeName}
+              <span className="font-semibold">Nome:</span> {paymentDetails?.store_name}
             </p>
             <p className="text-gray-600">
-              <span className="font-semibold">Data:</span> {paymentDetails?.date}
+              <span className="font-semibold">Data:</span>{" "}
+              {dayjs(paymentDetails?.payment_details.timestamp).format("DD/MM/YYYY")}
             </p>
             <p className="text-gray-600">
-              <span className="font-semibold">Horário:</span> {paymentDetails?.time}
+              <span className="font-semibold">Horário:</span>{" "}
+              {dayjs(paymentDetails?.payment_details.timestamp).format("HH:mm")}
             </p>
           </div>
         </div>
@@ -34,10 +37,10 @@ export const PaymentReceipt: React.FC<PaymentReceiptProps> = ({ paymentDetails }
           <h3 className="mb-3 text-xl font-semibold text-gray-700">Dados do Cliente</h3>
           <div className="space-y-2">
             <p className="text-gray-600">
-              <span className="font-semibold">Nome:</span> {paymentDetails?.customerName}
+              <span className="font-semibold">Nome:</span> {paymentDetails?.client_name}
             </p>
             <p className="text-gray-600">
-              <span className="font-semibold">ID da Transação:</span> {paymentDetails?.transactionId}
+              <span className="font-semibold">ID da Transação:</span> {paymentDetails?.payment_details.payment_id}
             </p>
           </div>
         </div>
@@ -45,14 +48,15 @@ export const PaymentReceipt: React.FC<PaymentReceiptProps> = ({ paymentDetails }
           <h3 className="mb-3 text-xl font-semibold text-gray-700">Detalhes do Pagamento</h3>
           <div className="mb-4 rounded-lg bg-gray-50 p-6 text-center">
             <p className="mb-2 text-sm text-gray-500">Valor Total Pago</p>
-            <h2 className="text-4xl font-bold text-emerald-500">R$ {paymentDetails?.amount}</h2>
+            <h2 className="text-4xl font-bold text-emerald-500">R$ {paymentDetails?.payment_details.amount}</h2>
           </div>
           <div className="space-y-2">
             <p className="text-gray-600">
-              <span className="font-semibold">Método de Pagamento:</span> {paymentDetails?.paymentMethod}
+              <span className="font-semibold">Método de Pagamento:</span>{" "}
+              {paymentDetails?.payment_details.payment_method}
             </p>
             <p className="text-gray-600">
-              <span className="font-semibold">Moeda:</span> {paymentDetails?.currency}
+              <span className="font-semibold">Moeda:</span> {paymentDetails?.payment_details.currency}
             </p>
           </div>
         </div>

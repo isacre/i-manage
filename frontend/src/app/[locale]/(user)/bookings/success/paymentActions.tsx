@@ -1,15 +1,11 @@
-import React, { useRef } from "react"
-import { ArrowRight, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { PaymentDetailsType } from "./paymentDetails"
-import { PaymentReceipt } from "./paymentReceipt"
+import { BookingBySessionIdResponse } from "@/services/company/booking/types"
+import { ArrowRight, Download } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { PaymentReceiptPDF } from "./paymentReceiptPDF"
-import { PDFDownloadLink } from "@react-pdf/renderer"
 import { PDFDownloadButton } from "./PDFUtils"
 
 interface PaymentActionsProps {
-  paymentDetails: PaymentDetailsType | null
+  paymentDetails: BookingBySessionIdResponse | null
 }
 
 export default function PaymentActions({ paymentDetails }: PaymentActionsProps) {

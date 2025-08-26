@@ -13,10 +13,10 @@ import { Loader2 } from "lucide-react"
 
 interface Props {
   Booking: BookingType
-  setOpen: SetStateFn<boolean>
+  onClose: () => void
 }
 
-export default function ConfirmingBooking({ Booking, setOpen }: Props) {
+export default function ConfirmingBooking({ Booking, onClose }: Props) {
   const { services } = useServiceStore()
   const service = services.find((service) => service.id === Booking.service)
   const { month, year, hour, day, minute, dayOfWeek } = useFormatedDates(Booking.start_date)
@@ -31,7 +31,7 @@ export default function ConfirmingBooking({ Booking, setOpen }: Props) {
         window.open(url)
       })
       .then(() => {
-        setOpen(false)
+        onClose()
         toast.success(t("Booking.successScheduling"))
       })
       .catch((err) => {

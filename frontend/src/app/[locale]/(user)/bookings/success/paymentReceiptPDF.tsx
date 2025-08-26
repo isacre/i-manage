@@ -3,6 +3,8 @@
 import React from "react"
 import { Document, Page, Text, View, StyleSheet, Font } from "@react-pdf/renderer"
 import { PaymentDetailsType } from "./paymentDetails"
+import { BookingBySessionIdResponse } from "@/services/company/booking/types"
+import dayjs from "dayjs"
 
 Font.registerEmojiSource({
   format: "png",
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
 })
 
 interface PaymentReceiptPDFProps {
-  paymentDetails: PaymentDetailsType | null
+  paymentDetails: BookingBySessionIdResponse | null
 }
 
 export const PaymentReceiptPDF: React.FC<PaymentReceiptPDFProps> = ({ paymentDetails }) => {
@@ -133,15 +135,15 @@ export const PaymentReceiptPDF: React.FC<PaymentReceiptPDFProps> = ({ paymentDet
           <Text style={styles.sectionTitle}>Dados da Loja</Text>
           <View style={styles.row}>
             <Text style={styles.label}>Nome:</Text>
-            <Text style={styles.value}>{paymentDetails.storeName}</Text>
+            <Text style={styles.value}>{paymentDetails.store_name}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Data:</Text>
-            <Text style={styles.value}>{paymentDetails.date}</Text>
+            <Text style={styles.value}>{dayjs(paymentDetails.payment_details.timestamp).format("DD/MM/YYYY")}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Horário:</Text>
-            <Text style={styles.value}>{paymentDetails.time}</Text>
+            <Text style={styles.value}>{dayjs(paymentDetails.payment_details.timestamp).format("HH:mm")}</Text>
           </View>
         </View>
 
@@ -150,11 +152,11 @@ export const PaymentReceiptPDF: React.FC<PaymentReceiptPDFProps> = ({ paymentDet
           <Text style={styles.sectionTitle}>Dados do Cliente</Text>
           <View style={styles.row}>
             <Text style={styles.label}>Nome:</Text>
-            <Text style={styles.value}>{paymentDetails.customerName}</Text>
+            <Text style={styles.value}>{paymentDetails.client_name}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>ID da Transação:</Text>
-            <Text style={styles.value}>{paymentDetails.transactionId}</Text>
+            <Text style={styles.value}>{paymentDetails.payment_details.payment_id}</Text>
           </View>
         </View>
 
@@ -163,15 +165,15 @@ export const PaymentReceiptPDF: React.FC<PaymentReceiptPDFProps> = ({ paymentDet
           <Text style={styles.sectionTitle}>Detalhes do Pagamento</Text>
           <View style={styles.amountBox}>
             <Text style={styles.amountLabel}>Valor Total Pago</Text>
-            <Text style={styles.amountValue}>R$ {paymentDetails.amount}</Text>
+            <Text style={styles.amountValue}>R$ {paymentDetails.payment_details.amount}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Método de Pagamento:</Text>
-            <Text style={styles.value}>{paymentDetails.paymentMethod}</Text>
+            <Text style={styles.value}>{paymentDetails.payment_details.payment_method}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Moeda:</Text>
-            <Text style={styles.value}>{paymentDetails.currency}</Text>
+            <Text style={styles.value}>{paymentDetails.payment_details.currency}</Text>
           </View>
         </View>
 

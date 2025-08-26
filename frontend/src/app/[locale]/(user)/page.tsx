@@ -7,10 +7,6 @@ import { useState } from "react"
 import BookingModal from "./modals/booking/booking/bookingModal"
 import { useAuthModal } from "./AuthModalContext"
 
-type Props = {
-  edit_mode?: boolean
-}
-
 export default function CompanyLandingPage() {
   const t = useTranslations()
   const { company } = useCompanyStore()

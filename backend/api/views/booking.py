@@ -129,3 +129,17 @@ class BookingViewSet(viewsets.ModelViewSet):
             return Response({"error": "Booking not found"}, status=404)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+
+    @action(methods=["GET"], detail=False)
+    def retrievePaymentUrlWithSessionId(self, request, pk=None):
+        session_id = request.GET.get("session_id")
+        payment_url = verify_checkout_session(session_id)
+        return Response({"url": payment_url}, status=200)
+    
+    @action(methods=["POST"], detail=False)
+    def handleCancelingBooking(self, request, pk=None):
+        session_id = request.data.get("session_id")
+        booking = Booking.objects.get(session_id=session_id)
+        booking.status = BookingStatus.CANCELED.value
+        booking.save()
+        return Response(BookingSerializer(booking).data, status=200)

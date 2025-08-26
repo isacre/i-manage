@@ -99,7 +99,7 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
         <div className="flex-1 overflow-y-auto">
           {ConfirmingBookingState ? (
             <div className="flex h-full flex-col p-6">
-              <ConfirmingBooking setOpen={setOpen} Booking={Booking} />
+              <ConfirmingBooking onClose={handleClose} Booking={Booking} />
             </div>
           ) : (
             <div className="flex h-full flex-col p-6">

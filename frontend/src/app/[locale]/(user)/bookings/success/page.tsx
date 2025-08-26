@@ -1,16 +1,16 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import { getBookingBySessionId } from "@/services/company/booking"
 import { useSearchParams } from "next/navigation"
-import PaymentDetailsComponent, { createMockPaymentDetails, PaymentDetailsType } from "./paymentDetails"
-import PaymentStatus from "./paymentStatus"
+import { useEffect, useState } from "react"
 import PaymentActions from "./paymentActions"
-import { completeBookingAfterPayment, getBookingBySessionId } from "@/services/company/booking"
-import { toast } from "react-toastify"
+import PaymentDetailsComponent, { PaymentDetailsType } from "./paymentDetails"
+import PaymentStatus from "./paymentStatus"
+import { BookingBySessionIdResponse } from "@/services/company/booking/types"
 
 export default function SuccessPage() {
   const sessionId = useSearchParams().get("session_id")
-  const [paymentDetails, setPaymentDetails] = useState<PaymentDetailsType | null>(null)
+  const [paymentDetails, setPaymentDetails] = useState<BookingBySessionIdResponse | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function SuccessPage() {
     setIsLoading(true)
     getBookingBySessionId(sessionId)
       .then((res) => {
-        console.log(res)
+        setPaymentDetails(res)
         setIsLoading(false)
       })
       .catch((err) => {

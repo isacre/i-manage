@@ -7,6 +7,7 @@ from api.views.booking import Booking
 from rest_framework import serializers
 from django.utils import timezone
 
+from users.models import User
 from payments.models import Payment
 from payments.serializers import PaymentSerializer
 from users.serializers import CustomUserSerializer
@@ -37,14 +38,30 @@ class BookingSerializer(serializers.ModelSerializer):
 
 class ConfirmedBookingSerializer(serializers.ModelSerializer):
     payment_details = serializers.SerializerMethodField()
+    client_name = serializers.SerializerMethodField()
+    store_name = serializers.SerializerMethodField()
     
     class Meta:
         model = Booking
-        fields = "__all__"
+        fields = ['id', 'client_name', 'payment_details', 'store_name']
     
     def get_payment_details(self, obj):
         payment = Payment.objects.get(pk=obj.payment_id)
-        return PaymentSerializer(payment).data
+        serialized = PaymentSerializer(payment).data
+        return {
+            "amount": serialized["amount"] / 100,
+            "currency": serialized["currency"],
+            "status": serialized["status"],
+            "payment_method": serialized["payment_method"],
+            "payment_id": serialized["stripe_payment_id"],
+            "timestamp": serialized["created_at"],
+        }
+
+    def get_client_name(self, obj):
+        return obj.user.name
+
+    def get_store_name(self, obj):
+        return obj.company.name
 
 class BookingCreateSerializer(serializers.ModelSerializer):
     company = serializers.CharField()
