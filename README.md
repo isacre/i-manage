@@ -2,6 +2,12 @@
 
 A comprehensive white-label platform designed for micro and small businesses to streamline client scheduling and payment processing. Built with modern web technologies and integrated with industry-leading services.
 
+## 💡 Motivation
+
+I noticed that small businesses often have long waiting times. Then I thought: what if my barber had a website where I could book and pay for my haircut in advance?
+
+That insight led me to create i-Manage — a platform that helps small businesses easily build a website, manage their clients, and handle appointments through a simple and intuitive interface.
+
 ## 🚀 Overview
 
 i-Manage is a powerful, customizable business management solution that enables entrepreneurs and small business owners to:
@@ -72,28 +78,3 @@ cd frontend
 npm install
 npm run dev
 ```
-
-### Prerequisites
-
-- Node.js 18+
-- npm, yarn, pnpm, or bun
-
-## 📱 Usage
-
-### For Business Owners
-
-1. **Setup**: Configure your business profile and branding
-2. **Services**: Define your service offerings and pricing
-3. **Availability**: Set your working hours and availability
-4. **Launch**: Share your booking link with clients
-
-### For Clients
-
-1. **Browse**: View available services and pricing
-2. **Book**: Select preferred time slots
-3. **Pay**: Complete secure payment via Stripe
-4. **Confirm**: Receive confirmation and calendar invites
-
-**Built with ❤️ for small businesses everywhere**
-
-_Transform your business operations with i-Manage - the smart, scalable solution for modern entrepreneurs._
