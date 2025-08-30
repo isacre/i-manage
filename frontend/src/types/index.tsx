@@ -34,7 +34,7 @@ export declare type CompanyType = {
   services: Service[]
   opens_at: string
   closes_at: string
-  image_url: string
+  image: string
   timezone: string
   keywords: string[]
   address: string

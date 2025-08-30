@@ -29,19 +29,15 @@ class Company(BaseModel):
     closes_at = models.TimeField(default=get_local_time(hour=18, minute=0))
     timezone = models.CharField(max_length=64, null=False, blank=False, default="America/Sao_Paulo", choices=TIMEZONE_CHOICES)
     keywords = ArrayField(models.CharField(max_length=64, null=False, blank=False), default=list)
-    image = models.ImageField(
-        upload_to='company_images/',
+    image = models.CharField(
         null=True,
         blank=True,
-        default='company_images/default_company_image.png',
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+        default='/media/company_images/default_company_image.png',
     )
-    banner = models.ImageField(
-        upload_to='company_banners/',
+    banner = models.CharField(
         null=True,
         blank=True,
-        default='company_banners/default_company_banner.jpg',
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+        default='/media/company_banners/default_company_banner.jpg',
     )
     primary_color = models.CharField(max_length=7, null=False, blank=False, default='#e7000b')
     is_active = models.BooleanField(default=True)

@@ -42,13 +42,13 @@ export default function RegisterEmployeeModal({ isOpen, setOpen }: Props) {
   return (
     <Modal isOpen={isOpen} setOpen={setOpen} title={t("Employees.modals.register.title")}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
-        <FormFields.TextField
+        <FormFields.UncontrolledTextField
           id="name"
           label={t("Employees.modals.register.name")}
           register={register}
           error={errors.name?.message}
         />
-        <FormFields.TextField
+        <FormFields.UncontrolledTextField
           id="email"
           label={t("Employees.modals.register.email")}
           register={register}

@@ -39,7 +39,7 @@ export default function Navbar({ menus, user, company, editMode = false }: Props
   const visibleMenus = user ? menus : loggedOutMenus
 
   return (
-    <header className="border-b px-4">
+    <header className="border-b border-gray-200 px-4">
       <div className="mx-auto flex h-16 items-center justify-between gap-4 lg:w-[80%]">
         <LeftSide company={company} menus={visibleMenus} editMode={editMode} />
         <RightSide menus={visibleMenus} editMode={editMode} />

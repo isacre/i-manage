@@ -57,13 +57,13 @@ export default function EditEmployeeModal({ isOpen, setOpen, employee }: Props) 
   return (
     <Modal isOpen={isOpen} setOpen={setOpen} title={t("Employees.modals.edit.title")}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-2">
-        <FormFields.TextField
+        <FormFields.UncontrolledTextField
           id="name"
           label={t("Employees.modals.edit.name")}
           register={register}
           error={errors.name?.message}
         />
-        <FormFields.TextField
+        <FormFields.UncontrolledTextField
           id="email"
           label={t("Employees.modals.edit.email")}
           register={register}

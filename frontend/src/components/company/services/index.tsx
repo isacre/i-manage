@@ -54,7 +54,7 @@ export default function ServicesComponent({
             placeholder={t("Company.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 placeholder-gray-500 transition-all duration-200 focus:border-gray-300 focus:ring-2 focus:ring-gray-100 focus:outline-none"
+            className="placeholder-gr-500 w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 transition-all duration-200 focus:border-gray-300 focus:ring-2 focus:ring-gray-100 focus:outline-none"
           />
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function ServicesComponent({
         {filteredServices.map((service) => (
           <div
             key={service.id}
-            className="group relative overflow-hidden rounded-xl border border-gray-100 bg-white p-4 transition-all duration-300 hover:border-gray-200 hover:bg-gray-50"
+            className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-4 transition-all duration-300 hover:border-gray-200 hover:bg-gray-50"
           >
             <div className="flex items-start justify-between">
               <div className="min-w-0 flex-1">
@@ -105,7 +105,7 @@ export default function ServicesComponent({
       </div>
 
       {filteredServices.length === 0 && (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-gray-100 bg-gray-50/50 p-8 text-center">
+        <div className="flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-gray-50/50 p-8 text-center">
           <FiCalendar className="mb-3 h-10 w-10 text-gray-300" />
           <h3 className="mb-1 text-base font-medium text-gray-700">
             {searchQuery.trim() ? t("Company.noServicesFound") : t("Company.noServicesAvailable")}

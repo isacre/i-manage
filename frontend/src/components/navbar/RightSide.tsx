@@ -27,7 +27,7 @@ export default function RightSide({ menus, editMode = false }: Props) {
   return (
     <div onClick={() => editMode && colorInputRef.current?.click()} className="relative">
       <div className={cn("hidden items-center gap-2 md:flex", editMode && "pointer-events-none")}>
-        <input ref={colorInputRef} type="color" onChange={(e) => setColor(e.target.value)} />
+        {editMode && <input ref={colorInputRef} type="color" onChange={(e) => setColor(e.target.value)} />}
 
         {menus?.map((menu) => {
           if (menu.show !== false) {

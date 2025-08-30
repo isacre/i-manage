@@ -102,6 +102,10 @@ class CompanyViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({"message": "Company could not be found", "errors": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
+    """
+    Upload a logo, save it in the files folder and return the url
+    """
+
 
        
 

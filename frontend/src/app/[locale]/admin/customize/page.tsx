@@ -2,19 +2,20 @@
 
 import { useUserStore } from "@/stores/user-store"
 import { useTranslations } from "next-intl"
-import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import Preview from "./Preview"
+import Preview from "./preview"
+import { updateCompany } from "@/services/company"
+import { ArrowRightIcon } from "lucide-react"
+import CompanyFormFields from "./companyFormFields"
+import { useCompanyStore } from "@/stores/company-store"
+import { toast } from "react-toastify"
 
 export default function CustomizeCompany() {
   const t = useTranslations("Admin.Customize")
-  const tCommon = useTranslations("Common")
-  const company = useUserStore((state) => state.user?.company)
-  const [isLoading, setIsLoading] = useState(false)
+  const company = useCompanyStore((state) => state.company)
 
   const {
     formState: { errors },
-    setValue,
   } = useForm({
     defaultValues: {
       name: company?.name || "",
@@ -26,23 +27,28 @@ export default function CustomizeCompany() {
       opens_at: company?.opens_at || "09:00",
       closes_at: company?.closes_at || "18:00",
       timezone: company?.timezone || "America/Sao_Paulo",
+      banner: company?.banner || "",
+      image: company?.image || "",
     },
   })
 
-  // Set form values when company data loads
-  useEffect(() => {
-    if (company) {
-      setValue("name", company.name)
-      setValue("description", company.description)
-      setValue("identifier", company.identifier)
-      setValue("phone", company.phone)
-      setValue("address", company.address)
-      setValue("primary_color", company.primary_color)
-      setValue("opens_at", company.opens_at)
-      setValue("closes_at", company.closes_at)
-      setValue("timezone", company.timezone)
-    }
-  }, [company, setValue])
+  function handleUpdatingCompany() {
+    updateCompany(company?.id as number, {
+      name: company?.name,
+      description: company?.description,
+      phone: company?.phone,
+      address: company?.address,
+      primary_color: company?.primary_color,
+      banner: company?.banner,
+      image: company?.image,
+    })
+      .then(() => {
+        toast.success(t("success"))
+      })
+      .catch(() => {
+        toast.error(t("error"))
+      })
+  }
 
   if (!company) {
     return (
@@ -56,18 +62,21 @@ export default function CustomizeCompany() {
   }
 
   return (
-    <div className="min-h-screen p-6">
-      <div className="mx-auto">
-        <Preview company={company} />
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="rounded-lg bg-blue-600 px-8 py-3 text-white transition-all duration-200 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {isLoading ? tCommon("Loading") : t("button")}
-          </button>
-        </div>
+    <div className="flex flex-col">
+      <div className="flex h-[60px] items-center justify-between border-b border-gray-200 px-4">
+        <p className="text-md font-medium text-gray-700">Edit company</p>
+        <button
+          type="button"
+          onClick={handleUpdatingCompany}
+          className="flex cursor-pointer items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {t("button")}
+          <ArrowRightIcon className="h-4 w-4" />
+        </button>
+      </div>
+      <div className="flex flex-col gap-4 p-2">
+        <CompanyFormFields />
+        <Preview />
       </div>
     </div>
   )
