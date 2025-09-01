@@ -91,7 +91,7 @@ export default function ServicesComponent({
 
               <div className="ml-3 flex-shrink-0">
                 <button
-                  className="group/btn inline-flex cursor-pointer items-center gap-1.5 rounded-lg bg-gradient-to-r px-3 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:from-red-600 hover:to-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:outline-none"
+                  className="group/btn inline-flex cursor-pointer items-center gap-1.5 rounded-lg bg-gradient-to-r px-3 py-1.5 text-xs font-medium text-white transition-all duration-200"
                   onClick={() => handleBookingButton(service)}
                   style={{ backgroundColor: companyColor }}
                 >

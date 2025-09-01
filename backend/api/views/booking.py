@@ -36,7 +36,8 @@ class BookingViewSet(viewsets.ModelViewSet):
        date_parameter = data.get("start_date").split(" ")[0]
        date, opens_at, closes_at, _ = CompanyModule.get_company_hours(self, date_parameter, company, service.max_duration)
        employees = data.pop("employees")
-       if data.get("employees") == None:
+       print("employees", employees)
+       if employees == None:
            most_available_employees = select_most_available_employees_to_book(service.id, opens_at, closes_at, date)
            employees = most_available_employees[:int(serialized_service.get("required_employees", 1))]
            capable_and_available_employees = filter_available_employees_for_slot(employees, service.id, date_parameter)
@@ -88,7 +89,7 @@ class BookingViewSet(viewsets.ModelViewSet):
         interval = timedelta(minutes=15)
        
         available_slots = []
-        employee_busy_hours = EmployeeModule.get_employee_bookings(self, company, opens_at, closes_at, capable_employees, interval)
+        employee_busy_hours = EmployeeModule.get_employee_free_intervals(self, company, opens_at, closes_at, capable_employees, interval)
         while booking_slot + interval <= closes_at:
             if booking_slot >= opens_at:
                 available_slots.append(booking_slot.format("HH:mm"))

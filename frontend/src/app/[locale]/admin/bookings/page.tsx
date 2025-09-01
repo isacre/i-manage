@@ -1,29 +1,36 @@
 "use client"
 import TableComponent from "@/components/table"
-import useBooking, { useBookingFilters } from "@/hooks/useBooking"
-import React, { useState } from "react"
-import Booking from "./booking"
 import TabsComponent from "@/components/tabs"
+import useBooking, { useBookingFilters } from "@/hooks/useBooking"
 import { BookingStatus } from "@/stores/booking-store"
 import { useTranslations } from "next-intl"
+import { useState } from "react"
+import Booking from "./booking"
+import BookingModal from "./modals/booking"
 
 export default function Bookings() {
   const t = useTranslations("Admin.Bookings")
   const tCommon = useTranslations("Common")
   const [Filters, setFilters] = useState<useBookingFilters>({
-    status: "PENDING",
+    status: "",
   })
   const { BookingsLoading, bookings, fetch } = useBooking(Filters)
   const filteredBookings = bookings.filter((item) => item.status !== "EXPIRED")
+  const [isOpen, setOpen] = useState(false)
   return (
     <TableComponent.Root>
-      <TableComponent.TopRow title={t("title")} />
+      <BookingModal isOpen={isOpen} setOpen={setOpen} fetchBookings={fetch} />
+      <TableComponent.TopRow
+        title={t("title")}
+        actionButton={[{ label: "Register Booking", onClick: () => setOpen(true) }]}
+      />
       <TabsComponent
         tabs={[
-          { value: "PENDING", text: t("tabs.pending"), onClick: () => setFilters({ status: "PENDING" }) },
           { value: "", text: t("tabs.all"), onClick: () => setFilters({ status: "" }) },
           { value: "CONFIRMED", text: t("tabs.confirmed"), onClick: () => setFilters({ status: "CONFIRMED" }) },
           { value: "CANCELED", text: t("tabs.cancelled"), onClick: () => setFilters({ status: "CANCELED" }) },
+          { value: "EXPIRED", text: t("tabs.expired"), onClick: () => setFilters({ status: "EXPIRED" }) },
+          { value: "COMPLETED", text: t("tabs.completed"), onClick: () => setFilters({ status: "COMPLETED" }) },
         ]}
         activeTab={Filters.status}
         setActiveTab={(tab) => setFilters({ status: tab as BookingStatus })}

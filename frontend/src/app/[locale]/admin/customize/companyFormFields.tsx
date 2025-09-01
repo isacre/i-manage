@@ -1,13 +1,14 @@
 import { useCompanyStore } from "@/stores/company-store"
 import FormFields from "@/components/formFields"
 import React from "react"
-import { CompanyType } from "@/types"
+import { CompanyType, WeekDays } from "@/types"
+import WorkDaysToggle from "./weekDaysToggle"
 
 export default function CompanyFormFields() {
   const { company, update } = useCompanyStore()
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <FormFields.ControlledTextField
         id="name"
         label="Name"
@@ -36,6 +37,9 @@ export default function CompanyFormFields() {
         onChange={(e) => update({ ...company, phone: e.target.value } as CompanyType)}
         autoComplete="off"
       />
+      <div className="col-span-full w-full">
+        <WorkDaysToggle />
+      </div>
     </div>
   )
 }

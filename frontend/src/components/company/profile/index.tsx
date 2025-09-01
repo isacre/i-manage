@@ -2,7 +2,6 @@
 import { CompanyType } from "@/types"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
-import Image from "next/image"
 
 interface Props {
   company: CompanyType
@@ -10,7 +9,7 @@ interface Props {
 
 export default function CompanyProfileComponent({ company }: Props) {
   const t = useTranslations("Time.DaysOfWeek")
-  const { name, address, opens_at, closes_at, work_days, image_url } = company
+  const { opens_at, closes_at, work_days } = company
   const dayjsFormatDayOfWeek = (day: number) => {
     return dayjs()
       .day(day + 1)

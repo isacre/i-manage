@@ -207,7 +207,9 @@
         "pending": "Pending",
         "all": "All",
         "confirmed": "Confirmed",
-        "cancelled": "Cancelled"
+        "cancelled": "Cancelled",
+        "expired": "Expired",
+        "completed": "Completed"
       },
       "headers": {
         "hour": "Hour",

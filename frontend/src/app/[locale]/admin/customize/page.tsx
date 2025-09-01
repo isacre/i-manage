@@ -41,6 +41,7 @@ export default function CustomizeCompany() {
       primary_color: company?.primary_color,
       banner: company?.banner,
       image: company?.image,
+      work_days: company?.work_days,
     })
       .then(() => {
         toast.success(t("success"))

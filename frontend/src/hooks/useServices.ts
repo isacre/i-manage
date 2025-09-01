@@ -30,5 +30,5 @@ export default function useServices(companyId: string | undefined) {
     fetch()
   }, [user, companyId])
 
-  return { services, servicesLoading: isLoading }
+  return { services, servicesLoading: isLoading, fetch }
 }

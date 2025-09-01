@@ -20,8 +20,8 @@ export default cache(async function getCompanyByDomainAndGenerateMetadata({ loca
       description: company.description || "Sistema de agendamento inteligente.",
       icons: {
         title: `${company.name}`,
-        icon: `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company.image_url}`,
-        shortcut: `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company.image_url}`,
+        icon: `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company.image}`,
+        shortcut: `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company.image}`,
       },
       robots: "index, follow",
       locale: locale,
@@ -29,7 +29,7 @@ export default cache(async function getCompanyByDomainAndGenerateMetadata({ loca
       openGraph: {
         images: [
           {
-            url: `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company.image_url}`,
+            url: `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company.image}`,
           },
         ],
       },

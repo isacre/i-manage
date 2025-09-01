@@ -90,7 +90,13 @@ export default function BookingModal({ isOpen, selectedServiceId, setOpen }: Pro
         </div>
         {!ConfirmingBookingState && (
           <div className="flex-shrink-0 border-t bg-gray-50 p-4">
-            <Button disabled={!selectedHour} onClick={moveToConfirmingBooking} className="w-full" size="lg">
+            <Button
+              disabled={!selectedHour}
+              onClick={moveToConfirmingBooking}
+              className="w-full"
+              size="lg"
+              style={{ backgroundColor: company?.primary_color }}
+            >
               {tBooking("selectTime")}
             </Button>
           </div>

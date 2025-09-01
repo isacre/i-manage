@@ -19,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <ToastContainer />
       <AuthModal />
       <Navbar user={user} company={company} menus={menus} />
-      <div className="m-auto lg:w-[78vw]">{children}</div>
+      <div className="m-auto lg:w-[78vw]" style={{ ["--primary-color" as any]: company?.primary_color || "#2563eb" }}>
+        {children}
+      </div>
     </AuthModalProvider>
   )
 }
