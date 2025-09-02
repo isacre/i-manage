@@ -23,12 +23,27 @@ export default function ConfirmingBooking({ Booking, onClose }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const t = useTranslations()
 
-  function handleSubmit() {
+  function handlePayNow() {
     setIsLoading(true)
     createBooking(Booking)
       .then(({ url }) => {
         window.open(url)
       })
+      .then(() => {
+        onClose()
+        toast.success(t("Booking.successScheduling"))
+      })
+      .catch((err) => {
+        toast.error(t("Booking.errorScheduling"))
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
+
+  function handlePayAfterService() {
+    setIsLoading(true)
+    createBooking({ ...Booking, status: "PENDING" })
       .then(() => {
         onClose()
         toast.success(t("Booking.successScheduling"))
@@ -61,8 +76,11 @@ export default function ConfirmingBooking({ Booking, onClose }: Props) {
             endHour={endHour}
             endMinute={endMinute}
           />
-          <Button onClick={handleSubmit} className="w-full" size="lg">
-            {t("Booking.schedule")}
+          <Button onClick={handlePayNow} className="w-full" size="lg">
+            {"Pay now"}
+          </Button>
+          <Button onClick={handlePayAfterService} className="w-full" size="lg" variant="ghost">
+            {"Pay after service"}
           </Button>
         </>
       )}

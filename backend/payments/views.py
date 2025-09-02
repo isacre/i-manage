@@ -37,7 +37,6 @@ def stripe_webhook(request):
         booking.status = BookingStatus.CONFIRMED.value
         booking.payment = payment
         booking.save() 
-        google_calendar.create_event(booking)
     elif event["type"] == "payment_intent.succeeded":
         intent = event["data"]["object"]
         Payment.objects.update_or_create(

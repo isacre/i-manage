@@ -36,8 +36,7 @@ class BookingViewSet(viewsets.ModelViewSet):
        date_parameter = data.get("start_date").split(" ")[0]
        date, opens_at, closes_at, _ = CompanyModule.get_company_hours(self, date_parameter, company, service.max_duration)
        employees = data.pop("employees")
-       print("employees", employees)
-       if employees == None:
+       if not employees:
            most_available_employees = select_most_available_employees_to_book(service.id, opens_at, closes_at, date)
            employees = most_available_employees[:int(serialized_service.get("required_employees", 1))]
            capable_and_available_employees = filter_available_employees_for_slot(employees, service.id, date_parameter)
@@ -50,7 +49,9 @@ class BookingViewSet(viewsets.ModelViewSet):
        booking.employees.set(employees)
        session = create_checkout_session(service.name, service.description, service.price, user.email)
        booking.session_id = session.id
+       
        if serializer.is_valid(raise_exception=True): 
+          google_calendar.create_event(booking)
           booking.save()
           return Response({"sessionId": session.id, "url": session.url}, status=200)
        return Response(serializer.errors, status={400})
@@ -85,17 +86,7 @@ class BookingViewSet(viewsets.ModelViewSet):
 
         company = Company.objects.get(pk=service.company.id)
         date, opens_at, closes_at, now = CompanyModule.get_company_hours(self, date_parameter, company, service.max_duration)
-        booking_slot = CompanyModule.get_booking_start_time(self, now, date, opens_at)
-        interval = timedelta(minutes=15)
-       
-        available_slots = []
-        employee_busy_hours = EmployeeModule.get_employee_free_intervals(self, company, opens_at, closes_at, capable_employees, interval)
-        while booking_slot + interval <= closes_at:
-            if booking_slot >= opens_at:
-                available_slots.append(booking_slot.format("HH:mm"))
-            booking_slot += interval
-        
-        available_slots = [item for item in available_slots if  item not in employee_busy_hours]
+        available_slots = EmployeeModule.get_employee_available_slots(self, company, opens_at, closes_at, capable_employees, 15, now, date)
         response = {
             'available_slots': available_slots,
             'capable_employees': ServiceSerializer(service).data.get("capable_employees"),
