@@ -1,4 +1,4 @@
-# i-Manage - White-Label Business Management Platform
+# i-Manage - A White-Label booking platform
 
 A comprehensive white-label platform designed for micro and small businesses to streamline client scheduling and payment processing. Built with modern web technologies and integrated with industry-leading services.
 
