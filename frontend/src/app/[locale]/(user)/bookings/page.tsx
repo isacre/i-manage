@@ -10,7 +10,7 @@ import Booking from "./booking"
 
 export default function UserBookingsPage() {
   const user = useUserStore()
-  const t = useTranslations()
+  const t = useTranslations("Booking")
   const { bookings, BookingsLoading, fetch } = useBooking({
     status: "",
     user: user.user?.id ?? undefined,

@@ -8,16 +8,12 @@ from googleapiclient.errors import HttpError
 from api.models.booking import Booking
 import os
 from dotenv import load_dotenv, set_key
-from datetime import datetime, timedelta
-
 from api.models.employee import Employee
 from api.models.service import Service
 from api.serializers.booking import BookingSerializer
 from api.serializers.service import ServiceSerializer
 from api.utils.utils import generateBookedHours
-from api.views import service
-from django.utils.dateparse import parse_datetime
-from django.utils.timezone import make_aware, is_naive
+
 
 from users.models import User
 
@@ -67,15 +63,14 @@ def get_credentials():
 
     return authentication
 
-def create_event(event: Booking):
+def create_event(booking: Booking):
   authentication = get_credentials()
-  user = User.objects.get(id=event.user.id)
-  employees = Employee.objects.filter(id__in=event.employees.all())
+  user = User.objects.get(id=booking.user.id)
+  employees = Employee.objects.filter(id__in=booking.employees.all())
   emails = [{"email": employee.email} for employee in employees]
   emails.append({"email": user.email})
-  booking_data = BookingSerializer(event).data
-  service_data = ServiceSerializer(event.service).data
-
+  booking_data = BookingSerializer(booking).data
+  product_data = ServiceSerializer(booking.service).data
   try:
     service = build("calendar", "v3", credentials=authentication)
     created_event = (
@@ -83,8 +78,8 @@ def create_event(event: Booking):
         .insert(
             calendarId="primary",
             body={
-                "summary":service_data["name"],
-                "description": service_data["description"],
+                "summary":product_data["name"],
+                "description": product_data["description"],
                 "start": {
                     "dateTime": booking_data["start_date"],
                     "timeZone": "America/Sao_Paulo"
@@ -108,17 +103,19 @@ def create_event(event: Booking):
         )
         .execute()
     )
+    booking.calendar_event = created_event.get("id")
+    booking.save()
     return created_event
   
   except HttpError as error:
     print(f"An error occurred: {error}")
     raise error
   
-def delete_event(event: Booking):
+def delete_event(booking: Booking):
   authentication = get_credentials()
   try:
     service = build("calendar", "v3", credentials=authentication)
-    service.events().delete(calendarId="primary", eventId=event.id).execute()
+    service.events().delete(calendarId="primary", eventId=booking.calendar_event, sendUpdates="all").execute()
   except HttpError as error:
     print(f"An error occurred: {error}")
 

@@ -28,6 +28,7 @@ class Booking(BaseModel):
     )
     session_id = models.CharField(max_length=255, null=True, blank=True)
     payment = models.ForeignKey("payments.Payment", on_delete=models.DO_NOTHING, null=True, blank=True)
+    calendar_event = models.CharField(null=True, blank=True, default=None, unique=True)
     class Meta:
         db_table = 'booking'
 

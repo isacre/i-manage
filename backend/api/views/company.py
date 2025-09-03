@@ -16,12 +16,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
     serializer_class = CompanySerializer
     queryset = Company.objects.all()
 
-    def get_serializer_class(self) -> type:
-        if self.action == 'register_company':
-            return CompanyRegisterSerializer
-        return CompanySerializer
-
-
     def _create_company(self, data: Dict[str, Any]) -> Company:
         company = Company.objects.create(
             name=data['name'],
@@ -43,6 +37,12 @@ class CompanyViewSet(viewsets.ModelViewSet):
             company=company,
             role='OWNER'
         )
+
+    def get_serializer_class(self) -> type:
+        if self.action == 'register_company':
+            return CompanyRegisterSerializer
+        return CompanySerializer
+
 
     @action(methods=["POST"], detail=False)
     def register_company(self, request: Request) -> Response:

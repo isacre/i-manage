@@ -98,3 +98,9 @@ class BokingUpdateStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ["status"]
+
+
+class BookingDeleteAgendaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ["calendar_event"]

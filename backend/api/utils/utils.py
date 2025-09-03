@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 import pytz
 from typing import List
-from api.models.booking import Booking
+from api.models.booking import Booking, BookingStatus
 from api.models.employee import Employee
 from api.models.service import Service
 from api.serializers.booking import BookingSerializer
@@ -33,20 +33,16 @@ def generateBookedHours(start, end, interval):
 
 def filter_available_employees_for_slot(employee_ids, service_id, start_datetime_str):
     service = Service.objects.get(id=service_id)
-    service_data = ServiceSerializer(service).data
-    service_duration = int(service_data.get("max_duration", 0))
-
+    service_duration = int(service.max_duration)
     start_datetime = datetime.fromisoformat(start_datetime_str)
     end_datetime = start_datetime + timedelta(minutes=service_duration)
 
-    employees = Employee.objects.filter(id__in=employee_ids)
-    employees_email_list = [e.email for e in employees]
-
     bookings = Booking.objects.filter(
+        employees__id__in=employee_ids,
         service_id=service_id,
-        employees__email__in=employees_email_list,
         start_date__lt=end_datetime,
-        end_date__gt=start_datetime
+        end_date__gt=start_datetime,
+        status__in=[BookingStatus.CONFIRMED.value, BookingStatus.PENDING.value]
     ).distinct()
 
     busy_employee_ids = set()
@@ -54,11 +50,12 @@ def filter_available_employees_for_slot(employee_ids, service_id, start_datetime
         for employee in booking.employees.all():
             if employee.id in employee_ids:
                 busy_employee_ids.add(employee.id)
-
+    print("busy_employee_ids", busy_employee_ids)
     available_employees = [eid for eid in employee_ids if eid not in busy_employee_ids]
+    print("available_employees", available_employees)
     return available_employees
 
-def select_most_available_employees_to_book(service_id, start_date, end_date, date_parameter):
+def select_most_available_employee(service_id, start_date, end_date, date_parameter):
     datetime_start = start_date.datetime
     datetime_end = end_date.datetime  
     service = Service.objects.get(id=service_id)
@@ -67,7 +64,8 @@ def select_most_available_employees_to_book(service_id, start_date, end_date, da
     bookings_this_day = Booking.objects.filter(
         service_id=service_id,
         start_date__lt=datetime_end, 
-        end_date__gt=datetime_start  
+        end_date__gt=datetime_start,  
+        status__in=[BookingStatus.CONFIRMED.value, BookingStatus.PENDING.value]
     )
     serialized_bookings = BookingSerializer(bookings_this_day, many=True)
 
@@ -84,4 +82,4 @@ def select_most_available_employees_to_book(service_id, start_date, end_date, da
         employee_booking_count.setdefault(emp_id, 0)
     sorted_employees = sorted(employee_booking_count, key=lambda emp_id: employee_booking_count[emp_id])
 
-    return sorted_employees
+    return sorted_employees[0]

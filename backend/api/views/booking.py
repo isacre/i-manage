@@ -1,11 +1,12 @@
-from datetime import timedelta
-from api.integrations.stripe.service import create_checkout_session, verify_checkout_session
+
+from requests import delete
+from api.integrations.stripe.service import create_checkout_session, refund_payment, verify_checkout_session
 from api.models.booking import Booking, BookingStatus
 from api.models.company import Company
 from api.models.service import Service
 from api.modules.company import CompanyModule
 from api.modules.employee import EmployeeModule
-from api.serializers.booking import BokingUpdateStatusSerializer, BookingCreateSerializer, BookingSerializer, ConfirmedBookingSerializer    
+from api.serializers.booking import BokingUpdateStatusSerializer, BookingCreateSerializer, BookingDeleteAgendaSerializer, BookingSerializer, ConfirmedBookingSerializer    
 from rest_framework import viewsets
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -14,7 +15,8 @@ import api.integrations.google_calendar.service as google_calendar
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from api.serializers.service import ServiceSerializer
-from api.utils.utils import  filter_available_employees_for_slot, select_most_available_employees_to_book
+from api.utils.utils import  select_most_available_employee
+from payments.models import Payment
 from users.models import User
 
 class BookingViewSet(viewsets.ModelViewSet):
@@ -24,6 +26,8 @@ class BookingViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "patchBookingStatus":
             return BokingUpdateStatusSerializer
+        if self.action == "deleteAgenda":
+            return BookingDeleteAgendaSerializer
         return BookingSerializer
     
     @action(methods=["POST"], detail=False, url_path="bookService")
@@ -32,15 +36,11 @@ class BookingViewSet(viewsets.ModelViewSet):
        data = request.data.copy()
        company = Company.objects.get(identifier=request.data["company"])
        service = Service.objects.get(pk=request.data["service"])
-       serialized_service = ServiceSerializer(service).data
        date_parameter = data.get("start_date").split(" ")[0]
        date, opens_at, closes_at, _ = CompanyModule.get_company_hours(self, date_parameter, company, service.max_duration)
        employees = data.pop("employees")
        if not employees:
-           most_available_employees = select_most_available_employees_to_book(service.id, opens_at, closes_at, date)
-           employees = most_available_employees[:int(serialized_service.get("required_employees", 1))]
-           capable_and_available_employees = filter_available_employees_for_slot(employees, service.id, date_parameter)
-           employees = capable_and_available_employees
+           employees = [select_most_available_employee(service.id, opens_at, closes_at, date)]
        user = User.objects.filter(pk=request.data["user"]).first()
        data["service"] = service
        data["company"] = company
@@ -99,9 +99,12 @@ class BookingViewSet(viewsets.ModelViewSet):
         try:
             booking = Booking.objects.get(pk=pk)
             request_status = request.data.get("status")
-    
-            if request_status == BookingStatus.CANCELED.value and booking.status == BookingStatus.CONFIRMED.value:
+            if request_status == BookingStatus.CANCELED.value and booking.status in [BookingStatus.CONFIRMED.value, BookingStatus.PENDING.value]:
                 google_calendar.delete_event(booking)
+                if booking.payment:
+                    payment = Payment.objects.get(pk=booking.payment_id)
+                    if(payment.status == "paid"):
+                        refund_payment(payment.stripe_payment_id)
             if request_status == BookingStatus.CONFIRMED.value:
                 google_calendar.create_event(booking)
             booking.status = request_status
@@ -128,10 +131,11 @@ class BookingViewSet(viewsets.ModelViewSet):
         payment_url = verify_checkout_session(session_id)
         return Response({"url": payment_url}, status=200)
     
+
     @action(methods=["POST"], detail=False)
-    def handleCancelingBooking(self, request, pk=None):
-        session_id = request.data.get("session_id")
-        booking = Booking.objects.get(session_id=session_id)
-        booking.status = BookingStatus.CANCELED.value
-        booking.save()
+    def deleteAgenda(self, request, pk=None):
+        calendar_event = request.data.get("calendar_event")
+        booking = Booking.objects.get(calendar_event=calendar_event)
+        google_calendar.delete_event(booking)
         return Response(BookingSerializer(booking).data, status=200)
+    

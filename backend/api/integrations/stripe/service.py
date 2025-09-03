@@ -40,3 +40,10 @@ def verify_checkout_session(session_id: str):
             return {"valid": False, "session": session}
     except Exception as e:
         return {"valid": False, "error": str(e)}
+    
+def refund_payment(payment_id):
+    try:
+        refund = stripe.Refund.create(payment_intent=payment_id)
+        return refund
+    except Exception as e:
+        return {"error": str(e)}
