@@ -83,3 +83,14 @@ def select_most_available_employee(service_id, start_date, end_date, date_parame
     sorted_employees = sorted(employee_booking_count, key=lambda emp_id: employee_booking_count[emp_id])
 
     return sorted_employees[0]
+
+
+
+def check_employee_availability(employee_id, start_date, end_date):
+    bookings = Booking.objects.filter(
+        employees__id=employee_id,
+        start_date__lt=str(end_date),
+        end_date__gt=str(start_date),
+        status__in=[BookingStatus.CONFIRMED, BookingStatus.PENDING]
+    )
+    return not bookings.exists()
