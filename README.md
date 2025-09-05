@@ -1,4 +1,4 @@
-# i-Manage - White-Label Business Management Platform
+# i-Manage - A White-Label booking platform [In Progress 👷‍♂️]
 
 A comprehensive white-label platform designed for micro and small businesses to streamline client scheduling and payment processing. Built with modern web technologies and integrated with industry-leading services.
 
@@ -20,7 +20,7 @@ i-Manage is a powerful, customizable business management solution that enables e
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: Next.js with React
+- **Frontend**: Next.js
 - **Backend**: Python/Django
 - **Database**: PostgreSQL
 - **Payment**: Stripe API integration
