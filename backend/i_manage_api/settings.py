@@ -4,25 +4,26 @@ import os
 import dj_database_url
 from environ import Env
 
-env = Env()
-env.read_env()
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = Env()
+env.read_env(env_file=BASE_DIR / "i_manage_api" / ".env")
+
+
+
 SECRET_KEY = env("DJANGO_SECRET_KEY")
-DEBUG = env("DEBUG")
+DEBUG = env.bool("DEBUG")
 ALLOWED_HOSTS = ["*"]
 
 
-DATABASE_PORT = env("DATABASE_PORT", "5432")
-DATABASE_NAME = env("DATABASE_NAME", "mydb")
-DATABASE_USER = env("DATABASE_USER", "myuser")
-DATABASE_PASS = env("DATABASE_PASS", "mypassword")
-DATABASE_HOST = env("DATABASE_HOST", "localhost")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", "")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", "")
-STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", "")
-DOMAIN = env("DOMAIN", "http://localhost:3000") 
+DATABASE_PORT = env.str("DATABASE_PORT")
+DATABASE_NAME = env("DATABASE_NAME")
+DATABASE_USER = env("DATABASE_USER")
+DATABASE_PASS = env("DATABASE_PASS")
+DATABASE_HOST = env("DATABASE_HOST")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
+DOMAIN = env("DOMAIN") 
 CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
