@@ -20,7 +20,7 @@ export default function Header({ menus, setAuthModalState }: Props) {
   const update = useUserStore((state) => state.update)
   const user = useUserStore((state) => state.user)
   const { company } = useCompanyStore()
-  const imageSrc = `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company?.image_url}`
+  const imageSrc = `${process.env.NEXT_PUBLIC_MEDIA_FETCHING_URL}${company?.image}`
   function handleGetUserData() {
     if (access) {
       getUserData()
@@ -45,7 +45,7 @@ export default function Header({ menus, setAuthModalState }: Props) {
           <div className={ContainerStyles}>
             <div className="">
               <Link className="" href={"/"}>
-                {company?.image_url && <Image src={imageSrc} width={50} height={50} alt={`${company.name} logo`} />}
+                {company?.image && <Image src={imageSrc} width={50} height={50} alt={`${company.name} logo`} />}
               </Link>
             </div>
             <nav className="flex items-center gap-2">
