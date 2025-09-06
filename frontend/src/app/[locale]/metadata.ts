@@ -35,6 +35,6 @@ export default cache(async function getCompanyByDomainAndGenerateMetadata({ loca
       },
     }
   } catch (err) {
-    return { title: "iManage" }
+    return { title: "iManage", icons: { icon: "/favicon.png" } }
   }
 })

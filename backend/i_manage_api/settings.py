@@ -1,6 +1,7 @@
 from datetime import timedelta
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -68,17 +69,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'i_manage_api.wsgi.application'
 
-DATABASES = {
-        "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME":DATABASE_NAME,
-        "USER":DATABASE_USER,
-        "PASSWORD":DATABASE_PASS,
-        "PORT":DATABASE_PORT,
-        "HOST": "localhost"
-    },
-}
 
+if os.getenv("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("DATABASE_NAME", "mydb"),
+            "USER": os.getenv("DATABASE_USER", "myuser"),
+            "PASSWORD": os.getenv("DATABASE_PASS", "mypassword"),
+            "HOST": os.getenv("DATABASE_HOST", "localhost"),
+            "PORT": os.getenv("DATABASE_PORT", "5432"),
+        }
+    }
 AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
