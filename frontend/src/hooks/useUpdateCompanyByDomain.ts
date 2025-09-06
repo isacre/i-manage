@@ -8,11 +8,11 @@ import { useEffect } from "react"
 export default function useUpdateCompanyByDomain() {
   const { update, company } = useCompanyStore()
   useEffect(() => {
-    const company = window?.location?.hostname?.split(".")[0]
-    if (["imanage", "imanage.com", "localhost", "i-manage-frontend"].includes(company)) {
+    const companyIdentifier = window?.location?.hostname?.split(".")[0]
+    if (["imanage", "imanage.com", "localhost", "i-manage-frontend"].includes(companyIdentifier)) {
       return redirect("/about")
     }
-    getCompanyByDomain(company)
+    getCompanyByDomain(companyIdentifier)
       .then((res) => {
         update(res)
       })
