@@ -2,23 +2,27 @@ from datetime import timedelta
 from pathlib import Path
 import os
 import dj_database_url
-from dotenv import load_dotenv
-load_dotenv()
+from environ import Env
+
+env = Env()
+env.read_env()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-DEBUG = True
+SECRET_KEY = env("DJANGO_SECRET_KEY")
+DEBUG = env("DEBUG")
 ALLOWED_HOSTS = ["*"]
 
 
-DATABASE_PORT = os.environ.get("DATABASE_PORT")
-DATABASE_NAME = os.environ.get("DATABASE_NAME")
-DATABASE_USER = os.environ.get("DATABASE_USER")
-DATABASE_PASS = os.environ.get("DATABASE_PASS")
-STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
-DOMAIN = os.getenv("DOMAIN", "http://localhost:3000") 
+DATABASE_PORT = env("DATABASE_PORT")
+DATABASE_NAME = env("DATABASE_NAME")
+DATABASE_USER = env("DATABASE_USER")
+DATABASE_PASS = env("DATABASE_PASS")
+DATABASE_HOST = env("DATABASE_HOST")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
+DOMAIN = env("DOMAIN", "http://localhost:3000") 
 CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
@@ -70,19 +74,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'i_manage_api.wsgi.application'
 
 
-if os.getenv("DATABASE_URL"):
+if env("DATABASE_URL"):
     DATABASES = {
-        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+        "default": dj_database_url.config(default=env("DATABASE_URL"))
     }
 else:
     DATABASES = {
-        "default": {
+        "default": {        
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DATABASE_NAME", "mydb"),
-            "USER": os.getenv("DATABASE_USER", "myuser"),
-            "PASSWORD": os.getenv("DATABASE_PASS", "mypassword"),
-            "HOST": os.getenv("DATABASE_HOST", "localhost"),
-            "PORT": os.getenv("DATABASE_PORT", "5432"),
+            "NAME": DATABASE_NAME,
+            "USER": DATABASE_USER,
+            "PASSWORD": DATABASE_PASS,
+            "HOST": DATABASE_HOST,
+            "PORT": DATABASE_PORT,
         }
     }
 AUTH_USER_MODEL = "users.User"
