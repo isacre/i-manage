@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import { getTokens } from "@/services/auth"
 import { Cookie } from "@/utils"
-import { toast } from "react-toastify"
 import LoadingSpinner from "@/components/loadingSpinner"
 
 interface Props {
