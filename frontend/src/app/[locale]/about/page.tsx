@@ -7,6 +7,7 @@ import Image from "next/image"
 import { FaCalendar, FaCheckCircle, FaUsers } from "react-icons/fa"
 
 export default async function LandingPage() {
+  const demoUrl = process.env.NEXT_PUBLIC_DEMO_URL
   const t = await getTranslations("About")
   return (
     <main className="min-h-screen bg-white text-gray-900">
@@ -22,7 +23,7 @@ export default async function LandingPage() {
           </h1>
           <p className="mb-6 text-lg">{t("description")}</p>
           <div className="flex flex-row items-center justify-center gap-4">
-            <Link href="http://clinicadorusso.localhost:3000/">
+            <Link href={demoUrl}>
               <Button
                 color="red"
                 className="!border-red-600 !text-red-600"

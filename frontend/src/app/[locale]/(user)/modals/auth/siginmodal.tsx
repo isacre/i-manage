@@ -18,6 +18,7 @@ interface Props {
 export default function SignupModal({ isOpen, setOpen, fetchAndStoreUserData }: Props) {
   const t = useTranslations("Register")
   const id = useId()
+  const [errors, setErrors] = useState<string[]>([])
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: "",
@@ -40,6 +41,7 @@ export default function SignupModal({ isOpen, setOpen, fetchAndStoreUserData }: 
         reset()
       })
       .catch((err) => {
+        setErrors(Object.values(err.response.data))
         console.log(err)
       })
       .finally(() => {
@@ -112,6 +114,13 @@ export default function SignupModal({ isOpen, setOpen, fetchAndStoreUserData }: 
           <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
             <span className="text-muted-foreground text-xs">{t("or")}</span>
           </div>
+          {errors && (
+            <div className="text-red-500">
+              {errors.map((error) => (
+                <p key={error}>{error}</p>
+              ))}
+            </div>
+          )}
           <Button onClick={() => setOpen("login")} variant="outline">
             {t("login")}
           </Button>

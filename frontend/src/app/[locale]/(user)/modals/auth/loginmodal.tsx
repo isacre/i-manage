@@ -20,6 +20,7 @@ export default function LoginModal({ isOpen, setOpen, fetchAndStoreUserData }: P
   const id = useId()
   const t = useTranslations("Auth.login")
   const [isLoading, setIsLoading] = useState(false)
+  const [errors, setErrors] = useState<string[]>([])
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       email: "",
@@ -41,7 +42,7 @@ export default function LoginModal({ isOpen, setOpen, fetchAndStoreUserData }: P
         reset()
       })
       .catch((err) => {
-        toast.error(t("error"))
+        setErrors(Object.values(err.response.data))
         console.log(err)
       })
       .finally(() => {
@@ -85,6 +86,13 @@ export default function LoginModal({ isOpen, setOpen, fetchAndStoreUserData }: P
                   required
                   {...register("password")}
                 />
+                {errors && (
+                  <div className="text-red-500">
+                    {errors.map((error) => (
+                      <p key={error}>{error}</p>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex justify-between gap-2">

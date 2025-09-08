@@ -33,6 +33,7 @@ export default cache(async function getCompanyByDomainAndGenerateMetadata({ loca
           },
         ],
       },
+      keywords: company.keywords,
     }
   } catch (err) {
     return { title: "iManage", icons: { icon: "/favicon.png" } }

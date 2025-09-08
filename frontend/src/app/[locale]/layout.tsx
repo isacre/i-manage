@@ -28,7 +28,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
   return (
     <html lang={locale}>
-      <body>
+      <body id="root-layout">
         <Theme>
           <NextIntlClientProvider messages={messages}>
             <div>{children}</div>

@@ -17,6 +17,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
 
     def _create_company(self, data: Dict[str, Any]) -> Company:
+        identifier = data['identifier']
+        if "." in identifier:
+            raise ValidationError("Identifier cannot contain dots")
         company = Company.objects.create(
             name=data['name'],
             description=data['description'],
