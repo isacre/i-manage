@@ -19,3 +19,4 @@ class CompanyRegisterSerializer(serializers.Serializer):
     identifier = serializers.CharField()
     address = serializers.CharField()
     keywords = serializers.ListField(child=serializers.CharField())
+    

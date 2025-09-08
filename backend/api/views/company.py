@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from api.serializers.company import CompanyRegisterSerializer, CompanySerializer
 from rest_framework.decorators import action
-from rest_framework import status
+from rest_framework import status, permissions
 from django.contrib.auth.hashers import make_password
 from django.db import transaction
 from typing import Dict, Any
@@ -37,6 +37,11 @@ class CompanyViewSet(viewsets.ModelViewSet):
             company=company,
             role='OWNER'
         )
+
+    def get_permissions(self) -> list[permissions.BasePermission]:
+        if self.action == 'register_company':
+            return [permissions.AllowAny()]
+        return super().get_permissions()
 
     def get_serializer_class(self) -> type:
         if self.action == 'register_company':
