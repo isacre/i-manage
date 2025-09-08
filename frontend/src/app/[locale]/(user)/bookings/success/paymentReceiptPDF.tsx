@@ -124,62 +124,62 @@ export const PaymentReceiptPDF: React.FC<PaymentReceiptPDFProps> = ({ paymentDet
       <Page size="A4" style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>RECIBO DE PAGAMENTO</Text>
-          <Text style={styles.subtitle}>iManage - Sistema de Gestão</Text>
+          <Text style={styles.title}>PAYMENT RECEIPT</Text>
+          <Text style={styles.subtitle}>iManage </Text>
         </View>
 
         {/* Store Data */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Dados da Loja</Text>
+          <Text style={styles.sectionTitle}>Store Data</Text>
           <View style={styles.row}>
             <Text style={styles.label}>Nome:</Text>
             <Text style={styles.value}>{paymentDetails.store_name}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Data:</Text>
+            <Text style={styles.label}>Date:</Text>
             <Text style={styles.value}>{dayjs(paymentDetails.payment_details.timestamp).format("DD/MM/YYYY")}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Horário:</Text>
+            <Text style={styles.label}>Time:</Text>
             <Text style={styles.value}>{dayjs(paymentDetails.payment_details.timestamp).format("HH:mm")}</Text>
           </View>
         </View>
 
         {/* Customer Data */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Dados do Cliente</Text>
+          <Text style={styles.sectionTitle}>Customer Data</Text>
           <View style={styles.row}>
             <Text style={styles.label}>Nome:</Text>
             <Text style={styles.value}>{paymentDetails.client_name}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>ID da Transação:</Text>
+            <Text style={styles.label}>Transaction ID:</Text>
             <Text style={styles.value}>{paymentDetails.payment_details.payment_id}</Text>
           </View>
         </View>
 
         {/* Payment Details */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Detalhes do Pagamento</Text>
+          <Text style={styles.sectionTitle}>Payment Details</Text>
           <View style={styles.amountBox}>
             <Text style={styles.amountLabel}>Valor Total Pago</Text>
             <Text style={styles.amountValue}>R$ {paymentDetails.payment_details.amount}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Método de Pagamento:</Text>
+            <Text style={styles.label}>Payment Method:</Text>
             <Text style={styles.value}>{paymentDetails.payment_details.payment_method}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Moeda:</Text>
+            <Text style={styles.label}>Currency:</Text>
             <Text style={styles.value}>{paymentDetails.payment_details.currency}</Text>
           </View>
         </View>
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Este é um recibo eletrônico válido</Text>
-          <Text style={styles.footerText}>Em caso de dúvidas, entre em contato: suporte@imanage.com</Text>
-          <Text style={styles.footerText}>Gerado em: {new Date().toLocaleString("pt-BR")}</Text>
+          <Text style={styles.footerText}>This is a valid electronic receipt</Text>
+          <Text style={styles.footerText}>For any questions, contact: support@imanage.com</Text>
+          <Text style={styles.footerText}>Generated on: {new Date().toLocaleString("pt-BR")}</Text>
         </View>
       </Page>
     </Document>

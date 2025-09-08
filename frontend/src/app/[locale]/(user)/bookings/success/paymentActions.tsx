@@ -22,7 +22,7 @@ export default function PaymentActions({ paymentDetails }: PaymentActionsProps) 
           onClick={handleViewBookings}
           className="flex items-center space-x-2 rounded-lg bg-green-600 px-8 py-3 font-medium text-white hover:bg-green-700"
         >
-          <span>Ver Minhas Reservas</span>
+          <span>My Bookings</span>
           <ArrowRight className="h-4 w-4" />
         </Button>
         <PDFDownloadButton paymentDetails={paymentDetails}>
@@ -31,13 +31,13 @@ export default function PaymentActions({ paymentDetails }: PaymentActionsProps) 
             className="flex items-center space-x-2 rounded-lg border-gray-300 px-8 py-3 font-medium text-gray-700 hover:bg-gray-50"
           >
             <Download className="h-4 w-4" />
-            <span>Baixar Recibo</span>
+            <span>Download Receipt</span>
           </Button>
         </PDFDownloadButton>
       </div>
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-500">
-          Precisa de ajuda? Entre em contato conosco em{" "}
+          Need help? Contact us at{" "}
           <a href="mailto:suporte@imanage.com" className="text-green-600 underline hover:text-green-700">
             suporte@imanage.com
           </a>

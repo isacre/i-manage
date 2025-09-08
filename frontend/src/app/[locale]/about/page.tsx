@@ -56,15 +56,9 @@ export default async function LandingPage() {
           </div>
         </div>
       </section>
-
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
         <h2 className="mb-6 text-4xl font-bold">{t("footer.title")}</h2>
         <p className="mb-10 text-lg text-gray-700">{t("footer.subtitle")}</p>
-        <Link href="http://clinicadorusso.localhost:3000/">
-          <Button className="!bg-red-600" style={{ cursor: "pointer" }}>
-            {t("footer.button")}
-          </Button>
-        </Link>
       </section>
     </main>
   )

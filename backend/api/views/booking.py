@@ -1,5 +1,4 @@
 
-from requests import delete
 from api.integrations.stripe.service import create_checkout_session, refund_payment, verify_checkout_session
 from api.models.booking import Booking, BookingStatus
 from api.models.company import Company
@@ -41,9 +40,6 @@ class BookingViewSet(viewsets.ModelViewSet):
        employees = data.pop("employees")
        if not employees:
            employees = [select_most_available_employee(service.id, opens_at, closes_at, date)]
-       employee_is_available = check_employee_availability(employees[0], opens_at, closes_at)
-       if not employee_is_available:
-           return Response({"error": "Employee is not available at that time"}, status=400)
        user = User.objects.filter(pk=request.data["user"]).first()
        data["service"] = service
        data["company"] = company

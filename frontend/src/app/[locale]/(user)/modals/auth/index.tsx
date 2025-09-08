@@ -2,14 +2,12 @@ import { useAuthModal } from "@/contexts/authModal/AuthModalContext"
 import { getUserData } from "@/services/auth"
 import { useUserStore } from "@/stores/user-store"
 import { useLocale } from "next-intl"
-import { useRouter } from "next/navigation"
 import LoginModal from "./loginmodal"
 import RegisterModal from "./siginmodal"
 import TermsModal from "./terms"
 
 export default function AuthModal() {
   const { update } = useUserStore()
-  const router = useRouter()
   const locale = useLocale()
   const { setAuthModalState, authModalState } = useAuthModal()
 
@@ -17,7 +15,9 @@ export default function AuthModal() {
     getUserData().then((res) => {
       update(res)
       if (res.company !== null) {
-        router.push(`/${locale}/admin/employees`)
+        const newSubdomain = res.company.identifier
+        const newUrl = `http://${newSubdomain}.localhost:3000/${locale}/admin/employees`
+        window.location.href = newUrl
       }
       setAuthModalState(undefined)
     })

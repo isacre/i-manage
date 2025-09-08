@@ -93,4 +93,5 @@ def check_employee_availability(employee_id, start_date, end_date):
         end_date__gt=str(start_date),
         status__in=[BookingStatus.CONFIRMED, BookingStatus.PENDING]
     )
+    print("bookings", BookingSerializer(bookings, many=True).data)
     return not bookings.exists()
